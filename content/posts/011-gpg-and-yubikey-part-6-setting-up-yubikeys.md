@@ -1,201 +1,178 @@
 +++
 title = "Applying GPG and Yubikey: Part 6 (Setting up Yubikeys)"
 slug = "applying-gpg-and-yubikey-part-6-setting-up-yubikeys"
-date = "2019-10-26"
+date = "2021-09-09"
 categories = [ "applying" ]
 tags = [ "gpg", "yubikey" ]
-draft = true
 +++
 
-### Dealing with subkeys
+As a reminder, you can check out my [overview
+post](/posts/applying-gpg-and-yubikey-part-1-overview) if you're curious about
+why and in what ways I started using GPG and Yubikey. If you haven't set up
+your GPG keys yet, I also talk about a simple flow [in my second
+post](/posts/applying-gpg-and-yubikey-part-2-setup).
 
-When inspecting my newly-created key, I noticed that the encryption
-functionality belonged to what I later learned was a subkey. My primary key had
-signing and certification capabilities.
+Today, we're diving into setting up your Yubikey to host your GPG subkeys
+created in parts [3](/posts/applying-gpg-and-yubikey-part-3-encryption), 
+[4](/posts/applying-gpg-and-yubikey-part-4-signing), and 
+[5](/posts/applying-gpg-and-yubikey-part-5-authentication).
 
+# Yubikey
 
-Mention use of subkeys to keep separate from primary key
-Mention creating 4096 with individual capabilities
-- Point out issue encountered when gave one subkey multiple capabilities
+I've got multiple Yubikeys configured across different devices and primarily
+use them for password management and SSH authentication. Rather than keeping
+physical subkeys on each of these machines, I instead have a dedicated Yubikey
+for each device that hosts the subkeys, keeping them protected from direct
+exposure.
 
-To prevent subkeys from being removed from your offline .gnupg directory (it's offline, right ;)?), after keytocard make sure you quit without saving. If you use keytocard and then quit and confirm save, the subkeys are removed from local keyring and unless you have a back-up - they're now only on the yubikey without a way to get them back out.
+## GPG Subkeys
 
-### Moving my GPG key to YubiKey
+In order to have a simpler setup, I maintain a single encryption, signing, and
+authentication subkey set that is copied to each of my Yubikeys. By design,
+when you move a subkey over to a Yubikey, the local instance is destroyed. To
+maintain the same subkey, you have to copy your GPG folder prior to transferring
+the keys in order to maintain the subkeys. 
 
-Mention making stubs with >
-Mention backing up directory (not just exporting keys) to repeat on multiple
-keys
-Mention old approach with multiple subkeys and wrong YubiKey?
-- Can point out the approach for swapping YubiKey
+> Alternatively, you can opt to not save your changes during the interactive
+> CLI, but it's very subtle and I tend to forget every time.
 
-### Using GPG key on mobile
-
-Mention YubiKey NFC, Password Store app, and OpenKeychain app
-
-### Revoking my GPG key
-
-Mention old process of making unique subkey for each YubiKey
-Mention process of revoking
-
-## Conclusion
-
-TODO... what should be put here?
-
-What is it?
-
-Why did I need it?
-
-What did I do?
-
-Conclusion
-
-When adding new keys at the same time to GPG (recipients) or passwordstore, I needed to add an exclamation mark to the end. E.g. 0xDEADBEEF! in order to force encryption with that key and allow multiple keys as options.
-
-See https://security.stackexchange.com/questions/181551/create-backup-yubikey-with-identical-pgp-keys
-for details. I may have a different approach using a SINGLE set of subkeys and
-duplicating if I can get it to have a different card id on each machine.
-
-NOTE: Originally, I was using manual subkey IDs to encrypt. With pass, if you
-provide the email address for the key containing the subkeys (for me
-chip@senkbeil.org), then pass will pull all of the encryption subkeys to use
-for you. Need to test if the exclamation mark is still needed.
-
-Need to provide the option --limit-card-insert-tries=1 to disable the dialog to insert a key. Ideally, I already have the key I need, and it's REALLY annoying when I have different encryption keys on multiple smartcards and I get multiple prompts to insert a smart card. So far, this option isn't working like indicated. I'm only 2.0.10 and the latest is 2.0.15, so wondering if a bug.
-
-NOTE: Turns out the functionality was removed (by accident?) and I've written a
-note about it in my gpg.conf. Should get a patch out to fix it for gpg.
-
-When getting issue about invalid ID and no secret key when decrypting from GPG on Yubikey (even though encrypt worked), it was because I had a single key with SEC (sign, encrypt/decrypt, auth). See https://marc.info/?l=gnupg-users&m=155057187801474&w=2 for details, but just creating a subkey dedicated to encrypt/decrypt fixed that issue.
-
-On Android phone, needed to go to Settings > Connections > NFC to enable it.
-
-When using my keys on new computers, I still need to import my public keys.
-They are hosted on keybase.io, ubuntu server, and more.
+When a Yubikey is plugged in without any keys configured, running
+`gpg --card-status` should reflect something like this:
 
 ```
-curl https://keybase.io/senkwich/pgp_keys.asc | gpg --import
+Reader ...........: Yubico YubiKey CCID
+Application ID ...: D2760001240103040006144075690000
+Application type .: OpenPGP
+Version ..........: 3.4
+Manufacturer .....: Yubico
+Serial number ....: 14407569
+Name of cardholder: [not set]
+Language prefs ...: [not set]
+Salutation .......:
+URL of public key : [not set]
+Login data .......: [not set]
+Signature PIN ....: not forced
+Key attributes ...: rsa2048 rsa2048 rsa2048
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 0 3
+Signature counter : 0
+KDF setting ......: off
+Signature key ....: [none]
+Encryption key....: [none]
+Authentication key: [none]
+General key info..: [none]
 ```
 
-Can add url to Yubikeys to auto pull the public key? Yes, but easier with
-command instead of needing to do `gpg --edit-card` followed by `fetch`
+Notice how the signature, encryption, and authentication keys are all marked as
+`[none]`!
 
-For signing, currently using `chip@senkbeil.org`, which I believe will
-default to the most recently used subkey, but not sure. So far, it seems to
-be working. I did notice a warning about trust on other laptops that didn't
-originate the private master key. They show the key as `[unknown]` instead
-of `[ultimate]` for trust level. Need to go in and do `gpg --edit-card`
-followed by `trust` and select level 5 (full trust) since this is my own
-key.
+### Moving subkeys to yubikey
 
-NOTE: Not selecting most recently used subkey.
+The act of transferring a subkey over to a Yubikey is destructive, and will
+result in a **stub** remaining on the local machine that does nothing without
+access to the Yubikey itself. Below are the steps I take to transfer each
+subkey one at a time:
 
-## Updating keyring to indicate most subkeys are offline
+1. We need to edit the local key via `gpg --expert --edit-key chip@senkbeil.org`
+2. Make sure to select the proper key using `key 1` or whatever number
+   corresponds to the subkey. When this is done, a `*` will appear next to the
+   key
+3. Enter `keytocard`, which will prompt for the master secret key password
+   (this is for the master key, not the yubikey) and then the yubikey admin
+   password, which is `12345678` by default
+4. Do the same for each other subkey by deselecting the current subkey (e.g.
+   `key 1` again) and then selecting the next subkey (e.g. `key 2`)
+5. Enter `quit` and say `y` to the prompt to save the changes and produce local
+   stubs
 
-My keyring on the laptop that I've been using to make subkeys for yubikey
+### Adding details such as public key URL and name to Yubikey
+
+Out of the box, your Yubikey comes with no information and a default admin
+password and regular password. 
+
+- The admin password is used to change your regular password and transfer GPG
+  keys over to the Yubikey. 
+- The regular password is used for authentication whenever your computer needs
+  to leverage a key stored on your Yubikey.
+
+Whenever I'm setting up a new Yubikey, here are the steps I take:
+
+1. We need to edit the card via `gpg --expert --edit-card`
+2. Access the admin commands via `admin`
+3. Use `passwd` to change the passwords
+    - To change the regular password, use `123456` as the default and then
+        provide the new password
+    - To change the admin password, use `12345678` as the default and then
+        provide the new password
+4. Use `url` to change the url. I use
+   `https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg` as the public key url.
+   - Providing this enables us to pull in the public keys for a new Yubikey
+     automatically via `fetch`!
+   - *Setting this requires re-entering the admin Yubikey password.*
+5. Use `name` to change the surname (Senkbeil) and given name (Chip).
+6. Use `lang` to change the language to English (en).
+7. Enter `quit` to exit and save changes
+
+### Removing master key from local system
+
+With the subkeys moved over to our Yubikey, it's a good idea to remove the
+master key from our local system. You should have a backup of this either in a
+paper form or in a secure storage you trust! I only use my master key to manage
+subkeys, delegating all other operations to the subkeys themselves.
+
+To remove the master key, we want to delete the local secret key using `gpg
+--delete-secret-key <ID>` where I used `chip@senkbeil.org` as it matches one of
+my identity's email addresses.
+
+When this is done, `gpg -K` will be blank. This means that we need to re-import
+our key information. To do this, edit our card using `gpg --expert --edit-card`.
+
+From there, since we have the public key available and defined in the **url**,
+we can run `fetch` to get and import the information.
+
+Now, `gpg -K` should reflect the private master key with a `#` to indicate not
+locally available and `>` for subkeys to imply the same.
+
+## Disabling OTP
+
+By default, the Yubikey will be sensitive to touch as it attempts to provide a
+one-time password (OTP). Since I don't use that functionality myself, I'd prefer
+to disable it so I don't accidentally activate it when brushing the key with
+my leg when using a laptop. To do this, I need to install the yubikey manager
+to configure it:
+
+```bash
+arch -arm64 brew install ykman
+```
+
+From there, I'm able to see a connected Yubikey via `ykman info` and the modes
+it has (OTP/FIDO/CCID). For OpenPGP applications, we need CCID
+
+a. Setting the modes is done using a string in the form of
+
+`ykman mode OTP+FIDO+CCID` and providing just `ykman mode CCID` will configure
+the Yubikey to only be configured for CCID applications.
+
+Doing so, `ykman info` should now reflect the following:
 
 ```
-sec#  rsa4096/0x6CA6A08DBA640677 2019-03-01 [SC]
-      2C8160E6AF1166154CDAED266CA6A08DBA640677
-uid                   [ultimate] Chip Senkbeil (My mail & pass key) <chip@senkbeil.org>
-ssb>  rsa4096/0x588B4B090695884C 2019-03-01 [E]
-ssb>  rsa4096/0x8A6B3DB2C23EB74B 2019-05-08 [E]
-ssb>  rsa4096/0x95B67753BA414327 2019-05-08 [E]
-ssb>  rsa4096/0x231C4CB425985243 2019-05-28 [S] [expires: 2024-05-26]
-ssb>  rsa4096/0x1F3D585E398D11B1 2019-05-28 [S] [expires: 2024-05-26]
-ssb>  rsa4096/0x5487424ABA6BDDDB 2019-05-28 [S] [expires: 2024-05-26]
-ssb>  rsa4096/0x68F5987A509841B2 2019-05-28 [A] [expires: 2024-05-26]
-ssb>  rsa4096/0x70B8AA34DA9D2413 2019-05-28 [A] [expires: 2024-05-26]
-ssb>  rsa4096/0xDD69ABE5B8BCF75C 2019-05-28 [A] [expires: 2024-05-26]
-ssb>  rsa4096/0xD2A7E4F93EE05063 2019-06-01 [E]
-ssb>  rsa4096/0xBD37FFFCCF094200 2019-06-01 [E]
-ssb>  rsa4096/0xA8A1328E9E32C17D 2019-06-01 [S] [expires: 2024-05-30]
-ssb>  rsa4096/0x7C55D59BE4B5A22F 2019-06-01 [S] [expires: 2024-05-30]
-ssb>  rsa4096/0xD34B040C5D45D107 2019-06-01 [A] [expires: 2024-05-30]
-ssb>  rsa4096/0x27ACC8B2AA43159B 2019-06-01 [A] [expires: 2024-05-30]
+Device type: YubiKey 5C Nano
+Serial number: 14407569
+Firmware version: 5.2.7
+Form factor: Nano (USB-C)
+Enabled USB interfaces: CCID
+
+Applications
+OTP             Disabled
+FIDO U2F        Disabled
+OpenPGP         Enabled
+PIV             Enabled
+OATH            Enabled
+FIDO2           Disabled
 ```
 
-`#` pound sign means that the key is offline (unavailable). I removed my
-master key from the machine using `gpg-connect-agent "DELETE_KEY
-<KEYGRIP>"` followed by `/bye` to exit.
+## What's next?
 
-Got keygrips using `gpg2 --list-secret-keys --with-keygrip`
-
-Thought is that gpg is picking the wrong subkey because it think all of them
-are available right now. I only want it to think a specific subkey is
-available. To do that, need to go through and mark the stubs as offline.
-Before, when all were offline, inserting a smart card and using `gpg
---card-status` refreshed and changed `#` to `>`.
-
-Deleting a stub using `DELETE_KEY <KEYGRIP>` and then refreshing with `gpg
---card-status` does indeed return `#` to `>`.
-
-Annoyance is that doing `gpg-connect-agent "DELETE_KEY <KEYGRIP> /bye"` still
-leaves us in the gpg-connect-agent mode until we hit enter. How to leave? Turns out, need to do the bye logic outside via `gpg-connect-agent "DELETE_KEY <KEYGRIP>" /bye`
-
-Can use `gpg --list-secret-keys --with-keygrip "fingerprint"` to only get
-keygrips for my specific key.
-
-NOTE: Making all keys offline except for subkey that is available fixes
-signing problem, but for some reason does not fix encryption. Still need
-exclamation mark on all recipients for pass tool.
-
-## Using auth key with github.com
-
-Based on [this article](https://opensource.com/article/19/4/gpg-subkeys-ssh)
-from April 2019, need to make ssh aware of gpg auth keys.
-
-Get the keygrips of auth keys via `gpg -K --with-keygrip` and place into
-`$HOME/.gnupg/sshcontrol`.
-
-Make sure that gpg-agent is configured with ssh by adding `enable-ssh-support`
-to `$HOME/.gnupg/gpg-agent.conf` and restarting the agent via `gpgconf --kill
-all`. Can manually launch via `gpgconf --launch gpg-agent` if needed.
-
-Add this export to `.bashrc` or `.zshrc`:
-
-```
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-```
-
-Get ssh-rsa public key to provide to github via `ssh-add -L`. The above
-resolved the "no identity" issue I was encountering earlier.
-
-I had two keys show up, one with my card number for the yubikey and one
-listed as none. I had added all five of my auth keys (one per yubikey) to
-the sshcontrol file. I only added the key that had the card number to
-github and it worked fine.
-
-### Using auth key for ssh to remote machines
-
-Follow the setup for github to get ssh to detect auth keys.
-
-Copy entire output from `ssh-add -L` to remote machine's
-`$HOME/.ssh/authorized_keys` file, or alternatively use `ssh-copy-id
-<username>@<server>` to smart copy the keys over that do not yet exist.
-
-After that, sshing into the machine works just fine for me.
-
-### Revoking keys
-
-Can have a revoke cert, or if using subkeys can revoke using master key, which
-is what I did for old approach.
-
-When others pull public keys for you and list (or you list private keys), the
-revoked keys will not be shown (less noise).
-
-Revoked keys will be shown when doing `gpg --edit-key <KEY>`, which is
-annoying. Can delete keys from keyring for them to not be shown, but pulling
-down keys from keyserver will make them appear again.
-
-### neomutt & notmuch
-
-Can self encrypt to read sent mail for neomutt
-
-Need to determine settings for neomutt to encrypt. We don't want to
-auto-encrypt, do we? Things like gmail and outlook will struggle.
-
-notmuch can use gpg keys to decrypt if index.decrypt set to nostash or true.
-Default is auto, which only uses stashed session keys.
-
-Given we have our key stored in a yubikey and password protected,
-fine with nostash.
+In [the next post](/posts/applying-gpg-and-yubikey-part-7-mobile), I'll be
+explaining how to set up NFC on an Android device to leverage your Yubikey for
+password management in conjunction with [password store](https://www.passwordstore.org/).
