@@ -19,7 +19,7 @@ googleAnalytics = "UA-71733200-2"
 
 [params]
     author = "Chip Senkbeil"
-    info = "Solutions Engineer @ Facebook"
+    info = "Business Engineer @ Facebook"
     description = "Chip Senkbeil's Personal Website"
     keywords = "blog,developer,personal"
     hideCredits = true
@@ -30,20 +30,24 @@ googleAnalytics = "UA-71733200-2"
     favicon_16 = "/img/favicon-16x16.png"
 
 [[params.social]]
-    name = "github"
+    name = "email"
     weight = 1
+    url = "mailto:mail@chipsenkbeil.com"
+[[params.social]]
+    name = "github"
+    weight = 2
     url = "https://github.com/chipsenkbeil/"
 [[params.social]]
     name = "twitter"
-    weight = 2
+    weight = 3
     url = "https://twitter.com/chipsenkbeil/"
 [[params.social]]
     name = "linkedin"
-    weight = 3
+    weight = 4
     url = "https://linkedin.com/in/robertsenkbeil/"
 [[params.social]]
     name = "keybase"
-    weight = 4
+    weight = 5
     url = "https://keybase.io/senkwich"
 
 [[menu.main]]
