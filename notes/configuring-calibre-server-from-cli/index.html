@@ -1,0 +1,100 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Chip Senkbeil"><meta name=description content="Chip Senkbeil's Personal Website"><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Configuring Calibre Server from CLI"><meta name=twitter:description content="Configuring Calibre Server entirely from the CLI to server my book library"><meta property="og:title" content="Configuring Calibre Server from CLI"><meta property="og:description" content="Configuring Calibre Server entirely from the CLI to server my book library"><meta property="og:type" content="article"><meta property="og:url" content="https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/"><meta property="article:section" content="notes"><meta property="article:published_time" content="2020-04-19T00:00:00+00:00"><meta property="article:modified_time" content="2020-04-19T00:00:00+00:00"><base href=https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/><title>Configuring Calibre Server from CLI · Chip Senkbeil</title><link rel=canonical href=https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/><link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.8.1/css/all.css integrity=sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz+DRsBr08iQK1YWABpw=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/styles/gruvbox.css><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><meta name=generator content="Hugo 0.111.3"></head><body><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fas fa-bars"></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container page"><article><header><h1>Configuring Calibre Server from CLI</h1></header><p>Watching</p><h2 id=installing-on-a-freebsd-jail>Installing on a FreeBSD Jail</h2><p>Very easy to do on FreeBSD 11.3 via the FreeNAS GUI.</p><ol><li>Create a new jail and set a specific IPv4 address to host. For me, this
+was 192.168.5.33</li><li>Enter into a shell within the jail and run <code>pkg install calibre</code></li></ol><p>FreeBSD will ask if we want to download and set up the package manager,
+which we do. After that, it&rsquo;ll install a lot of packages (Python 3.7,
+some Perl, etc.) and then all CLI commands should be available.</p><h2 id=create-your-library>Create your library</h2><p>I already had a directory full of books comprised of epub, pdf, html, and txt
+files on my FreeNAS box. The first step was to import those books into a
+calibre library.</p><p>If I was using the Calibre GUI, this would be as simple as pressing a
+button; however, this is a little different (still easy) when running
+purely from a terminal.</p><ol><li>Add a mount point within the jail to my directory of books (I used the
+GUI)</li><li>Run <a href=https://manual.calibre-ebook.com/generated/en/calibredb.html#adding-from-directories><code>calibredb add</code></a>, specifying a new library location, the recurse option, and a directory of books</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>calibredb add --with-library /var/lib/calibre/library -r /mnt/books
+</span></span></code></pre></div><h2 id=build-a-user-database>Build a user database</h2><p>Running the server internally on my network is fairly easy, but I wanted to
+also expose it externally and needed to create a user with
+authentication.</p><p>Running <a href=https://manual.calibre-ebook.com/generated/en/calibre-server.html><code>calibre-server --manage-users</code></a> and specifying a database location will prompt to create a new user and password. The database location will then be created.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>calibre-server --userdb /var/lib/calibre/users.sqlite --manage-users
+</span></span></code></pre></div><h2 id=test-running-the-server-on-port-8080>Test running the server on port 8080</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>calibre-server --userdb /var/lib/calibre/users.sqlite --enable-auth
+</span></span><span class=line><span class=cl>/var/lib/calibre/library
+</span></span></code></pre></div><p>Accessing via <a href=http://192.168.5.33:8080>http://192.168.5.33:8080</a>.</p><p>Should be greeted with a login prompt.</p><p><img src=https://chipsenkbeil.com/img/post/calibre/calibre-auth.png alt="Login Prompt"></p><h2 id=configuring-jail-to-auto-start-calibre-server>Configuring jail to auto-start calibre-server</h2><h3 id=write-etcrcdcalibre_server>Write /etc/rc.d/calibre_server</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=c1># PROVIDE: calibre-server</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>. /etc/rc.subr
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>name</span><span class=o>=</span>calibre_server
+</span></span><span class=line><span class=cl><span class=nv>rcvar</span><span class=o>=</span>calibre_server_enable
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>command</span><span class=o>=</span><span class=s2>&#34;/usr/local/bin/calibre-server&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>command_args</span><span class=o>=</span><span class=s2>&#34;--userdb /var/lib/calibre/users.sqlite --enable-auth /var/lib/calibre/library&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>load_rc_config <span class=nv>$name</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># DO NOT TOUCH THESE</span>
+</span></span><span class=line><span class=cl><span class=nv>calibre_server_enable</span><span class=o>=</span><span class=si>${</span><span class=nv>calibre_server_enable</span><span class=p>-</span><span class=s2>&#34;NO&#34;</span><span class=si>}</span>
+</span></span><span class=line><span class=cl><span class=nv>pidfile</span><span class=o>=</span><span class=si>${</span><span class=nv>calibre_server_pidfile</span><span class=p>-</span><span class=s2>&#34;/var/run/calibre_server.pid&#34;</span><span class=si>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>run_rc_command <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span></code></pre></div><p>Verify by running <code>/etc/rc.d/calibre_server onestart</code> to see that it
+launches. Should still be able to access the website.</p><h3 id=enable-the-server-in-etcrcconf>Enable the server in /etc/rc.conf</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># ...
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># &lt;At bottom&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># Enable calibre server
+</span></span><span class=line><span class=cl>calibre_server_enable=&#34;YES&#34;
+</span></span></code></pre></div><p>Validate by running <code>/etc/rc.d/calibre_server start</code> and accessing via http://192.168.5.33:8080</p><p>Now, when the jail is restarted, the calibre server should start
+automatically.</p><h2 id=configuring-for-external-access-via-nginx--letsencrypt>Configuring for external access via nginx & letsencrypt</h2><p>I already have a raspberry pi with nginx and letsencrypt setup. Traffic for
+port 80 and 443 go to the pi, which then routes to the appropriate
+device on my internal network.</p><ol><li>Create a new site under <code>/etc/nginx/sites-enabled/</code> named <strong>books</strong></li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-nginx data-lang=nginx><span class=line><span class=cl><span class=k>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kn>include</span> <span class=s>/etc/nginx/include.d/server-common.conf</span>
+</span></span><span class=line><span class=cl>  <span class=s>server_name</span> <span class=s>books.senkbeil.org</span>
+</span></span><span class=line><span class=cl>  <span class=s>location</span> <span class=s>/</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kn>include</span> <span class=s>/etc/nginx/include.d/location-common.conf</span>
+</span></span><span class=line><span class=cl>    <span class=s>proxy_pass</span> <span class=s>http://192.168.5.33:8080</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><ol start=2><li><p>Add a symlink from <code>/etc/nginx/sites-enabled/books</code> to
+<code>/etc/nginx/sites-available/books</code></p></li><li><p>Run the <strong>certbot</strong> script for nginx and select the books site</p></li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo certbot --nginx
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Which names would you like to activate HTTPS for?
+</span></span><span class=line><span class=cl>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+</span></span><span class=line><span class=cl>1: books.senkbeil.org
+</span></span><span class=line><span class=cl>2: ...
+</span></span><span class=line><span class=cl>3: ...
+</span></span><span class=line><span class=cl>...
+</span></span><span class=line><span class=cl>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+</span></span><span class=line><span class=cl>Select the appropriate numbers separated by commas and/or spaces, or leave input
+</span></span><span class=line><span class=cl>blank to select all options shown (Enter &#39;c&#39; to cancel): 1
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.
+</span></span><span class=line><span class=cl>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+</span></span><span class=line><span class=cl>1: No redirect - Make no further changes to the webserver configuration.
+</span></span><span class=line><span class=cl>2: Redirect - Make all requests redirect to secure HTTPS access. Choose this for
+</span></span><span class=line><span class=cl>new sites, or if you&#39;re confident your site works on HTTPS. You can undo this
+</span></span><span class=line><span class=cl>change by editing your web server&#39;s configuration.
+</span></span><span class=line><span class=cl>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+</span></span><span class=line><span class=cl>Select the appropriate number [1-2] then [enter] (press &#39;c&#39; to cancel): 2
+</span></span></code></pre></div><p>Should wind up with a config along the lines below which will forward
+traffic to port 8080 from 443 externally. I needed to flush my browser cache
+as I still had support for <a href=http://books.senkbeil.org/>http://books.senkbeil.org/</a> not being redirected
+from an earlier test.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-nginx data-lang=nginx><span class=line><span class=cl><span class=k>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kn>include</span> <span class=s>/etc/nginx/include.d/server-common.conf</span>
+</span></span><span class=line><span class=cl>  <span class=s>server_name</span> <span class=s>books.senkbeil.org</span>
+</span></span><span class=line><span class=cl>  <span class=s>location</span> <span class=s>/</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kn>include</span> <span class=s>/etc/nginx/include.d/location-common.conf</span>
+</span></span><span class=line><span class=cl>    <span class=s>proxy_pass</span> <span class=s>http://192.168.5.33:8080</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kn>listen</span> <span class=mi>443</span> <span class=s>ssl</span><span class=p>;</span> <span class=c1># managed by Certbot
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kn>ssl_certificate</span> <span class=s>/path/to/books.senkbeil.org/fullchain.pem</span><span class=p>;</span> <span class=c1># managed by Certbot
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kn>ssl_certificate_key</span> <span class=s>/path/to/books.senkbeil.org/privkey.pem</span><span class=p>;</span> <span class=c1># managed by Certbot
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kn>ssl_dhparam</span> <span class=s>/path/to/ssl-dhparams.pem</span><span class=p>;</span> <span class=c1># managed by Certbot
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kn>if</span> <span class=s>(</span><span class=nv>$host</span> <span class=p>=</span> <span class=s>books.senkbeil.org)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kn>return</span> <span class=mi>301</span> <span class=s>https://</span><span class=nv>$host$request_uri</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span> <span class=c1># managed by Certbot
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=kn>server_name</span> <span class=s>books.senkbeil.org</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kn>listen</span> <span class=mi>80</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kn>return</span> <span class=mi>404</span><span class=p>;</span> <span class=c1># managed by Certbot
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></div></article></section></div><footer class=footer><section class=container><p>Views are my own<br><a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a></p>© 2023</section></footer></main><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-71733200-2","auto"),ga("send","pageview"))</script></body></html>

@@ -1,0 +1,342 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Chip Senkbeil"><meta name=description content="Chip Senkbeil's Personal Website"><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Breaking Down the Zsh Notes Function"><meta name=twitter:description content="Earlier, I discussed my need to have method to jot down notes quickly and comfortably on a computer. I wanted the setup to be as painless as possible while also giving me the flexibility I desired to extend the note-taking method.
+Being a lightweight user of zsh - not leveraging many plugins or additional functionality - I decided to explore writing a zsh function to be exposed in my shell. This function&rsquo;s goal was to manage my notes, providing functionality to list existing notes, create new notes, and delete old notes."><meta property="og:title" content="Breaking Down the Zsh Notes Function"><meta property="og:description" content="Earlier, I discussed my need to have method to jot down notes quickly and comfortably on a computer. I wanted the setup to be as painless as possible while also giving me the flexibility I desired to extend the note-taking method.
+Being a lightweight user of zsh - not leveraging many plugins or additional functionality - I decided to explore writing a zsh function to be exposed in my shell. This function&rsquo;s goal was to manage my notes, providing functionality to list existing notes, create new notes, and delete old notes."><meta property="og:type" content="article"><meta property="og:url" content="https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2018-07-08T00:00:00+00:00"><meta property="article:modified_time" content="2018-07-08T00:00:00+00:00"><base href=https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/><title>Breaking Down the Zsh Notes Function · Chip Senkbeil</title><link rel=canonical href=https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/><link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.8.1/css/all.css integrity=sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz+DRsBr08iQK1YWABpw=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/styles/gruvbox.css><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><meta name=generator content="Hugo 0.111.3"></head><body><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fas fa-bars"></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title>Breaking Down the Zsh Notes Function</h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fas fa-calendar"></i>
+<time datetime=2018-07-08T00:00:00Z>July 8, 2018</time></span>
+<span class=reading-time><i class="fas fa-clock"></i>
+12 minutes read</span></div><div class=categories><i class="fas fa-folder"></i>
+<a href=https://chipsenkbeil.com/categories/tool/>tool</a></div><div class=tags><i class="fas fa-tag"></i>
+<a href=https://chipsenkbeil.com/tags/zsh/>zsh</a></div></div></header><div><p>Earlier, I discussed my need to have method to jot down notes quickly and
+comfortably on a computer. I wanted the setup to be as painless as possible
+while also giving me the flexibility I desired to extend the note-taking
+method.</p><p>Being a lightweight user of zsh - not leveraging many plugins or additional
+functionality - I decided to explore writing a zsh function to be exposed in my
+shell. This function&rsquo;s goal was to manage my notes, providing functionality to
+list existing notes, create new notes, and delete old notes. At the end of the
+day, I arrived at a 122 line zsh function as seen <a href=https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/#source-code>at the bottom of this
+post</a>.</p><h2 id=design>Design</h2><p>Before we break apart the function, let me delve into the design at a high
+level. When building the functionality to manage notes, I wanted it to do a
+couple of things:</p><ol><li>Create new notes using their names (e.g. <code>notes create my-new-note</code>)</li><li>Edit existing notes using their names (e.g. <code>notes edit my-new-note</code>)</li><li>List existing notes that have been created (e.g. <code>notes list</code>)</li><li>Delete existing notes using their names (e.g. <code>notes delete my-new-note</code>)</li></ol><p>In my head, each of these actions represents a different mode of operation for
+the zsh function. To that end, I broke out the zsh function into <code>notes [MODE] [NAME]</code>, where the mode is provided to the zsh function as the first argument
+and the name of the note (or other arguments) is provided as the second
+argument. In other CLI programs, I believe this is called a subcommand. If I
+wanted to create a new note, my initial thought was to type <code>notes create my-new-note</code> where <strong>create</strong> served as the mode, or subcommand, and
+<strong>my-new-note</strong> represented the name of the note.</p><h2 id=changes-to-design>Changes to Design</h2><p>If you look closely at the notes function as we progress through it, you&rsquo;ll
+notice that there isn&rsquo;t any mention of <strong>create</strong>. At the end of the day, I
+found supporting two different names for the same action not useful. I set up
+my defaults such that <code>notes edit my-new-note</code> creates a new note and opens it
+for editing. This becomes even smoother with the default mode being file
+editing such that <code>notes my-new-note</code> creates and opens the file for editing as
+well.</p><h2 id=implementation>Implementation</h2><h3 id=defining-modes-of-operation>Defining Modes of Operation</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=nb>local</span> <span class=nv>MODE_EDIT</span><span class=o>=</span><span class=s2>&#34;edit&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>MODE_REMOVE</span><span class=o>=</span><span class=s2>&#34;remove&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>MODE_LIST</span><span class=o>=</span><span class=s2>&#34;list&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>MODE_HELP</span><span class=o>=</span><span class=s2>&#34;help&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>MODE_DEFAULT</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_LIST</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_EDIT</span><span class=s2>&#34;</span>
+</span></span></code></pre></div><p>The first section of the zsh function defines the different modes of operation.
+In a programming language like C, these could have been <code>#define MODE_EDIT edit</code> or something similar. I wanted a way to mark the type of operation that
+was going to be performed. This would be contained in the <code>mode</code> variable and
+would be set using one of the constants above it.</p><h3 id=specifying-aliases-for-modes>Specifying Aliases for Modes</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=nb>local</span> -a COMMAND_REMOVE
+</span></span><span class=line><span class=cl><span class=nv>COMMAND_REMOVE</span><span class=o>=(</span>delete remove del rm d r<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> -a COMMAND_LIST
+</span></span><span class=line><span class=cl><span class=nv>COMMAND_LIST</span><span class=o>=(</span>list ls l<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> -a COMMAND_EDIT
+</span></span><span class=line><span class=cl><span class=nv>COMMAND_EDIT</span><span class=o>=(</span>edit e<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> -a COMMAND_HELP
+</span></span><span class=line><span class=cl><span class=nv>COMMAND_HELP</span><span class=o>=(</span><span class=nb>help</span> h<span class=o>)</span>
+</span></span></code></pre></div><p>Typing takes a lot of effort, so I wanted to provide aliases to different modes
+of operation to reduce how much I type. E.g. <code>notes delete my-new-note</code> could
+be rewritten as <code>notes d my-new-note</code>. Rather than having a giant series or
+clauses in my conditionals, I decided to create arrays of words that I could
+use to represent a mode of operation. This makes it easier for me to add or
+remove aliases for each mode and centralizes them at the top of the function.</p><h3 id=acquiring-date-information>Acquiring Date Information</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=nb>local</span> <span class=nv>date</span><span class=o>=</span><span class=s2>&#34;</span><span class=k>$(</span>date +<span class=s1>&#39;%Y-%m-%d&#39;</span><span class=k>)</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>human_date</span><span class=o>=</span><span class=s2>&#34;</span><span class=k>$(</span>date +<span class=s1>&#39;%A, %B %d, %Y (%Y-%m-%d)&#39;</span><span class=k>)</span><span class=s2>&#34;</span>
+</span></span></code></pre></div><p>This is used later to populate part of a new note with the current date. These
+lines leverage the external <strong>date</strong> shell function to acquire both a date
+string for use as a file name and a second date string to be more
+human-readable.</p><ul><li>The <strong>date</strong> variable is filled with a string in the form of &ldquo;year-month-day&rdquo;
+like &ldquo;2018-06-30&rdquo;</li><li>The <strong>human_date</strong> variable is filled with a readable string like
+&ldquo;Sunday, July 08, 2018 (2018-07-08)&rdquo;</li></ul><h3 id=creating-the-base-path>Creating the Base Path</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=nb>local</span> <span class=nv>base_path</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$HOME</span><span class=s2>/.notes&#34;</span>
+</span></span><span class=line><span class=cl>mkdir -p <span class=s2>&#34;</span><span class=nv>$base_path</span><span class=s2>&#34;</span>
+</span></span></code></pre></div><p>All of my notes live in a flat structure, being placed in a directory specified
+by the variable <strong>base_path</strong>. For my case, I decided to have the directory be
+a hidden one within my home directory. This makes it easily accessible if I
+need to copy content out of it - like with blog posts I&rsquo;m moving to my site&rsquo;s
+repo - while also staying out of the way of my normal shell navigation.</p><p>This code initializes the base path upon the notes function being invoked,
+ensuring that any directory along the path is created. In this case, that&rsquo;s
+making sure that the <strong>.notes</strong> directory is created within my home directory,
+but it also means it supports a deeper base path.</p><h3 id=setting-up-state>Setting Up State</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=nb>local</span> <span class=nv>DEFAULT_NOTE_FILE</span><span class=o>=</span><span class=s2>&#34;default&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>DEFAULT_NOTE_NAME</span><span class=o>=</span><span class=s2>&#34;default&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>DEFAULT_NOTE_TITLE</span><span class=o>=</span><span class=s2>&#34;General Notes&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>note_file</span><span class=o>=</span><span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>note_title</span><span class=o>=</span><span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>note_name</span><span class=o>=</span><span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>note_path</span><span class=o>=</span><span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>local</span> <span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span></code></pre></div><p>The final portion of setup code is to set a couple of default values for
+properties the function cares about - note name, file name, and title used at
+the top of the note - as well as defining the variables used to keep track of
+relevant state.</p><p>This also includes grabbing the first argument of the function and storing it
+as the <strong>cmd</strong> variable for use in determining the mode of operation. E.g.
+<code>notes edit my-new-note</code> would set <strong>cmd</strong> to <em>edit</em>.</p><h3 id=determine-mode-of-operation>Determine Mode of Operation</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=c1># Process specific modes if provided</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[[</span> <span class=si>${</span><span class=nv>COMMAND_REMOVE</span><span class=p>[(ie)</span><span class=nv>$cmd</span><span class=p>]</span><span class=si>}</span> -le <span class=si>${#</span><span class=nv>COMMAND_REMOVE</span><span class=si>}</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_REMOVE</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>shift</span>
+</span></span><span class=line><span class=cl>  <span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>elif</span> <span class=o>[[</span> <span class=si>${</span><span class=nv>COMMAND_EDIT</span><span class=p>[(ie)</span><span class=nv>$cmd</span><span class=p>]</span><span class=si>}</span> -le <span class=si>${#</span><span class=nv>COMMAND_EDIT</span><span class=si>}</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_EDIT</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>shift</span>
+</span></span><span class=line><span class=cl>  <span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>elif</span> <span class=o>[[</span> <span class=si>${</span><span class=nv>COMMAND_LIST</span><span class=p>[(ie)</span><span class=nv>$cmd</span><span class=p>]</span><span class=si>}</span> -le <span class=si>${#</span><span class=nv>COMMAND_LIST</span><span class=si>}</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_LIST</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>shift</span>
+</span></span><span class=line><span class=cl>  <span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>elif</span> <span class=o>[[</span> <span class=si>${</span><span class=nv>COMMAND_HELP</span><span class=p>[(ie)</span><span class=nv>$cmd</span><span class=p>]</span><span class=si>}</span> -le <span class=si>${#</span><span class=nv>COMMAND_HELP</span><span class=si>}</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_HELP</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>shift</span>
+</span></span><span class=line><span class=cl>  <span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$cmd</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_DEFAULT</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></div><p>Now comes the conditional code used to determine what mode of operation the
+code will be in for the remainder of the function. Currently, this is a series
+of if statements checking the command (first argument) against each of the
+arrays of aliases specified earlier.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=si>${</span><span class=nv>COMMAND_REMOVE</span><span class=p>[(ie)</span><span class=nv>$cmd</span><span class=p>]</span><span class=si>}</span> -le <span class=si>${#</span><span class=nv>COMMAND_REMOVE</span><span class=si>}</span>
+</span></span></code></pre></div><p>This uses some less-than-obvious subscript flags to find the first match within
+the array and return its index (e.g. <code>${COMMAND_REMOVE[(ie)$cmd]}</code>) and then check
+if that index is less than or equal to the last index in the array
+(e.g. <code>${#COMMAND_REMOVE}</code>). The indices start at 1 instead of 0, and if there
+is no match found, the index after the last value in the array is returned,
+which would be greater than the last index in the array, thereby returning
+false in the condition.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=nb>shift</span>
+</span></span><span class=line><span class=cl><span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span></code></pre></div><p>For known commands, I also pop off the first argument and update the <strong>cmd</strong>
+variable to the next in the list. In the case of <code>notes edit date</code>, this would
+update <strong>cmd</strong> to be <em>date</em> after updating the <strong>mode</strong> to be editing a file.
+This makes it easier to work with a subcommand (like date) later.</p><p>In this series of conditionals, I&rsquo;ve also introduced the concept of
+default mode that is used when no arguments are provided. The constant
+<strong>MODE_DEFAULT</strong>, which is the list mode, is used as the mode if nothing is
+provided. This means running <code>notes</code> by itself will list all existing notes.</p><p>Finally, there&rsquo;s an implicit mode set when the first argument is provided, but
+is not a recognized mode. E.g. <code>notes my-new-note</code>. For this scenario, the
+existing value in <strong>mode</strong> will be used, which is the edit mode. This makes it
+so I don&rsquo;t have to type <code>notes edit my-new-note</code> or any variant. Instead, I can
+just type the function and the name of the note to create or resume and edit a
+note.</p><h3 id=setting-the-note-state>Setting the Note State</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=c1># If date provided, will open notes for current date</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$cmd</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;date&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>note_name</span><span class=o>=</span><span class=s2>&#34;date&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nv>note_title</span><span class=o>=</span><span class=s2>&#34;Notes for </span><span class=nv>$human_date</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nv>note_file</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$date</span><span class=s2>.md&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># If nothing provided, will open default note</span>
+</span></span><span class=line><span class=cl><span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$cmd</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>note_name</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$DEFAULT_NOTE_NAME</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nv>note_title</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$DEFAULT_NOTE_TITLE</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nv>note_file</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$DEFAULT_NOTE_FILE</span><span class=s2>.md&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Otherwise, anything else will be treated as a file for the command</span>
+</span></span><span class=line><span class=cl><span class=c1># e.g. &#39;notes js&#39; will open js.md note file</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>  <span class=nv>note_name</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$cmd</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nv>note_title</span><span class=o>=</span><span class=s2>&#34;Notes for </span><span class=nv>$cmd</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nv>note_file</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$cmd</span><span class=s2>.md&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></div><p>Here is where the state of the notes function gets filled in. The most common
+state updates come from providing a note name (e.g. <code>notes edit my-new-note</code>)
+or using a default note name (e.g. <code>notes edit</code>). There is one additional
+option, which is providing the specific argument of <em>date</em>. In this scenario,
+the function fills in the title using our <strong>human_date</strong> from earlier and the
+name of the file will be the compact <strong>date</strong> variable (e.g. 2018-06-30). This
+can be injected through commands like <code>notes date</code>, <code>notes edit date</code>, and even
+<code>notes remove date</code>.</p><h3 id=creating-the-note-file-if-missing>Creating the Note File if Missing</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=c1># Update full path</span>
+</span></span><span class=line><span class=cl><span class=nv>note_path</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$base_path</span><span class=s2>/</span><span class=nv>$note_file</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$mode</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=nv>$MODE_EDIT</span><span class=s2>&#34;</span> <span class=o>]</span> <span class=o>&amp;&amp;</span> <span class=o>[</span> ! -f <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nb>builtin</span> <span class=nb>echo</span> <span class=s2>&#34;# </span><span class=nv>$note_title</span><span class=s2>&#34;</span> &gt;&gt; <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>builtin</span> <span class=nb>echo</span> <span class=s2>&#34;&#34;</span> &gt;&gt; <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></div><p>Now that the state of the notes function has been updated with the appropriate
+title and file to edit, we build up the full path to the file and check if
+we&rsquo;re in the edit mode. If so and the file doesn&rsquo;t exist, the function will
+create a new file with markdown syntax for a top-level header. For instance,
+<code>notes my-new-note</code> will create a new file (named my-new-note.md) like below:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=gh># Notes for my-new-note
+</span></span></span></code></pre></div><p>This also applies to the <em>date</em> syntax, where <code>notes date</code> for June 30th, 2018
+would create a new file named 2018-06-30.md and contents like below:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=gh># Notes for Sunday, June 30, 2018 (2018-06-30)
+</span></span></span></code></pre></div><h3 id=performing-the-mode-operation>Performing the Mode Operation</h3><p>The finally section of code is a series of conditionals to determine which mode
+the function is in (create/edit, remove, list, or help) and then perform the
+associated operation.</p><h4 id=opening-a-file-for-editing-or-creation>Opening a File for Editing (or Creation)</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$mode</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=nv>$MODE_EDIT</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>$EDITOR</span> <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span>
+</span></span></code></pre></div><p>This is as simple as it gets. The function relies on the <strong>EDITOR</strong> variable
+being appropriately set. You do have your <strong>EDITOR</strong> variable set to something
+like <code>nvim</code>, don&rsquo;t you? The function passes to the shell variable the full path
+to the file to edit. In my case, a call like <code>notes my-new-note</code> turns into
+<code>nvim /Users/senk/.notes/my-new-note.md</code> on Mac OS X.</p><h4 id=removing-a-file>Removing a File</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$mode</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=nv>$MODE_REMOVE</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=o>[</span> ! -f <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>builtin</span> <span class=nb>echo</span> <span class=s2>&#34;No note exists for </span><span class=nv>$note_name</span><span class=s2>!&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>else</span>
+</span></span><span class=line><span class=cl>    rm -i <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>fi</span>
+</span></span></code></pre></div><p>Removing a file has a single conditional to check if the note being removed
+does not exist. This helps me know if I mistyped a note so I can correct
+myself. Additionally, removing a file is done interactively, so I can
+double-check that I want to remove the note in question. This is especially
+important given that my notes are not versioned, which is discussed during my
+concluding thoughts.</p><h4 id=listing-all-note-files>Listing All Note Files</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$mode</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=nv>$MODE_LIST</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  ls <span class=s2>&#34;</span><span class=nv>$base_path</span><span class=s2>&#34;</span>
+</span></span></code></pre></div><p>The list mode takes no arguments and purely echos out the files within the
+notes directory. This means that the markdown extension of <strong>.md</strong> that is
+added to the files will show up. One thought of mine is to pipe this through
+some other tool to remove the extensions and better present the notes. Another
+is to provide a means of filtering notes in some way.</p><h4 id=displaying-help-text>Displaying Help Text</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl><span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$mode</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=nv>$MODE_HELP</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nb>builtin</span> <span class=nb>echo</span> <span class=s2>&#34;Usage: notes [&lt;command&gt;] [&lt;name&gt;]
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>Commands
+</span></span></span><span class=line><span class=cl><span class=s2>= </span><span class=nv>$MODE_EDIT</span><span class=s2> =
+</span></span></span><span class=line><span class=cl><span class=s2>  Aliases: </span><span class=nv>$COMMAND_EDIT</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>  Arguments:
+</span></span></span><span class=line><span class=cl><span class=s2>    - name: Name of the note to edit without the .md extension
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>...&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></div><p>The last mode of operation is the help printout. Given that my list of aliases
+may change over time, I wanted to be able to print out how to enable each mode.
+Given that the function is already aware of the aliases via variables like
+<strong>COMMAND_EDIT</strong>, we leverage those variables in a string that is printed out
+to represent the help text.</p><h3 id=concluding-thoughts>Concluding Thoughts</h3><p>I&rsquo;ve used this function a fair amount since writing it, especially to create
+and edit notes, ranging from writing drafts of new blog posts to taking notes
+from meetings at work. Being a native function in zsh, it&rsquo;s been incredibly
+portable, enabling me to quickly get set up to take notes on my personal and
+work machines.</p><p>In the future, I&rsquo;ve thought about converting the notes directory into a
+repository, enabling versioning of notes and synchronicity across different
+machines. Maybe through an operation like <code>notes sync</code>, I could do a <code>git pull</code>
+followed by a <code>git push</code> or some other form of version control operation.</p><p>Additionally, given that I use my notes as a drafting organization for my blog,
+I&rsquo;ve thought about adding support to configure the function toward copying
+notes to other directories so I can transition content to <strong>Hugo</strong>.</p><p>No matter what I do, having a quick way to jot down notes on my computer has
+helped me stay more organized both personally - this blog - and at work.
+Regardless of what you choose, lowering the barrier to note taking is a huge
+win for productivity and I encourage everyone to find their way.</p><h2 id=source-code>Source Code</h2><p>There is no license on this code. Consider it public domain to do with as you
+please.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-zsh data-lang=zsh><span class=line><span class=cl>notes<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>MODE_EDIT</span><span class=o>=</span><span class=s2>&#34;edit&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>MODE_REMOVE</span><span class=o>=</span><span class=s2>&#34;remove&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>MODE_LIST</span><span class=o>=</span><span class=s2>&#34;list&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>MODE_HELP</span><span class=o>=</span><span class=s2>&#34;help&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>MODE_DEFAULT</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_LIST</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_EDIT</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> -a COMMAND_REMOVE
+</span></span><span class=line><span class=cl>  <span class=nv>COMMAND_REMOVE</span><span class=o>=(</span>delete remove del rm d r<span class=o>)</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> -a COMMAND_LIST
+</span></span><span class=line><span class=cl>  <span class=nv>COMMAND_LIST</span><span class=o>=(</span>list ls l<span class=o>)</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> -a COMMAND_EDIT
+</span></span><span class=line><span class=cl>  <span class=nv>COMMAND_EDIT</span><span class=o>=(</span>edit e<span class=o>)</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> -a COMMAND_HELP
+</span></span><span class=line><span class=cl>  <span class=nv>COMMAND_HELP</span><span class=o>=(</span><span class=nb>help</span> h<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>date</span><span class=o>=</span><span class=s2>&#34;</span><span class=k>$(</span>date +<span class=s1>&#39;%Y-%m-%d&#39;</span><span class=k>)</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>human_date</span><span class=o>=</span><span class=s2>&#34;</span><span class=k>$(</span>date +<span class=s1>&#39;%A, %B %d, %Y (%Y-%m-%d)&#39;</span><span class=k>)</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>base_path</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$HOME</span><span class=s2>/.notes&#34;</span>
+</span></span><span class=line><span class=cl>  mkdir -p <span class=s2>&#34;</span><span class=nv>$base_path</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>DEFAULT_NOTE_FILE</span><span class=o>=</span><span class=s2>&#34;default&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>DEFAULT_NOTE_NAME</span><span class=o>=</span><span class=s2>&#34;default&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>DEFAULT_NOTE_TITLE</span><span class=o>=</span><span class=s2>&#34;General Notes&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>note_file</span><span class=o>=</span><span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>note_title</span><span class=o>=</span><span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>note_name</span><span class=o>=</span><span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>note_path</span><span class=o>=</span><span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>local</span> <span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># Process specific modes if provided</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=o>[[</span> <span class=si>${</span><span class=nv>COMMAND_REMOVE</span><span class=p>[(ie)</span><span class=nv>$cmd</span><span class=p>]</span><span class=si>}</span> -le <span class=si>${#</span><span class=nv>COMMAND_REMOVE</span><span class=si>}</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_REMOVE</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>shift</span>
+</span></span><span class=line><span class=cl>    <span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>elif</span> <span class=o>[[</span> <span class=si>${</span><span class=nv>COMMAND_EDIT</span><span class=p>[(ie)</span><span class=nv>$cmd</span><span class=p>]</span><span class=si>}</span> -le <span class=si>${#</span><span class=nv>COMMAND_EDIT</span><span class=si>}</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_EDIT</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>shift</span>
+</span></span><span class=line><span class=cl>    <span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>elif</span> <span class=o>[[</span> <span class=si>${</span><span class=nv>COMMAND_LIST</span><span class=p>[(ie)</span><span class=nv>$cmd</span><span class=p>]</span><span class=si>}</span> -le <span class=si>${#</span><span class=nv>COMMAND_LIST</span><span class=si>}</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_LIST</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>shift</span>
+</span></span><span class=line><span class=cl>    <span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>elif</span> <span class=o>[[</span> <span class=si>${</span><span class=nv>COMMAND_HELP</span><span class=p>[(ie)</span><span class=nv>$cmd</span><span class=p>]</span><span class=si>}</span> -le <span class=si>${#</span><span class=nv>COMMAND_HELP</span><span class=si>}</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_HELP</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>shift</span>
+</span></span><span class=line><span class=cl>    <span class=nv>cmd</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$cmd</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nv>mode</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MODE_DEFAULT</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># If date provided, will open notes for current date</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$cmd</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;date&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nv>note_name</span><span class=o>=</span><span class=s2>&#34;date&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>note_title</span><span class=o>=</span><span class=s2>&#34;Notes for </span><span class=nv>$human_date</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>note_file</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$date</span><span class=s2>.md&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># If nothing provided, will open default note</span>
+</span></span><span class=line><span class=cl>  <span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$cmd</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nv>note_name</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$DEFAULT_NOTE_NAME</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>note_title</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$DEFAULT_NOTE_TITLE</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>note_file</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$DEFAULT_NOTE_FILE</span><span class=s2>.md&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># Otherwise, anything else will be treated as a file for the command</span>
+</span></span><span class=line><span class=cl>  <span class=c1># e.g. &#39;notes js&#39; will open js.md note file</span>
+</span></span><span class=line><span class=cl>  <span class=k>else</span>
+</span></span><span class=line><span class=cl>    <span class=nv>note_name</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$cmd</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>note_title</span><span class=o>=</span><span class=s2>&#34;Notes for </span><span class=nv>$cmd</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>note_file</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$cmd</span><span class=s2>.md&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># Update full path</span>
+</span></span><span class=line><span class=cl>  <span class=nv>note_path</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$base_path</span><span class=s2>/</span><span class=nv>$note_file</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$mode</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=nv>$MODE_EDIT</span><span class=s2>&#34;</span> <span class=o>]</span> <span class=o>&amp;&amp;</span> <span class=o>[</span> ! -f <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>builtin</span> <span class=nb>echo</span> <span class=s2>&#34;# </span><span class=nv>$note_title</span><span class=s2>&#34;</span> &gt;&gt; <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>builtin</span> <span class=nb>echo</span> <span class=s2>&#34;&#34;</span> &gt;&gt; <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$mode</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=nv>$MODE_EDIT</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nv>$EDITOR</span> <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$mode</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=nv>$MODE_REMOVE</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>[</span> ! -f <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>      <span class=nb>builtin</span> <span class=nb>echo</span> <span class=s2>&#34;No note exists for </span><span class=nv>$note_name</span><span class=s2>!&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span>
+</span></span><span class=line><span class=cl>      rm -i <span class=s2>&#34;</span><span class=nv>$note_path</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>fi</span>
+</span></span><span class=line><span class=cl>  <span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$mode</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=nv>$MODE_LIST</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    ls <span class=s2>&#34;</span><span class=nv>$base_path</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$mode</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=nv>$MODE_HELP</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>builtin</span> <span class=nb>echo</span> <span class=s2>&#34;Usage: notes [&lt;command&gt;] [&lt;name&gt;]
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>Commands
+</span></span></span><span class=line><span class=cl><span class=s2>= </span><span class=nv>$MODE_EDIT</span><span class=s2> =
+</span></span></span><span class=line><span class=cl><span class=s2>  Aliases: </span><span class=nv>$COMMAND_EDIT</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>  Arguments:
+</span></span></span><span class=line><span class=cl><span class=s2>    - name: Name of the note to edit without the .md extension
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>= </span><span class=nv>$MODE_REMOVE</span><span class=s2> =
+</span></span></span><span class=line><span class=cl><span class=s2>  Aliases: </span><span class=nv>$COMMAND_REMOVE</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>  Arguments:
+</span></span></span><span class=line><span class=cl><span class=s2>    - name: Name of the note to remove without the .md extension
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>= </span><span class=nv>$MODE_LIST</span><span class=s2> =
+</span></span></span><span class=line><span class=cl><span class=s2>  Aliases: </span><span class=nv>$COMMAND_LIST</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>  Arguments:
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>= </span><span class=nv>$MODE_HELP</span><span class=s2> =
+</span></span></span><span class=line><span class=cl><span class=s2>  Aliases </span><span class=nv>$COMMAND_HELP</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>  Arguments:
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>By default, if no command is provided and no name is provided, all notes will \
+</span></span></span><span class=line><span class=cl><span class=s2>be listed.
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>By default, if no command is provided and a name is provided, the note with the \
+</span></span></span><span class=line><span class=cl><span class=s2>provided name will be opened (or created if does not exist) for editing.&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></div></div><footer></footer></article></section></div><footer class=footer><section class=container><p>Views are my own<br><a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a></p>© 2023</section></footer></main><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-71733200-2","auto"),ga("send","pageview"))</script></body></html>

@@ -1,0 +1,81 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Chip Senkbeil"><meta name=description content="Chip Senkbeil's Personal Website"><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="tmux with XMonad Bindings"><meta name=twitter:description content="Writeup about brief work on XMonad-like key bindings for tmux."><meta property="og:title" content="tmux with XMonad Bindings"><meta property="og:description" content="Writeup about brief work on XMonad-like key bindings for tmux."><meta property="og:type" content="article"><meta property="og:url" content="https://chipsenkbeil.com/posts/tmux-with-xmonad-bindings/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2013-12-24T00:00:00+00:00"><meta property="article:modified_time" content="2013-12-24T00:00:00+00:00"><base href=https://chipsenkbeil.com/posts/tmux-with-xmonad-bindings/><title>tmux with XMonad Bindings · Chip Senkbeil</title><link rel=canonical href=https://chipsenkbeil.com/posts/tmux-with-xmonad-bindings/><link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.8.1/css/all.css integrity=sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz+DRsBr08iQK1YWABpw=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/styles/gruvbox.css><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><meta name=generator content="Hugo 0.111.3"></head><body><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fas fa-bars"></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title>tmux with XMonad Bindings</h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fas fa-calendar"></i>
+<time datetime=2013-12-24T00:00:00Z>December 24, 2013</time></span>
+<span class=reading-time><i class="fas fa-clock"></i>
+5 minutes read</span></div><div class=categories><i class="fas fa-folder"></i>
+<a href=https://chipsenkbeil.com/categories/tool/>tool</a></div><div class=tags><i class="fas fa-tag"></i>
+<a href=https://chipsenkbeil.com/tags/tmux/>tmux</a>
+<span class=separator>•</span>
+<a href=https://chipsenkbeil.com/tags/xmonad/>xmonad</a></div></div></header><div><h3 id=the-reason>The Reason</h3><p>I&rsquo;ve been playing around with <code>tmux</code> a lot lately and have come to like it
+quite a lot for the panes and windows - something I used quite a lot with my
+XMonad setup on my old Fujitsu laptop. The panes act as my individual
+terminals with which I can write code, read documentation, chat on IRC (using
+<code>weechat</code> or <code>irssi</code>), play music, etc. In other words, I do quite a lot from
+within terminals and being able to split up a terminal into panes (like XMonad
+launching tiled terminals) is quite nice. Furthermore, treating the windows
+as my workspaces lets me quickly organize myself just like with XMonad.</p><p>However, the main issue I have found with tmux is with its keyboard bindings.
+Everything in tmux is bound to a prefix (Ctrl-b) followed by a single keystroke
+or multiple keystrokes. For instance, splitting a window into two horizontal
+panes is the sequence <code>Ctrl-b "</code> and splitting it horizontally is <code>Ctrl-b %</code>.
+I pride myself in being able to pick up things like this quickly, but my mind
+continued to nag me about the need of a prefix as well as the use of keys like
+double quotes and percent. I was used to XMonad, where creating a new pane
+involved a single <code>Mod-Shift-Enter</code> and navigating between tiles was a simple
+<code>Mod-Tab</code>. Because of this, I began to look into ways to rebind tmux keys to
+be more like XMonad.</p><h3 id=the-process>The Process</h3><p>tmux provides multiple ways to rebind keys and perform startup actions. The
+first is to execute the actions from the terminal:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>tmux bind-key d kill-pane
+</span></span></code></pre></div><p>Another option is to perform the task within a running tmux instance by
+entering <code>Ctrl-b :</code>, which enters a command mode for you to enter tmux actions.</p><p>Of course, these methods were not what I needed. What I discovered was that
+tmux could source a file to get its bindings. You could have <code>.tmux.conf</code>
+within your home directory or use</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>tmux source my_tmux.conf
+</span></span></code></pre></div><p>For me, I began to work with the default <code>.tmux.conf</code> file. Keybindings were
+easy to rebind using <code>bind-key</code> and <code>unbind-key</code>. For instance, if I wanted
+to bind the space key to change the layout - XMonad uses <code>Mod-Space</code> by
+default - I would use the following:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>bind-key Space next-layout
+</span></span></code></pre></div><p>However, a simple <code>bind-key</code> does not remove the prefix! This means that the
+above would actually be <code>Ctrl-b Space</code> as the combination. Luckily, tmux
+provides a way to avoid the prefix when performing actions. The <code>-n</code> switch
+indicates that no prefix should be used.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>bind-key -n C-Space next-layout
+</span></span></code></pre></div><p>The above indicates that the series of keystrokes <code>Ctrl-Space</code> should change
+the layout used in tmux, no prefix needed.</p><h3 id=the-issue>The Issue</h3><p>The issue I discovered was that modifier keys - Control, Shift, Function, Alt -
+were not fully supported in tmux. In fact, modifier keys are not fully
+supported in a lot of applications. Instead, you see certain keycodes appear
+when a modifier key is used in combination with a normal key. If you execute
+<code>xmodmap</code> in your terminal, you should get a list of modifier keys in your
+computer. Entering <code>xmodmap -pk</code> into your terminal yields the actual table
+containing the representations of each key without modifiers, with the shift
+key, with the mode switch key, with the shift and mode switch keys, with the
+alt key, and with the alt and shift keys. If you print this table, you&rsquo;ll
+notice that quite a few keys do not have bindings for shift/mode switch keys.</p><p>Furthermore, after looking at tmux&rsquo;s source, it appears that only certain keys
+are checked for modifiers before passing the keystroke to the application
+running within tmux. Because of this, I cannot use a setup like
+<code>Ctrl-Shift-Return</code> for creating a new terminal tile using standard tmux.</p><h3 id=the-potential-solution>The Potential Solution</h3><p>At least, I did not believe that I could. I discovered that tmux provided even
+more functionality through the ability to not only launch shell programs but
+also check the return status of said programs!</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=c1># Run command if system is Mac OS X
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>if</span><span class=o>-</span><span class=n>shell</span><span class=w> </span><span class=s1>&#39;test `uname` == &#34;DARWIN&#34;&#39;</span><span class=w> </span><span class=o>&lt;</span><span class=n>COMMAND</span><span class=o>&gt;</span><span class=w> </span><span class=p>[</span><span class=n>OPTIONAL</span><span class=w> </span><span class=n>COMMAND</span><span class=p>]</span><span class=w>
+</span></span></span></code></pre></div><p>Because of this ability, I thought about having a small program that could be
+executed to indicate whether modifier keys like control and shift were
+currently being pressed down. Returning success indicates they were and
+returning failure indicates they were not.</p><p>The challenge appeared when I realized that modifier keys were mostly unable
+to be tracked in this manner. tmux itself was not at fault for this limitation;
+so, I had to dig deeper to find out how to retrieve this bindings. I had seen
+some utilities that could detect shift and control key presses, but they were
+bound in the X11 system, which I did not want to impose as a restriction for my
+setup. In fact, my hope was that this could be run very easily without an X11
+system. Furthermore, as a new owner of a Macbook Air - Linux will be put on it
+soon enough - I wanted this to be able to work on OS X as well.</p><h3 id=the-mac-os-x-solution>The Mac OS X Solution</h3><p>Cocoa provides the functionality to directly check if modifier keys are
+pressed, which is incredibly useful. So, I simply wrote a small Cocoa
+application that returns success based on the state of modifier keys. The
+documentation indicates that Mac OS X v10.6+ is needed to use this
+functionality; so, this means my solution will only work for Snow Leopard or
+higher (sorry Leopard and Tiger).</p><p>You can find the small program bundled with the main project
+<a href=https://chipsenkbeil.com/software/tmux-xmonad-bindings/>here</a>.</p><h3 id=the-linux-solution>The Linux Solution</h3><p>This took a little digging before I realized that I needed to access the
+keyboard interface directly, rather than accessing information from a
+program. This meant accessing <code>/dev/my_keyboard_interface</code>, which would vary
+from computer to computer.</p><p>I wrote a small C program to demonstrate this functionality
+<a href=https://chipsenkbeil.com/software/keyboard-state/>here</a>.</p><p>Unfortunately, after joining IBM in January of 2014, I was not able to
+continue pursuing this project.</p><h3 id=the-final-result>The Final Result</h3><p>Overall, the configuration combined with the modifier keys captured by an
+external program successfully produced a working replica of XMonad&rsquo;s key
+bindings using tmux, giving me a more comfortable layout for moving
+panes and navigating.</p><p>You can find the project <a href=https://chipsenkbeil.com/software/tmux-xmonad-bindings/>here</a>.</p></div><footer></footer></article></section></div><footer class=footer><section class=container><p>Views are my own<br><a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a></p>© 2023</section></footer></main><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-71733200-2","auto"),ga("send","pageview"))</script></body></html>

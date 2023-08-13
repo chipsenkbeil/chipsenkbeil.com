@@ -1,0 +1,98 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Chip Senkbeil"><meta name=description content="Chip Senkbeil's Personal Website"><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Applying GPG and Yubikey: Part 6 (Setting up Yubikeys)"><meta name=twitter:description content="As a reminder, you can check out my overview post if you&rsquo;re curious about why and in what ways I started using GPG and Yubikey. If you haven&rsquo;t set up your GPG keys yet, I also talk about a simple flow in my second post.
+Today, we&rsquo;re diving into setting up your Yubikey to host your GPG subkeys created in parts 3, 4, and 5.
+Yubikey I&rsquo;ve got multiple Yubikeys configured across different devices and primarily use them for password management and SSH authentication."><meta property="og:title" content="Applying GPG and Yubikey: Part 6 (Setting up Yubikeys)"><meta property="og:description" content="As a reminder, you can check out my overview post if you&rsquo;re curious about why and in what ways I started using GPG and Yubikey. If you haven&rsquo;t set up your GPG keys yet, I also talk about a simple flow in my second post.
+Today, we&rsquo;re diving into setting up your Yubikey to host your GPG subkeys created in parts 3, 4, and 5.
+Yubikey I&rsquo;ve got multiple Yubikeys configured across different devices and primarily use them for password management and SSH authentication."><meta property="og:type" content="article"><meta property="og:url" content="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-6-setting-up-yubikeys/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-09-09T00:00:00+00:00"><meta property="article:modified_time" content="2021-09-09T00:00:00+00:00"><base href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-6-setting-up-yubikeys/><title>Applying GPG and Yubikey: Part 6 (Setting up Yubikeys) · Chip Senkbeil</title><link rel=canonical href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-6-setting-up-yubikeys/><link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.8.1/css/all.css integrity=sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz+DRsBr08iQK1YWABpw=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/styles/gruvbox.css><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><meta name=generator content="Hugo 0.111.3"></head><body><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fas fa-bars"></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title>Applying GPG and Yubikey: Part 6 (Setting up Yubikeys)</h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fas fa-calendar"></i>
+<time datetime=2021-09-09T00:00:00Z>September 9, 2021</time></span>
+<span class=reading-time><i class="fas fa-clock"></i>
+5 minutes read</span></div><div class=categories><i class="fas fa-folder"></i>
+<a href=https://chipsenkbeil.com/categories/applying/>applying</a></div><div class=tags><i class="fas fa-tag"></i>
+<a href=https://chipsenkbeil.com/tags/gpg/>gpg</a>
+<span class=separator>•</span>
+<a href=https://chipsenkbeil.com/tags/yubikey/>yubikey</a></div></div></header><div><p>As a reminder, you can check out my <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview>overview
+post</a> if you&rsquo;re curious about
+why and in what ways I started using GPG and Yubikey. If you haven&rsquo;t set up
+your GPG keys yet, I also talk about a simple flow <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup>in my second
+post</a>.</p><p>Today, we&rsquo;re diving into setting up your Yubikey to host your GPG subkeys
+created in parts <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption>3</a>,
+<a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing>4</a>, and
+<a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-5-authentication>5</a>.</p><h1 id=yubikey>Yubikey</h1><p>I&rsquo;ve got multiple Yubikeys configured across different devices and primarily
+use them for password management and SSH authentication. Rather than keeping
+physical subkeys on each of these machines, I instead have a dedicated Yubikey
+for each device that hosts the subkeys, keeping them protected from direct
+exposure.</p><h2 id=gpg-subkeys>GPG Subkeys</h2><p>In order to have a simpler setup, I maintain a single encryption, signing, and
+authentication subkey set that is copied to each of my Yubikeys. By design,
+when you move a subkey over to a Yubikey, the local instance is destroyed. To
+maintain the same subkey, you have to copy your GPG folder prior to transferring
+the keys in order to maintain the subkeys.</p><blockquote><p>Alternatively, you can opt to not save your changes during the interactive
+CLI, but it&rsquo;s very subtle and I tend to forget every time.</p></blockquote><p>When a Yubikey is plugged in without any keys configured, running
+<code>gpg --card-status</code> should reflect something like this:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Reader ...........: Yubico YubiKey CCID
+</span></span><span class=line><span class=cl>Application ID ...: D2760001240103040006144075690000
+</span></span><span class=line><span class=cl>Application type .: OpenPGP
+</span></span><span class=line><span class=cl>Version ..........: 3.4
+</span></span><span class=line><span class=cl>Manufacturer .....: Yubico
+</span></span><span class=line><span class=cl>Serial number ....: 14407569
+</span></span><span class=line><span class=cl>Name of cardholder: [not set]
+</span></span><span class=line><span class=cl>Language prefs ...: [not set]
+</span></span><span class=line><span class=cl>Salutation .......:
+</span></span><span class=line><span class=cl>URL of public key : [not set]
+</span></span><span class=line><span class=cl>Login data .......: [not set]
+</span></span><span class=line><span class=cl>Signature PIN ....: not forced
+</span></span><span class=line><span class=cl>Key attributes ...: rsa2048 rsa2048 rsa2048
+</span></span><span class=line><span class=cl>Max. PIN lengths .: 127 127 127
+</span></span><span class=line><span class=cl>PIN retry counter : 3 0 3
+</span></span><span class=line><span class=cl>Signature counter : 0
+</span></span><span class=line><span class=cl>KDF setting ......: off
+</span></span><span class=line><span class=cl>Signature key ....: [none]
+</span></span><span class=line><span class=cl>Encryption key....: [none]
+</span></span><span class=line><span class=cl>Authentication key: [none]
+</span></span><span class=line><span class=cl>General key info..: [none]
+</span></span></code></pre></div><p>Notice how the signature, encryption, and authentication keys are all marked as
+<code>[none]</code>!</p><h3 id=moving-subkeys-to-yubikey>Moving subkeys to yubikey</h3><p>The act of transferring a subkey over to a Yubikey is destructive, and will
+result in a <strong>stub</strong> remaining on the local machine that does nothing without
+access to the Yubikey itself. Below are the steps I take to transfer each
+subkey one at a time:</p><ol><li>We need to edit the local key via <code>gpg --expert --edit-key chip@senkbeil.org</code></li><li>Make sure to select the proper key using <code>key 1</code> or whatever number
+corresponds to the subkey. When this is done, a <code>*</code> will appear next to the
+key</li><li>Enter <code>keytocard</code>, which will prompt for the master secret key password
+(this is for the master key, not the yubikey) and then the yubikey admin
+password, which is <code>12345678</code> by default</li><li>Do the same for each other subkey by deselecting the current subkey (e.g.
+<code>key 1</code> again) and then selecting the next subkey (e.g. <code>key 2</code>)</li><li>Enter <code>quit</code> and say <code>y</code> to the prompt to save the changes and produce local
+stubs</li></ol><h3 id=adding-details-such-as-public-key-url-and-name-to-yubikey>Adding details such as public key URL and name to Yubikey</h3><p>Out of the box, your Yubikey comes with no information and a default admin
+password and regular password.</p><ul><li>The admin password is used to change your regular password and transfer GPG
+keys over to the Yubikey.</li><li>The regular password is used for authentication whenever your computer needs
+to leverage a key stored on your Yubikey.</li></ul><p>Whenever I&rsquo;m setting up a new Yubikey, here are the steps I take:</p><ol><li>We need to edit the card via <code>gpg --expert --edit-card</code></li><li>Access the admin commands via <code>admin</code></li><li>Use <code>passwd</code> to change the passwords<ul><li>To change the regular password, use <code>123456</code> as the default and then
+provide the new password</li><li>To change the admin password, use <code>12345678</code> as the default and then
+provide the new password</li></ul></li><li>Use <code>url</code> to change the url. I use
+<code>https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg</code> as the public key url.<ul><li>Providing this enables us to pull in the public keys for a new Yubikey
+automatically via <code>fetch</code>!</li><li><em>Setting this requires re-entering the admin Yubikey password.</em></li></ul></li><li>Use <code>name</code> to change the surname (Senkbeil) and given name (Chip).</li><li>Use <code>lang</code> to change the language to English (en).</li><li>Enter <code>quit</code> to exit and save changes</li></ol><h3 id=removing-master-key-from-local-system>Removing master key from local system</h3><p>With the subkeys moved over to our Yubikey, it&rsquo;s a good idea to remove the
+master key from our local system. You should have a backup of this either in a
+paper form or in a secure storage you trust! I only use my master key to manage
+subkeys, delegating all other operations to the subkeys themselves.</p><p>To remove the master key, we want to delete the local secret key using <code>gpg --delete-secret-key &lt;ID></code> where I used <code>chip@senkbeil.org</code> as it matches one of
+my identity&rsquo;s email addresses.</p><p>When this is done, <code>gpg -K</code> will be blank. This means that we need to re-import
+our key information. To do this, edit our card using <code>gpg --expert --edit-card</code>.</p><p>From there, since we have the public key available and defined in the <strong>url</strong>,
+we can run <code>fetch</code> to get and import the information.</p><p>Now, <code>gpg -K</code> should reflect the private master key with a <code>#</code> to indicate not
+locally available and <code>></code> for subkeys to imply the same.</p><h2 id=disabling-otp>Disabling OTP</h2><p>By default, the Yubikey will be sensitive to touch as it attempts to provide a
+one-time password (OTP). Since I don&rsquo;t use that functionality myself, I&rsquo;d prefer
+to disable it so I don&rsquo;t accidentally activate it when brushing the key with
+my leg when using a laptop. To do this, I need to install the yubikey manager
+to configure it:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>arch -arm64 brew install ykman
+</span></span></code></pre></div><p>From there, I&rsquo;m able to see a connected Yubikey via <code>ykman info</code> and the modes
+it has (OTP/FIDO/CCID). For OpenPGP applications, we need CCID</p><p>a. Setting the modes is done using a string in the form of</p><p><code>ykman mode OTP+FIDO+CCID</code> and providing just <code>ykman mode CCID</code> will configure
+the Yubikey to only be configured for CCID applications.</p><p>Doing so, <code>ykman info</code> should now reflect the following:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Device type: YubiKey 5C Nano
+</span></span><span class=line><span class=cl>Serial number: 14407569
+</span></span><span class=line><span class=cl>Firmware version: 5.2.7
+</span></span><span class=line><span class=cl>Form factor: Nano (USB-C)
+</span></span><span class=line><span class=cl>Enabled USB interfaces: CCID
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Applications
+</span></span><span class=line><span class=cl>OTP             Disabled
+</span></span><span class=line><span class=cl>FIDO U2F        Disabled
+</span></span><span class=line><span class=cl>OpenPGP         Enabled
+</span></span><span class=line><span class=cl>PIV             Enabled
+</span></span><span class=line><span class=cl>OATH            Enabled
+</span></span><span class=line><span class=cl>FIDO2           Disabled
+</span></span></code></pre></div><h2 id=whats-next>What&rsquo;s next?</h2><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-7-mobile>the next post</a>, I&rsquo;ll be
+explaining how to set up NFC on an Android device to leverage your Yubikey for
+password management in conjunction with <a href=https://www.passwordstore.org/>password store</a>.</p></div><footer></footer></article></section></div><footer class=footer><section class=container><p>Views are my own<br><a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a></p>© 2023</section></footer></main><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-71733200-2","auto"),ga("send","pageview"))</script></body></html>
