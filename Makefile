@@ -9,7 +9,7 @@ OUTPUT_DIR:=public
 USER_EMAIL:="chip.senkbeil@gmail.com"
 USER_NAME:="Chip Senkbeil"
 REPO:=git@github.com:chipsenkbeil/chipsenkbeil.com.git
-BRANCH:=master
+BRANCH:=gh-pages
 DOMAIN:=chipsenkbeil.com
 REV=$(shell git rev-parse --short HEAD)
 
