@@ -8,7 +8,7 @@ OUTPUT_DIR:=public
 # Push-related fields
 USER_EMAIL:="chip.senkbeil@gmail.com"
 USER_NAME:="Chip Senkbeil"
-REPO:=git@github.com:chipsenkbeil/chipsenkbeil.github.io.git
+REPO:=git@github.com:chipsenkbeil/chipsenkbeil.com.git
 BRANCH:=master
 DOMAIN:=chipsenkbeil.com
 REV=$(shell git rev-parse --short HEAD)
