@@ -1,17 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Experiment on Chip Senkbeil</title><link>https://chipsenkbeil.com/categories/experiment/</link><description>Recent content in Experiment on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 02 Sep 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/categories/experiment/index.xml" rel="self" type="application/rss+xml"/><item><title>CSS Masonry Layout Attempts</title><link>https://chipsenkbeil.com/posts/css-masonry-layout-attempts/</link><pubDate>Wed, 02 Sep 2015 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/posts/css-masonry-layout-attempts/</guid><description>&lt;p>I spent two days investigating this and could not find a solution that worked.
-Eventually, I gave up and added the Masonry Javascript library. My two
-attempts were as follows:&lt;/p>
-&lt;h3 id="using-css-columns">
- Using CSS Columns
- &lt;a class="heading-link" href="#using-css-columns">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Experiment on Chip Senkbeil</title><link>https://chipsenkbeil.com/categories/experiment/</link><description>Recent content in Experiment on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 02 Sep 2015 00:00:00 -0500</lastBuildDate><atom:link href="https://chipsenkbeil.com/categories/experiment/index.xml" rel="self" type="application/rss+xml"/><item><title>CSS Masonry Layout Attempts</title><link>https://chipsenkbeil.com/posts/css-masonry-layout-attempts/</link><pubDate>Wed, 02 Sep 2015 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/css-masonry-layout-attempts/</guid><description>&lt;p>
+I spent two days investigating this and could not find a solution that worked.
+Eventually, I gave up and added the Masonry Javascript library. My two attempts
+were as follows:&lt;/p>
+&lt;div id="outline-container-headline-1" class="outline-4">
+&lt;h4 id="headline-1">
+Using CSS Columns
+&lt;/h4>
+&lt;div id="outline-text-headline-1" class="outline-text-4">
 &lt;p>CSS Columns enabled an easy, powerful way to spread page summaries across
-multiple columns. Furthermore, you can prevent page summaries from being
-broken up in the middle by using &lt;code>column-break-inside: avoid;&lt;/code>. However, I had
-no way to order the page summaries dynamically such that the most recent
-summaries were at the top (from left to right) and older summaries were found
-further down. Instead, this resulted in the latest summary starting in the top
-left with older summaries going down the first column and into the second, etc.&lt;/p></description></item></channel></rss>
+multiple columns. Furthermore, you can prevent page summaries from being broken
+up in the middle by using &lt;code class="verbatim">column-break-inside: avoid;&lt;/code>. However, I had no way
+to order the page summaries dynamically such that the most recent summaries were
+at the top (from left to right) and older summaries were found further down.
+Instead, this resulted in the latest summary starting in the top left with older
+summaries going down the first column and into the second, etc.&lt;/p></description></item></channel></rss>

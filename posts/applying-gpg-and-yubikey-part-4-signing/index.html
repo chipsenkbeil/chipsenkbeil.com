@@ -1,35 +1,38 @@
-<!doctype html><html lang=en><head><title>Applying GPG and Yubikey: Part 4 (Signing) · Chip Senkbeil</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="Chip Senkbeil"><meta name=description content="As a reminder, you can check out overview
-post if you&rsquo;re curious about
-why and in what ways I started using GPG and Yubikey. If you haven&rsquo;t set up
-your GPG keys yet, I also talk about a simple flow in my second
-post. Finally, the email signing
-section expects you to have already set up encryption, so you should really
-check out my third post
-regarding encryption setup with neomutt."><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Applying GPG and Yubikey: Part 4 (Signing)"><meta name=twitter:description content="As a reminder, you can check out overview post if you’re curious about why and in what ways I started using GPG and Yubikey. If you haven’t set up your GPG keys yet, I also talk about a simple flow in my second post. Finally, the email signing section expects you to have already set up encryption, so you should really check out my third post regarding encryption setup with neomutt."><meta property="og:url" content="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/"><meta property="og:site_name" content="Chip Senkbeil"><meta property="og:title" content="Applying GPG and Yubikey: Part 4 (Signing)"><meta property="og:description" content="As a reminder, you can check out overview post if you’re curious about why and in what ways I started using GPG and Yubikey. If you haven’t set up your GPG keys yet, I also talk about a simple flow in my second post. Finally, the email signing section expects you to have already set up encryption, so you should really check out my third post regarding encryption setup with neomutt."><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-09-02T00:00:00+00:00"><meta property="article:modified_time" content="2019-09-02T00:00:00+00:00"><meta property="article:tag" content="Gpg"><meta property="article:tag" content="Yubikey"><link rel=canonical href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/><link rel=preload href=https://chipsenkbeil.com/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.2cd2ba040eaadea1390f8199e24bd994fabd69b5a7034b43fc2440c58fd09808.css integrity="sha256-LNK6BA6q3qE5D4GZ4kvZlPq9abWnA0tD/CRAxY/QmAg=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=https://chipsenkbeil.com/images/favicon.svg sizes=any><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=manifest href=https://chipsenkbeil.com/site.webmanifest><link rel=mask-icon href=https://chipsenkbeil.com/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil
+<!doctype html><html lang=en><head><title>Applying GPG and Yubikey: Part 4 (Signing) · Chip Senkbeil</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="Chip Senkbeil"><meta name=description content="
+As a reminder, you can check out
+overview post if you're
+curious about why and in what ways I started using GPG and Yubikey. If you
+haven't set up your GPG keys yet, I also talk about a simple flow
+in my second post. Finally,
+the email signing section expects you to have already set up encryption, so you
+should really check out my
+third post regarding encryption setup with neomutt.
+
+Today, we're going specifically into using GPG for signing email and git
+commits."><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Applying GPG and Yubikey: Part 4 (Signing)"><meta name=twitter:description content="As a reminder, you can check out overview post if you're curious about why and in what ways I started using GPG and Yubikey. If you haven't set up your GPG keys yet, I also talk about a simple flow in my second post. Finally, the email signing section expects you to have already set up encryption, so you should really check out my third post regarding encryption setup with neomutt.
+Today, we're going specifically into using GPG for signing email and git commits."><meta property="og:url" content="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/"><meta property="og:site_name" content="Chip Senkbeil"><meta property="og:title" content="Applying GPG and Yubikey: Part 4 (Signing)"><meta property="og:description" content="As a reminder, you can check out overview post if you're curious about why and in what ways I started using GPG and Yubikey. If you haven't set up your GPG keys yet, I also talk about a simple flow in my second post. Finally, the email signing section expects you to have already set up encryption, so you should really check out my third post regarding encryption setup with neomutt.
+Today, we're going specifically into using GPG for signing email and git commits."><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-09-02T00:00:00-05:00"><meta property="article:modified_time" content="2019-09-02T00:00:00-05:00"><meta property="article:tag" content="Gpg"><meta property="article:tag" content="Yubikey"><link rel=canonical href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/><link rel=preload href=https://chipsenkbeil.com/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.2cd2ba040eaadea1390f8199e24bd994fabd69b5a7034b43fc2440c58fd09808.css integrity="sha256-LNK6BA6q3qE5D4GZ4kvZlPq9abWnA0tD/CRAxY/QmAg=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=https://chipsenkbeil.com/images/favicon.svg sizes=any><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=manifest href=https://chipsenkbeil.com/site.webmanifest><link rel=mask-icon href=https://chipsenkbeil.com/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil
 </a><input type=checkbox id=menu-toggle>
 <label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/>Applying GPG and Yubikey: Part 4 (Signing)</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa-solid fa-calendar" aria-hidden=true></i>
-<time datetime=2019-09-02T00:00:00Z>September 2, 2019
+<time datetime=2019-09-02T00:00:00-05:00>September 2, 2019
 </time></span><span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
 4-minute read</span></div><div class=categories><i class="fa-solid fa-folder" aria-hidden=true></i>
 <a href=https://chipsenkbeil.com/categories/applying/>Applying</a></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
 <span class=tag><a href=https://chipsenkbeil.com/tags/gpg/>Gpg</a>
 </span><span class=separator>•</span>
-<span class=tag><a href=https://chipsenkbeil.com/tags/yubikey/>Yubikey</a></span></div></div></header><div class=post-content><p>As a reminder, you can check out <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview>overview
-post</a> if you&rsquo;re curious about
-why and in what ways I started using GPG and Yubikey. If you haven&rsquo;t set up
-your GPG keys yet, I also talk about a simple flow <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup>in my second
-post</a>. Finally, the email signing
-section expects you to have already set up encryption, so you should really
-check out <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption>my third post</a>
-regarding encryption setup with neomutt.</p><p>Today, we&rsquo;re going specifically into using GPG for signing email and git
-commits.</p><h3 id=using-my-gpg-key-for-email-signing>Using my GPG key for email signing
-<a class=heading-link href=#using-my-gpg-key-for-email-signing><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>Adding signing capabilities is a matter of specifying a couple of extra
-settings regarding when to sign and with what key. To make it clear how signing
-works in collaboration with encryption, I&rsquo;m including my full neomutt
-configuration file. Relevant settings include <strong>crypt_autosign</strong>,
-<strong>crypt_replysign</strong>, and <strong>pgp_sign_as</strong> to distinguish the signing key from
-the encryption key.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># &lt;&lt; CRYPTO: GENERAL CONFIG &gt;&gt;</span>
+<span class=tag><a href=https://chipsenkbeil.com/tags/yubikey/>Yubikey</a></span></div></div></header><div class=post-content><p>As a reminder, you can check out
+<a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview>overview post</a> if you're
+curious about why and in what ways I started using GPG and Yubikey. If you
+haven't set up your GPG keys yet, I also talk about a simple flow
+<a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup>in my second post</a>. Finally,
+the email signing section expects you to have already set up encryption, so you
+should really check out <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption>my
+third post</a> regarding encryption setup with neomutt.</p><p>Today, we're going specifically into using GPG for signing email and git
+commits.</p><div id=outline-container-headline-1 class=outline-4><h4 id=headline-1>Using my GPG key for email signing</h4><div id=outline-text-headline-1 class=outline-text-4><p>Adding signing capabilities is a matter of specifying a couple of extra settings
+regarding when to sign and with what key. To make it clear how signing works in
+collaboration with encryption, I'm including my full neomutt configuration file.
+Relevant settings include <strong>crypt_autosign</strong>, <strong>crypt_replysign</strong>, and <strong>pgp_sign_as</strong>
+to distinguish the signing key from the encryption key.</p><div class="src src-sh"><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1># &lt;&lt; CRYPTO: GENERAL CONFIG &gt;&gt;</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># Use GPGME backend instead of classic code</span>
 </span></span><span class=line><span class=cl><span class=nb>set</span> <span class=nv>crypt_use_gpgme</span> <span class=o>=</span> <span class=s2>&#34;yes&#34;</span>
@@ -79,36 +82,42 @@ the encryption key.</p><div class=highlight><pre tabindex=0 class=chroma><code c
 </span></span><span class=line><span class=cl><span class=nb>set</span> <span class=nv>pgp_default_key</span> <span class=o>=</span> <span class=s2>&#34;588B4B090695884C&#34;</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># Set the key to use for signing email</span>
-</span></span><span class=line><span class=cl><span class=nb>set</span> <span class=nv>pgp_sign_as</span> <span class=o>=</span> <span class=s2>&#34;6CA6A08DBA640677&#34;</span>
-</span></span></code></pre></div><h3 id=using-my-gpg-key-for-signing-commits>Using my GPG key for signing commits
-<a class=heading-link href=#using-my-gpg-key-for-signing-commits><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>I&rsquo;ll admit that until Github <a href=https://github.blog/2016-04-05-gpg-signature-verification/ class=external-link target=_blank rel=noopener>announced support for displaying verified
-commits</a>, I did not
-know that you could sign git commits. Even after that announcement, signing
-commits was not something that I planned to seek out to accomplish.</p><p>Setting up the signing process is actually very easy. For git, you need to
-create a <strong>.gitconfig</strong> file in your home directory. From there, add your
-signing key</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[user]
-</span></span><span class=line><span class=cl>    name = Chip Senkbeil
-</span></span><span class=line><span class=cl>    email = chip@senkbeil.org
-</span></span><span class=line><span class=cl>    signingkey = 0x6CA6A08DBA640677
-</span></span></code></pre></div><p>You need to make sure that whatever signing key you use has an ID whose email
+</span></span><span class=line><span class=cl><span class=nb>set</span> <span class=nv>pgp_sign_as</span> <span class=o>=</span> <span class=s2>&#34;6CA6A08DBA640677&#34;</span></span></span></code></pre></div></div></div></div><div id=outline-container-headline-2 class=outline-4><h4 id=headline-2>Using my GPG key for signing commits</h4><div id=outline-text-headline-2 class=outline-text-4><p>I'll admit that until Github
+<a href=https://github.blog/2016-04-05-gpg-signature-verification/>announced support
+for displaying verified commits</a>, I did not know that you could sign git
+commits. Even after that announcement, signing commits was not something that I
+planned to seek out to accomplish.</p><p>Setting up the signing process is actually very easy. For git, you need to
+create a <strong>.gitconfig</strong> file in your home directory. From there, add your signing
+key</p><pre class=example>
+[user]
+    name = Chip Senkbeil
+    email = chip@senkbeil.org
+    signingkey = 0x6CA6A08DBA640677
+</pre><p>You need to make sure that whatever signing key you use has an ID whose email
 address matches that of the email you provide in your git config. Also, just
-like with encryption, you <a href=https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html class=external-link target=_blank rel=noopener>aren&rsquo;t restricted to using a key&rsquo;s ID</a>. In my actual config, I&rsquo;ve replaced my signing key ID with my email address of <code>chip@senkbeil.org</code>.</p><p>Out of the box, I can now sign commits explicitly using using <code>git commit -S</code>
-to sign each commit as you make it. For me, I would prefer automatic signing of
-all commits given that I plan to have my key available on any computer I use.
-To that end, I added an extra setting to <strong>.gitconfig</strong> to automatically sign
-all commits:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[commit]
-</span></span><span class=line><span class=cl>    gpgsign = true
-</span></span></code></pre></div><p>What&rsquo;s neat is that other version control systems like Mercurial also support
-signing commits. I just needed to enable the <a href=https://www.mercurial-scm.org/wiki/GpgExtension class=external-link target=_blank rel=noopener>gpg extension</a> in my <strong>.hgrc</strong>, specify the GPG command, and provide a signing key.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[extensions]
-</span></span><span class=line><span class=cl>gpg=
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>[gpg]
-</span></span><span class=line><span class=cl>cmd=gpg
-</span></span><span class=line><span class=cl>key=0x6CA6A08DBA640677
-</span></span></code></pre></div><h2 id=whats-next>What&rsquo;s next?
-<a class=heading-link href=#whats-next><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h2><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-5-authentication>the next post</a>, I&rsquo;ll be explaining how to use GPG for authentication, both to submit commits to Github as well as log into remote servers in a more secure manner.</p></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©
+like with encryption, you
+<a href=https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html>aren't
+restricted to using a key's ID</a>. In my actual config, I've replaced my signing
+key ID with my email address of <code class=verbatim>chip@senkbeil.org</code>.</p><p>Out of the box, I can now sign commits explicitly using using <code class=verbatim>git commit -S</code> to
+sign each commit as you make it. For me, I would prefer automatic signing of all
+commits given that I plan to have my key available on any computer I use. To
+that end, I added an extra setting to <strong>.gitconfig</strong> to automatically sign all
+commits:</p><pre class=example>
+[commit]
+    gpgsign = true
+</pre><p>What's neat is that other version control systems like Mercurial also support
+signing commits. I just needed to enable the
+<a href=https://www.mercurial-scm.org/wiki/GpgExtension>gpg extension</a> in my
+<strong>.hgrc</strong>, specify the GPG command, and provide a signing key.</p><pre class=example>
+[extensions]
+gpg=
+
+[gpg]
+cmd=gpg
+key=0x6CA6A08DBA640677
+</pre></div></div><div id=outline-container-headline-3 class=outline-3><h3 id=headline-3>What's next?</h3><div id=outline-text-headline-3 class=outline-text-3><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-5-authentication>the next post</a>,
+I'll be explaining how to use GPG for authentication, both to submit commits to
+Github as well as log into remote servers in a more secure manner.</p></div></div></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©
 2012 -
 2025
 Chip Senkbeil<br>Views are my own (<a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a>)</p></div></footer></main></body></html>

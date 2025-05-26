@@ -1,16 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Zsh on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/zsh/</link><description>Recent content in Zsh on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 08 Jul 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/zsh/index.xml" rel="self" type="application/rss+xml"/><item><title>Breaking Down the Zsh Notes Function</title><link>https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/</link><pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/</guid><description>&lt;p>Earlier, I discussed my need to have method to jot down notes quickly and
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Zsh on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/zsh/</link><description>Recent content in Zsh on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 08 Jul 2018 00:00:00 -0500</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/zsh/index.xml" rel="self" type="application/rss+xml"/><item><title>Breaking Down the Zsh Notes Function</title><link>https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/</link><pubDate>Sun, 08 Jul 2018 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/</guid><description>&lt;p>
+Earlier, I discussed my need to have method to jot down notes quickly and
 comfortably on a computer. I wanted the setup to be as painless as possible
-while also giving me the flexibility I desired to extend the note-taking
-method.&lt;/p>
-&lt;p>Being a lightweight user of zsh - not leveraging many plugins or additional
+while also giving me the flexibility I desired to extend the note-taking method.&lt;/p>
+&lt;p>
+Being a lightweight user of zsh - not leveraging many plugins or additional
 functionality - I decided to explore writing a zsh function to be exposed in my
-shell. This function&amp;rsquo;s goal was to manage my notes, providing functionality to
+shell. This function&amp;#39;s goal was to manage my notes, providing functionality to
 list existing notes, create new notes, and delete old notes. At the end of the
-day, I arrived at a 122 line zsh function as seen &lt;a href="https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/#source-code" >at the bottom of this
-post&lt;/a>.&lt;/p></description></item><item><title>Reducing the Barrier to Entry in Note Taking</title><link>https://chipsenkbeil.com/posts/reducing-the-barrier-to-entry-in-note-taking/</link><pubDate>Sun, 01 Jul 2018 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/posts/reducing-the-barrier-to-entry-in-note-taking/</guid><description>&lt;p>One of my biggest challenges to accomplishing something is the barrier to
-entry. Starting a project, exercising, and even writing this blog post take
-genuine effort for me to do. After realizing this as one of my biggest
-obstacles to getting things done, I&amp;rsquo;ve dedicated quite a few cycles of my time
-toward figuring out ways to reduce the initial friction. For the case of taking
-notes, this involved both providing a quick way to get started as well as a
-comfortable environment to write notes.&lt;/p></description></item></channel></rss>
+day, I arrived at a 122 line zsh function as seen
+&lt;a href="https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/#source-code">at the bottom of
+this post&lt;/a>.&lt;/p></description></item><item><title>Reducing the Barrier to Entry in Note Taking</title><link>https://chipsenkbeil.com/posts/reducing-the-barrier-to-entry-in-note-taking/</link><pubDate>Sun, 01 Jul 2018 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/reducing-the-barrier-to-entry-in-note-taking/</guid><description>&lt;p>
+One of my biggest challenges to accomplishing something is the barrier to entry.
+Starting a project, exercising, and even writing this blog post take genuine
+effort for me to do. After realizing this as one of my biggest obstacles to
+getting things done, I&amp;#39;ve dedicated quite a few cycles of my time toward
+figuring out ways to reduce the initial friction. For the case of taking notes,
+this involved both providing a quick way to get started as well as a comfortable
+environment to write notes.&lt;/p></description></item></channel></rss>

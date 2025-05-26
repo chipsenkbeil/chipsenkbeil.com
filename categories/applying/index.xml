@@ -1,83 +1,196 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Applying on Chip Senkbeil</title><link>https://chipsenkbeil.com/categories/applying/</link><description>Recent content in Applying on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 09 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/categories/applying/index.xml" rel="self" type="application/rss+xml"/><item><title>Applying GPG and Yubikey: Part 6 (Setting up Yubikeys)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-6-setting-up-yubikeys/</link><pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-6-setting-up-yubikeys/</guid><description>&lt;p>As a reminder, you can check out my &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview" >overview
-post&lt;/a> if you&amp;rsquo;re curious about
-why and in what ways I started using GPG and Yubikey. If you haven&amp;rsquo;t set up
-your GPG keys yet, I also talk about a simple flow &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup" >in my second
-post&lt;/a>.&lt;/p>
-&lt;p>Today, we&amp;rsquo;re diving into setting up your Yubikey to host your GPG subkeys
-created in parts &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption" >3&lt;/a>,
-&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing" >4&lt;/a>, and
-&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-5-authentication" >5&lt;/a>.&lt;/p>
-&lt;h1 id="yubikey">
- Yubikey
- &lt;a class="heading-link" href="#yubikey">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h1>
-&lt;p>I&amp;rsquo;ve got multiple Yubikeys configured across different devices and primarily
-use them for password management and SSH authentication. Rather than keeping
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Applying on Chip Senkbeil</title><link>https://chipsenkbeil.com/categories/applying/</link><description>Recent content in Applying on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 09 Sep 2021 00:00:00 -0500</lastBuildDate><atom:link href="https://chipsenkbeil.com/categories/applying/index.xml" rel="self" type="application/rss+xml"/><item><title>Applying GPG and Yubikey: Part 6 (Setting up Yubikeys)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-6-setting-up-yubikeys/</link><pubDate>Thu, 09 Sep 2021 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-6-setting-up-yubikeys/</guid><description>&lt;p>
+As a reminder, you can check out my
+&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview">overview post&lt;/a> if you&amp;#39;re
+curious about why and in what ways I started using GPG and Yubikey. If you
+haven&amp;#39;t set up your GPG keys yet, I also talk about a simple flow
+&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup">in my second post&lt;/a>.&lt;/p>
+&lt;p>
+Today, we&amp;#39;re diving into setting up your Yubikey to host your GPG subkeys
+created in parts &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption">3&lt;/a>,
+&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing">4&lt;/a>, and
+&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-5-authentication">5&lt;/a>.&lt;/p>
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
+Yubikey
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>I&amp;#39;ve got multiple Yubikeys configured across different devices and primarily use
+them for password management and SSH authentication. Rather than keeping
 physical subkeys on each of these machines, I instead have a dedicated Yubikey
 for each device that hosts the subkeys, keeping them protected from direct
-exposure.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 5 (Authentication)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-5-authentication/</link><pubDate>Sun, 06 Oct 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-5-authentication/</guid><description>&lt;p>As a reminder, you can check out my &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview" >overview
-post&lt;/a> if you&amp;rsquo;re curious about
-why and in what ways I started using GPG and Yubikey. If you haven&amp;rsquo;t set up
-your GPG keys yet, I also talk about a simple flow &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup" >in my second
-post&lt;/a>.&lt;/p>
-&lt;p>Today, we&amp;rsquo;re going specifically into using GPG for authentication for SSHing
+exposure.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 5 (Authentication)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-5-authentication/</link><pubDate>Sun, 06 Oct 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-5-authentication/</guid><description>&lt;p>
+As a reminder, you can check out my
+&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview">overview post&lt;/a> if you&amp;#39;re
+curious about why and in what ways I started using GPG and Yubikey. If you
+haven&amp;#39;t set up your GPG keys yet, I also talk about a simple flow
+&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup">in my second post&lt;/a>.&lt;/p>
+&lt;p>
+Today, we&amp;#39;re going specifically into using GPG for authentication for SSHing
 into remote servers and associating with Github.&lt;/p>
-&lt;h3 id="using-my-gpg-key-for-authenticating-over-ssh">
- Using my GPG key for authenticating over SSH
- &lt;a class="heading-link" href="#using-my-gpg-key-for-authenticating-over-ssh">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h3>
+&lt;div id="outline-container-headline-1" class="outline-4">
+&lt;h4 id="headline-1">
+Using my GPG key for authenticating over SSH
+&lt;/h4>
+&lt;div id="outline-text-headline-1" class="outline-text-4">
 &lt;p>One handy use case for GPG keys related to authentication is using a GPG key to
 access remote servers over SSH. Rather than using password-based authentication
-or SSH public key authentication via &lt;code>ssh-keygen&lt;/code>, we can leverage a GPG key
-with authentication capabilities to connect instead.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 4 (Signing)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/</link><pubDate>Mon, 02 Sep 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/</guid><description>&lt;p>As a reminder, you can check out &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview" >overview
-post&lt;/a> if you&amp;rsquo;re curious about
-why and in what ways I started using GPG and Yubikey. If you haven&amp;rsquo;t set up
-your GPG keys yet, I also talk about a simple flow &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup" >in my second
-post&lt;/a>. Finally, the email signing
-section expects you to have already set up encryption, so you should really
-check out &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption" >my third post&lt;/a>
-regarding encryption setup with neomutt.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 3 (Encryption)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/</link><pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/</guid><description>&lt;p>As a reminder, you can check out &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview" >overview
-post&lt;/a> if you&amp;rsquo;re curious
-about why and in what ways I started using GPG and Yubikey. If you haven&amp;rsquo;t
-set up your GPG keys yet, I also talk about a simple flow &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup" >in my second
-post&lt;/a>.&lt;/p>
-&lt;p>Today, we&amp;rsquo;re going specifically into using GPG for encryption and
-how to integrate GPG into &lt;a href="https://passwordstore.org/" class="external-link" target="_blank" rel="noopener">pass&lt;/a> and
-&lt;a href="https://neomutt.org/" class="external-link" target="_blank" rel="noopener">neomutt&lt;/a>.&lt;/p>
-&lt;h2 id="refresher-of-current-state">
- Refresher of current state
- &lt;a class="heading-link" href="#refresher-of-current-state">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h2>
-&lt;p>At this point, we have our primary key for signing and certifying (SC) other keys.
-You should also notice a second key (labelled as a subkey here) that is purely
-for encryption (E). We will be using that encryption key for our utilities
-today.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 2 (Setup GPG Keys)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/</link><pubDate>Fri, 16 Aug 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/</guid><description>&lt;p>If you haven&amp;rsquo;t read &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview" >my overview
-post&lt;/a>, feel free to check it
-out to get an idea of why and how I started using GPG and Yubikey.&lt;/p>
-&lt;p>Today we&amp;rsquo;ll be diving into how to set up a new master GPG key and configure it
-for use with the &lt;a href="https://passwordstore.org/" class="external-link" target="_blank" rel="noopener">pass&lt;/a> utility. Additionally,
-we&amp;rsquo;ll run through the process to create subkeys with the idea of eventually
+or SSH public key authentication via &lt;code class="verbatim">ssh-keygen&lt;/code>, we can leverage a GPG key
+with authentication capabilities to connect instead.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 4 (Signing)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/</link><pubDate>Mon, 02 Sep 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/</guid><description>&lt;p>
+As a reminder, you can check out
+&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview">overview post&lt;/a> if you&amp;#39;re
+curious about why and in what ways I started using GPG and Yubikey. If you
+haven&amp;#39;t set up your GPG keys yet, I also talk about a simple flow
+&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup">in my second post&lt;/a>. Finally,
+the email signing section expects you to have already set up encryption, so you
+should really check out &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption">my
+third post&lt;/a> regarding encryption setup with neomutt.&lt;/p>
+&lt;p>
+Today, we&amp;#39;re going specifically into using GPG for signing email and git
+commits.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 3 (Encryption)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/</link><pubDate>Sun, 01 Sep 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/</guid><description>&lt;p>
+As a reminder, you can check out
+&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview">overview post&lt;/a> if you&amp;#39;re
+curious about why and in what ways I started using GPG and Yubikey. If you
+haven&amp;#39;t set up your GPG keys yet, I also talk about a simple flow
+&lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup">in my second post&lt;/a>.&lt;/p>
+&lt;p>
+Today, we&amp;#39;re going specifically into using GPG for encryption and how to
+integrate GPG into &lt;a href="https://passwordstore.org/">pass&lt;/a> and
+&lt;a href="https://neomutt.org/">neomutt&lt;/a>.&lt;/p>
+&lt;div id="outline-container-headline-1" class="outline-3">
+&lt;h3 id="headline-1">
+Refresher of current state
+&lt;/h3>
+&lt;div id="outline-text-headline-1" class="outline-text-3">
+&lt;p>At this point, we have our primary key for signing and certifying (SC) other
+keys. You should also notice a second key (labelled as a subkey here) that is
+purely for encryption (E). We will be using that encryption key for our
+utilities today.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 7 (Mobile)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-7-mobile/</link><pubDate>Mon, 26 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-7-mobile/</guid><description>&lt;div id="outline-container-headline-1" class="outline-4">
+&lt;h4 id="headline-1">
+Using GPG key on mobile
+&lt;/h4>
+&lt;div id="outline-text-headline-1" class="outline-text-4">
+&lt;p>Mention YubiKey NFC, Password Store app, and OpenKeychain app&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-2" class="outline-4">
+&lt;h4 id="headline-2">
+Revoking my GPG key
+&lt;/h4>
+&lt;div id="outline-text-headline-2" class="outline-text-4">
+&lt;p>Mention old process of making unique subkey for each YubiKey Mention process of
+revoking&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-3" class="outline-3">
+&lt;h3 id="headline-3">
+Conclusion
+&lt;/h3>
+&lt;div id="outline-text-headline-3" class="outline-text-3">
+&lt;p>TODO… what should be put here?&lt;/p>
+&lt;p>
+What is it?&lt;/p>
+&lt;p>
+Why did I need it?&lt;/p>
+&lt;p>
+What did I do?&lt;/p>
+&lt;p>
+Conclusion&lt;/p>
+&lt;p>
+When adding new keys at the same time to GPG (recipients) or passwordstore, I
+needed to add an exclamation mark to the end. E.g. 0xDEADBEEF! in order to force
+encryption with that key and allow multiple keys as options.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 8 (Revoking Keys)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-8-revoking-keys/</link><pubDate>Mon, 26 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-8-revoking-keys/</guid><description>&lt;div id="outline-container-headline-1" class="outline-4">
+&lt;h4 id="headline-1">
+Revoking my GPG key
+&lt;/h4>
+&lt;div id="outline-text-headline-1" class="outline-text-4">
+&lt;p>Mention old process of making unique subkey for each YubiKey Mention process of
+revoking&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-2" class="outline-3">
+&lt;h3 id="headline-2">
+Conclusion
+&lt;/h3>
+&lt;div id="outline-text-headline-2" class="outline-text-3">
+&lt;p>TODO… what should be put here?&lt;/p>
+&lt;p>
+What is it?&lt;/p>
+&lt;p>
+Why did I need it?&lt;/p>
+&lt;p>
+What did I do?&lt;/p>
+&lt;p>
+Conclusion&lt;/p>
+&lt;p>
+When adding new keys at the same time to GPG (recipients) or passwordstore, I
+needed to add an exclamation mark to the end. E.g. 0xDEADBEEF! in order to force
+encryption with that key and allow multiple keys as options.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 9 (Keyservers)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-9-keyservers/</link><pubDate>Mon, 26 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-9-keyservers/</guid><description>&lt;div id="outline-container-headline-1" class="outline-4">
+&lt;h4 id="headline-1">
+Traditional Keyservers
+&lt;/h4>
+&lt;div id="outline-text-headline-1" class="outline-text-4">
+&lt;p>Discuss keyservers, cite some examples, and how to use them&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-2" class="outline-4">
+&lt;h4 id="headline-2">
+Keybase
+&lt;/h4>
+&lt;div id="outline-text-headline-2" class="outline-text-4">
+&lt;p>Discuss keybase and how to use it&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-3" class="outline-4">
+&lt;h4 id="headline-3">
+Revoking my GPG key
+&lt;/h4>
+&lt;div id="outline-text-headline-3" class="outline-text-4">
+&lt;p>Mention old process of making unique subkey for each YubiKey Mention process of
+revoking&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-4" class="outline-3">
+&lt;h3 id="headline-4">
+Conclusion
+&lt;/h3>
+&lt;div id="outline-text-headline-4" class="outline-text-3">
+&lt;p>TODO… what should be put here?&lt;/p>
+&lt;p>
+What is it?&lt;/p>
+&lt;p>
+Why did I need it?&lt;/p>
+&lt;p>
+What did I do?&lt;/p>
+&lt;p>
+Conclusion&lt;/p>
+&lt;p>
+When adding new keys at the same time to GPG (recipients) or passwordstore, I
+needed to add an exclamation mark to the end. E.g. 0xDEADBEEF! in order to force
+encryption with that key and allow multiple keys as options.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 2 (Setup GPG Keys)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/</link><pubDate>Fri, 16 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/</guid><description>&lt;p>
+If you haven&amp;#39;t read &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview">my
+overview post&lt;/a>, feel free to check it out to get an idea of why and how I
+started using GPG and Yubikey.&lt;/p>
+&lt;p>
+Today we&amp;#39;ll be diving into how to set up a new master GPG key and configure it
+for use with the &lt;a href="https://passwordstore.org/">pass&lt;/a> utility. Additionally,
+we&amp;#39;ll run through the process to create subkeys with the idea of eventually
 storing these on Yubikeys.&lt;/p>
-&lt;h2 id="setting-up-a-primary-gpg-key">
- Setting up a primary GPG key
- &lt;a class="heading-link" href="#setting-up-a-primary-gpg-key">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h2>
+&lt;div id="outline-container-headline-1" class="outline-3">
+&lt;h3 id="headline-1">
+Setting up a primary GPG key
+&lt;/h3>
+&lt;div id="outline-text-headline-1" class="outline-text-3">
 &lt;p>Although I knew I had an old key floating around from previous use, I wanted to
-start from scratch. From reading a variety of guides and documentation online, I knew that I wanted to create a new 4096-bit long RSA key. The time needed generate such a key on modern hardware is negligible and provides the maximum protection offered today. Luckily, the GPG interface has improved drastically since I first used it, so this process - and all of the processes I&amp;rsquo;ll discuss later - has been relatively painless.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 1 (Overview)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview/</link><pubDate>Mon, 12 Aug 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview/</guid><description>&lt;p>Today is going to be the first in a series of posts I want to write about
-applying GPG and YubiKey. I won&amp;rsquo;t pretend that I am an expert on either GPG or
-Yubikey. Instead, I&amp;rsquo;ll be focusing on how I have been using GPG and a variety
-of Yubikey devices to enhance my computer experience.&lt;/p>
-&lt;p>In this post, I&amp;rsquo;m going to dive into GPG and YubiKey at a high level and
-explain what they are to my understanding and how I am using them.&lt;/p></description></item></channel></rss>
+start from scratch. From reading a variety of guides and documentation online, I
+knew that I wanted to create a new 4096-bit long RSA key. The time needed
+generate such a key on modern hardware is negligible and provides the maximum
+protection offered today. Luckily, the GPG interface has improved drastically
+since I first used it, so this process - and all of the processes I&amp;#39;ll discuss
+later - has been relatively painless.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 1 (Overview)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview/</link><pubDate>Mon, 12 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview/</guid><description>&lt;p>
+Today is going to be the first in a series of posts I want to write about
+applying GPG and YubiKey. I won&amp;#39;t pretend that I am an expert on either GPG or
+Yubikey. Instead, I&amp;#39;ll be focusing on how I have been using GPG and a variety of
+Yubikey devices to enhance my computer experience.&lt;/p>
+&lt;p>
+In this post, I&amp;#39;m going to dive into GPG and YubiKey at a high level and explain
+what they are to my understanding and how I am using them.&lt;/p></description></item></channel></rss>

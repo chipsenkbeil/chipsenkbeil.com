@@ -1,16 +1,32 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Xrandr on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/xrandr/</link><description>Recent content in Xrandr on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 15 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/xrandr/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Virtual Monitors with xrandr</title><link>https://chipsenkbeil.com/notes/linux-virtual-monitors-with-xrandr/</link><pubDate>Wed, 14 Aug 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/linux-virtual-monitors-with-xrandr/</guid><description>&lt;p>I recently learned that you can configure virtual monitors with xrandr. There
-are two different ways to use this: treat multiple physical monitors as
-one giant virtual monitor or treat one physical monitor as multiple
-virtual monitors.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Xrandr on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/xrandr/</link><description>Recent content in Xrandr on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 15 Dec 2019 00:00:00 -0600</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/xrandr/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuring autorandr</title><link>https://chipsenkbeil.com/notes/configuring-autorandr/</link><pubDate>Sun, 15 Dec 2019 00:00:00 -0600</pubDate><guid>https://chipsenkbeil.com/notes/configuring-autorandr/</guid><description>&lt;p>
+I have successfully moved over to using super ultrawide monitors both at work
+(&lt;a href="https://www.dell.com/en-us/work/shop/accessories/apd/210-arnw">Dell
+U4919DW&lt;/a>) and at home
+(&lt;a href="https://www.samsung.com/us/computing/monitors/gaming/49-crg9-dual-qhd-curved-qled-gaming-monitor-lc49rg90ssnxza/">Samsung
+CRG90&lt;/a> + &lt;a href="https://www.caldigit.com/ts3-plus/">CalDigit TS3 Plus&lt;/a>). I&amp;#39;ve set
+these up as one-cable solutions over USB-C via Alternate Mode (Dell) and/or
+Thunderbolt 3 (Samsung + CalDigit), which makes my life much easier.&lt;/p>
+&lt;div id="outline-container-headline-1" class="outline-4">
+&lt;h4 id="headline-1">
+Combining with virtual monitors
+&lt;/h4>
+&lt;/div></description></item><item><title>Linux Virtual Monitors with xrandr</title><link>https://chipsenkbeil.com/notes/linux-virtual-monitors-with-xrandr/</link><pubDate>Wed, 14 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/linux-virtual-monitors-with-xrandr/</guid><description>&lt;p>
+I recently learned that you can configure virtual monitors with xrandr. There
+are two different ways to use this: treat multiple physical monitors as one
+giant virtual monitor or treat one physical monitor as multiple virtual
+monitors.&lt;/p>
 &lt;blockquote>
-&lt;p>Note that this requires xrandr 1.5.0 or higher, which introduces setmonitor
-as an option in the CLI.&lt;/p>&lt;/blockquote>
-&lt;h2 id="why-do-i-want-to-do-this">
- Why do I want to do this?
- &lt;a class="heading-link" href="#why-do-i-want-to-do-this">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h2>
+&lt;p>Note that this requires xrandr 1.5.0 or higher, which introduces setmonitor as
+an option in the CLI.&lt;/p>
+&lt;/blockquote>
+&lt;div id="outline-container-headline-1" class="outline-3">
+&lt;h3 id="headline-1">
+Why do I want to do this?
+&lt;/h3>
+&lt;div id="outline-text-headline-1" class="outline-text-3">
 &lt;p>My primary interest here is to split a super widescreen monitor like the
-&lt;a href="https://www.dell.com/en-us/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-arnw/monitors-monitor-accessories" class="external-link" target="_blank" rel="noopener">Dell 49&amp;quot; UltraSharp Curved Monitor (U4919DW)&lt;/a> as multiple separate displays. I like the way that dwm breaks up monitors into multiple spaces and when I have two or three separate monitors I normally use a center monitor for focused work with the side monitors containing music, calendar, and chat.&lt;/p></description></item></channel></rss>
+&lt;a href="https://www.dell.com/en-us/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-arnw/monitors-monitor-accessories">Dell
+49” UltraSharp Curved Monitor (U4919DW)&lt;/a> as multiple separate displays. I like
+the way that dwm breaks up monitors into multiple spaces and when I have two or
+three separate monitors I normally use a center monitor for focused work with
+the side monitors containing music, calendar, and chat.&lt;/p></description></item></channel></rss>

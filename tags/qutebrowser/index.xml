@@ -1,269 +1,269 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Qutebrowser on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/qutebrowser/</link><description>Recent content in Qutebrowser on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 03 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/qutebrowser/index.xml" rel="self" type="application/rss+xml"/><item><title>Qutebrowser Cheatsheet</title><link>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</link><pubDate>Wed, 03 Jul 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</guid><description>&lt;h2 id="tabs">
- Tabs
- &lt;a class="heading-link" href="#tabs">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h2>
-&lt;h3 id="navigating-tabs">
- Navigating Tabs
- &lt;a class="heading-link" href="#navigating-tabs">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Qutebrowser on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/qutebrowser/</link><description>Recent content in Qutebrowser on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 03 Jul 2019 00:00:00 -0500</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/qutebrowser/index.xml" rel="self" type="application/rss+xml"/><item><title>Qutebrowser Cheatsheet</title><link>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</link><pubDate>Wed, 03 Jul 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</guid><description>&lt;div id="outline-container-headline-1" class="outline-3">
+&lt;h3 id="headline-1">
+Tabs
 &lt;/h3>
+&lt;div id="outline-text-headline-1" class="outline-text-3">
+&lt;div id="outline-container-headline-2" class="outline-4">
+&lt;h4 id="headline-2">
+Navigating Tabs
+&lt;/h4>
+&lt;div id="outline-text-headline-2" class="outline-text-4">
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Key Combination&lt;/th>
- &lt;th>Description&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>Shift+j&lt;/td>
- &lt;td>Go to next tab (to the right), looping around to first tab if at the end&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Shift+k&lt;/td>
- &lt;td>Go to previous tab (to the left), looping around to last tab if at the beginning&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>gt&lt;/td>
- &lt;td>Open list of tabs to fuzzy search and jump to specified tab&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;N>+Shift+t&lt;/td>
- &lt;td>Go to tab at N&lt;/td>
- &lt;/tr>
- &lt;/tbody>
+&lt;thead>
+&lt;tr>
+&lt;th>Key Combination&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Shift+j&lt;/td>
+&lt;td>Go to next tab (to the right), looping around to first tab if at the end&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Shift+k&lt;/td>
+&lt;td>Go to previous tab (to the left), looping around to last tab if at the beginning&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>gt&lt;/td>
+&lt;td>Open list of tabs to fuzzy search and jump to specified tab&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>+Shift+t&lt;/td>
+&lt;td>Go to tab at N&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table>
-&lt;h3 id="moving-tabs">
- Moving Tabs
- &lt;a class="heading-link" href="#moving-tabs">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h3>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-3" class="outline-4">
+&lt;h4 id="headline-3">
+Moving Tabs
+&lt;/h4>
+&lt;div id="outline-text-headline-3" class="outline-text-4">
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Key Combination&lt;/th>
- &lt;th>Description&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>gD&lt;/td>
- &lt;td>Move current tab to new window&lt;/td>
- &lt;/tr>
- &lt;/tbody>
+&lt;thead>
+&lt;tr>
+&lt;th>Key Combination&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>gD&lt;/td>
+&lt;td>Move current tab to new window&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table>
-&lt;h3 id="deleting-tabs">
- Deleting Tabs
- &lt;a class="heading-link" href="#deleting-tabs">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h3>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-4" class="outline-4">
+&lt;h4 id="headline-4">
+Deleting Tabs
+&lt;/h4>
+&lt;div id="outline-text-headline-4" class="outline-text-4">
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Key Combination&lt;/th>
- &lt;th>Description&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>d&lt;/td>
- &lt;td>Close current tab&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>co&lt;/td>
- &lt;td>Close all tabs but current tab&lt;/td>
- &lt;/tr>
- &lt;/tbody>
+&lt;thead>
+&lt;tr>
+&lt;th>Key Combination&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>d&lt;/td>
+&lt;td>Close current tab&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>co&lt;/td>
+&lt;td>Close all tabs but current tab&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table>
-&lt;h2 id="element-selection">
- Element Selection
- &lt;a class="heading-link" href="#element-selection">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h2>
-&lt;h3 id="select-input">
- Select Input
- &lt;a class="heading-link" href="#select-input">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-5" class="outline-3">
+&lt;h3 id="headline-5">
+Element Selection
 &lt;/h3>
+&lt;div id="outline-text-headline-5" class="outline-text-3">
+&lt;div id="outline-container-headline-6" class="outline-4">
+&lt;h4 id="headline-6">
+Select Input
+&lt;/h4>
+&lt;div id="outline-text-headline-6" class="outline-text-4">
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Key Combination&lt;/th>
- &lt;th>Description&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>gi&lt;/td>
- &lt;td>Go to primary input textbox (not sure how it decides)&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>;t&lt;/td>
- &lt;td>Provide hints for selecting an input textbox&lt;/td>
- &lt;/tr>
- &lt;/tbody>
+&lt;thead>
+&lt;tr>
+&lt;th>Key Combination&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>gi&lt;/td>
+&lt;td>Go to primary input textbox (not sure how it decides)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>;t&lt;/td>
+&lt;td>Provide hints for selecting an input textbox&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table>
-&lt;h3 id="select-hyperlink-on-page">
- Select Hyperlink on Page
- &lt;a class="heading-link" href="#select-hyperlink-on-page">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h3>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-7" class="outline-4">
+&lt;h4 id="headline-7">
+Select Hyperlink on Page
+&lt;/h4>
+&lt;div id="outline-text-headline-7" class="outline-text-4">
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Key Combination&lt;/th>
- &lt;th>Description&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>f&lt;/td>
- &lt;td>Provide hints for selecting a hyperlink (to open in current tab)&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Shift+f&lt;/td>
- &lt;td>Provide hints for selecting a hyperlink (to open in new tab)&lt;/td>
- &lt;/tr>
- &lt;/tbody>
+&lt;thead>
+&lt;tr>
+&lt;th>Key Combination&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>f&lt;/td>
+&lt;td>Provide hints for selecting a hyperlink (to open in current tab)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Shift+f&lt;/td>
+&lt;td>Provide hints for selecting a hyperlink (to open in new tab)&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table>
-&lt;h2 id="urls">
- URLs
- &lt;a class="heading-link" href="#urls">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h2>
-&lt;h3 id="open-url">
- Open URL
- &lt;a class="heading-link" href="#open-url">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-8" class="outline-3">
+&lt;h3 id="headline-8">
+URLs
 &lt;/h3>
+&lt;div id="outline-text-headline-8" class="outline-text-3">
+&lt;div id="outline-container-headline-9" class="outline-4">
+&lt;h4 id="headline-9">
+Open URL
+&lt;/h4>
+&lt;div id="outline-text-headline-9" class="outline-text-4">
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Key Combination&lt;/th>
- &lt;th>Description&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>o&lt;/td>
- &lt;td>Open list of history/quickmarks as well as be able to provide own link to go to in current tab&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Shift+o&lt;/td>
- &lt;td>Open list of history/quickmarks as well as be able to provide own link to go to in new tab&lt;/td>
- &lt;/tr>
- &lt;/tbody>
+&lt;thead>
+&lt;tr>
+&lt;th>Key Combination&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>o&lt;/td>
+&lt;td>Open list of history/quickmarks as well as be able to provide own link to go to in current tab&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Shift+o&lt;/td>
+&lt;td>Open list of history/quickmarks as well as be able to provide own link to go to in new tab&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table>
-&lt;h2 id="pages">
- Pages
- &lt;a class="heading-link" href="#pages">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h2>
-&lt;h3 id="page-navigation">
- Page Navigation
- &lt;a class="heading-link" href="#page-navigation">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-10" class="outline-3">
+&lt;h3 id="headline-10">
+Pages
 &lt;/h3>
+&lt;div id="outline-text-headline-10" class="outline-text-3">
+&lt;div id="outline-container-headline-11" class="outline-4">
+&lt;h4 id="headline-11">
+Page Navigation
+&lt;/h4>
+&lt;div id="outline-text-headline-11" class="outline-text-4">
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Key Combination&lt;/th>
- &lt;th>Description&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>gg&lt;/td>
- &lt;td>Jump to top of page&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Shift+g&lt;/td>
- &lt;td>Jump to bottom of page&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>[N]+j&lt;/td>
- &lt;td>Move down 1 line in page, or N lines if specified&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>[N]+k&lt;/td>
- &lt;td>Move up 1 line in page, or N lines if specified&lt;/td>
- &lt;/tr>
- &lt;/tbody>
+&lt;thead>
+&lt;tr>
+&lt;th>Key Combination&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>gg&lt;/td>
+&lt;td>Jump to top of page&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Shift+g&lt;/td>
+&lt;td>Jump to bottom of page&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>[N]+j&lt;/td>
+&lt;td>Move down 1 line in page, or N lines if specified&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>[N]+k&lt;/td>
+&lt;td>Move up 1 line in page, or N lines if specified&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table>
-&lt;h3 id="page-history">
- Page History
- &lt;a class="heading-link" href="#page-history">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h3>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-12" class="outline-4">
+&lt;h4 id="headline-12">
+Page History
+&lt;/h4>
+&lt;div id="outline-text-headline-12" class="outline-text-4">
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Key Combination&lt;/th>
- &lt;th>Description&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>Shift+h&lt;/td>
- &lt;td>Go back in history of current tab&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Shift+l&lt;/td>
- &lt;td>Go forward in history of current tab&lt;/td>
- &lt;/tr>
- &lt;/tbody>
+&lt;thead>
+&lt;tr>
+&lt;th>Key Combination&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Shift+h&lt;/td>
+&lt;td>Go back in history of current tab&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Shift+l&lt;/td>
+&lt;td>Go forward in history of current tab&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table>
-&lt;h3 id="page-search">
- Page Search
- &lt;a class="heading-link" href="#page-search">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h3>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-13" class="outline-4">
+&lt;h4 id="headline-13">
+Page Search
+&lt;/h4>
+&lt;div id="outline-text-headline-13" class="outline-text-4">
 &lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>Key Combination&lt;/th>
- &lt;th>Description&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>/&lt;/td>
- &lt;td>Search for text in current tab&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>n&lt;/td>
- &lt;td>Move forward in search in current tab&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Shift+n&lt;/td>
- &lt;td>Move backward in search in current tab&lt;/td>
- &lt;/tr>
- &lt;/tbody>
-&lt;/table></description></item></channel></rss>
+&lt;thead>
+&lt;tr>
+&lt;th>Key Combination&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>/&lt;/td>
+&lt;td>Search for text in current tab&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>n&lt;/td>
+&lt;td>Move forward in search in current tab&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Shift+n&lt;/td>
+&lt;td>Move backward in search in current tab&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

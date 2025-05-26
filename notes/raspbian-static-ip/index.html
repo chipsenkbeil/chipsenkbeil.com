@@ -1,43 +1,43 @@
-<!doctype html><html lang=en><head><title>Raspbian Static IP · Chip Senkbeil</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="Chip Senkbeil"><meta name=description content="Quick steps to set a static IP address for Raspbian in 2019"><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Raspbian Static IP"><meta name=twitter:description content="Quick steps to set a static IP address for Raspbian in 2019"><meta property="og:url" content="https://chipsenkbeil.com/notes/raspbian-static-ip/"><meta property="og:site_name" content="Chip Senkbeil"><meta property="og:title" content="Raspbian Static IP"><meta property="og:description" content="Quick steps to set a static IP address for Raspbian in 2019"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="notes"><meta property="article:published_time" content="2019-06-22T00:00:00+00:00"><meta property="article:modified_time" content="2019-06-22T00:00:00+00:00"><meta property="article:tag" content="Raspbian"><link rel=canonical href=https://chipsenkbeil.com/notes/raspbian-static-ip/><link rel=preload href=https://chipsenkbeil.com/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.2cd2ba040eaadea1390f8199e24bd994fabd69b5a7034b43fc2440c58fd09808.css integrity="sha256-LNK6BA6q3qE5D4GZ4kvZlPq9abWnA0tD/CRAxY/QmAg=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=https://chipsenkbeil.com/images/favicon.svg sizes=any><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=manifest href=https://chipsenkbeil.com/site.webmanifest><link rel=mask-icon href=https://chipsenkbeil.com/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil
+<!doctype html><html lang=en><head><title>Raspbian Static IP · Chip Senkbeil</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="Chip Senkbeil"><meta name=description content="Quick steps to set a static IP address for Raspbian in 2019"><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Raspbian Static IP"><meta name=twitter:description content="Quick steps to set a static IP address for Raspbian in 2019"><meta property="og:url" content="https://chipsenkbeil.com/notes/raspbian-static-ip/"><meta property="og:site_name" content="Chip Senkbeil"><meta property="og:title" content="Raspbian Static IP"><meta property="og:description" content="Quick steps to set a static IP address for Raspbian in 2019"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="notes"><meta property="article:published_time" content="2019-06-22T00:00:00-05:00"><meta property="article:modified_time" content="2019-06-22T00:00:00-05:00"><meta property="article:tag" content="Raspbian"><link rel=canonical href=https://chipsenkbeil.com/notes/raspbian-static-ip/><link rel=preload href=https://chipsenkbeil.com/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.2cd2ba040eaadea1390f8199e24bd994fabd69b5a7034b43fc2440c58fd09808.css integrity="sha256-LNK6BA6q3qE5D4GZ4kvZlPq9abWnA0tD/CRAxY/QmAg=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=https://chipsenkbeil.com/images/favicon.svg sizes=any><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=manifest href=https://chipsenkbeil.com/site.webmanifest><link rel=mask-icon href=https://chipsenkbeil.com/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil
 </a><input type=checkbox id=menu-toggle>
-<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container page"><article><header><h1 class=title><a class=title-link href=https://chipsenkbeil.com/notes/raspbian-static-ip/>Raspbian Static IP</a></h1></header><p>The main changes need to occur in <code>/etc/dhcpcd.conf</code>.</p><h3 id=find-interface-name>Find Interface Name
-<a class=heading-link href=#find-interface-name><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>Before editing that file, we need to look up our ethernet interface name.
-This used to be something easy like <strong>eth0</strong>, but Debian appears to have
-<a href=https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names class=external-link target=_blank rel=noopener>changed interface names</a>. Run <code>ifconfig</code> to see Debian&rsquo;s current interfaces. With the Raspberry Pi 3 B+, there will also be a wifi interface shown as below:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>enxb827ebb61344: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
-</span></span><span class=line><span class=cl>        ether b8:27:eb:b6:13:44  txqueuelen 1000  (Ethernet)
-</span></span><span class=line><span class=cl>        RX packets 24867  bytes 5952214 (5.6 MiB)
-</span></span><span class=line><span class=cl>        RX errors 1  dropped 350  overruns 0  frame 0
-</span></span><span class=line><span class=cl>        TX packets 2884  bytes 222449 (217.2 KiB)
-</span></span><span class=line><span class=cl>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
-</span></span><span class=line><span class=cl>        inet 127.0.0.1  netmask 255.0.0.0
-</span></span><span class=line><span class=cl>        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;
-</span></span><span class=line><span class=cl>        loop  txqueuelen 1000  (Local Loopback)
-</span></span><span class=line><span class=cl>        RX packets 0  bytes 0 (0.0 B)
-</span></span><span class=line><span class=cl>        RX errors 0  dropped 0  overruns 0  frame 0
-</span></span><span class=line><span class=cl>        TX packets 0  bytes 0 (0.0 B)
-</span></span><span class=line><span class=cl>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>wlan0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
-</span></span><span class=line><span class=cl>        ether b8:27:eb:e3:46:11  txqueuelen 1000  (Ethernet)
-</span></span><span class=line><span class=cl>        RX packets 0  bytes 0 (0.0 B)
-</span></span><span class=line><span class=cl>        RX errors 0  dropped 0  overruns 0  frame 0
-</span></span><span class=line><span class=cl>        TX packets 0  bytes 0 (0.0 B)
-</span></span><span class=line><span class=cl>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-</span></span></code></pre></div><p>Notice <strong>enxb827ebb61344</strong>, the ridiculously ugly interface name that we&rsquo;ll
-need when setting our static IP.</p><h3 id=updating-etcdhcpcdconf>Updating /etc/dhcpcd.conf
-<a class=heading-link href=#updating-etcdhcpcdconf><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>With the interface name for ethernet written down, we can open up
-<code>/etc/dhcpcd.conf</code>. There may already be a section for configuring a static IP address. Either way, we&rsquo;ll want something like the following:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># Static IP for raspberry pi (192.168.1.10)
-</span></span><span class=line><span class=cl>interface enxb827ebb61344
-</span></span><span class=line><span class=cl>static ip_address=192.168.1.10/24
-</span></span><span class=line><span class=cl>static routers=192.168.1.1
-</span></span><span class=line><span class=cl>static domain_name_servers=192.168.1.1
-</span></span></code></pre></div><p>This should set the Raspbian to have an IP address of <strong>192.168.1.10</strong>,
-pointing to our router at <strong>192.168.1.1</strong>.</p><p>Make sure to reboot afterwords.</p></article></section></div><footer class=footer><div class=container><p>©
+<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container page"><article><header><h1 class=title><a class=title-link href=https://chipsenkbeil.com/notes/raspbian-static-ip/>Raspbian Static IP</a></h1></header><p>The main changes need to occur in <code class=verbatim>/etc/dhcpcd.conf</code>.</p><div id=outline-container-headline-1 class=outline-4><h4 id=headline-1>Find Interface Name</h4><div id=outline-text-headline-1 class=outline-text-4><p>Before editing that file, we need to look up our ethernet interface name. This
+used to be something easy like <strong>eth0</strong>, but Debian appears to have
+<a href=https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names>changed
+interface names</a>. Run <code class=verbatim>ifconfig</code> to see Debian's current interfaces. With the
+Raspberry Pi 3 B+, there will also be a wifi interface shown as below:</p><pre class=example>
+enxb827ebb61344: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        ether b8:27:eb:b6:13:44  txqueuelen 1000  (Ethernet)
+        RX packets 24867  bytes 5952214 (5.6 MiB)
+        RX errors 1  dropped 350  overruns 0  frame 0
+        TX packets 2884  bytes 222449 (217.2 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlan0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
+        ether b8:27:eb:e3:46:11  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</pre><p>Notice <strong>enxb827ebb61344</strong>, the ridiculously ugly interface name that we'll need
+when setting our static IP.</p></div></div><div id=outline-container-headline-2 class=outline-4><h4 id=headline-2>Updating /etc/dhcpcd.conf</h4><div id=outline-text-headline-2 class=outline-text-4><p>With the interface name for ethernet written down, we can open up
+<code class=verbatim>/etc/dhcpcd.conf</code>. There may already be a section for configuring a static IP
+address. Either way, we'll want something like the following:</p><pre class=example>
+# Static IP for raspberry pi (192.168.1.10)
+interface enxb827ebb61344
+static ip_address=192.168.1.10/24
+static routers=192.168.1.1
+static domain_name_servers=192.168.1.1
+</pre><p>This should set the Raspbian to have an IP address of <strong>192.168.1.10</strong>, pointing
+to our router at <strong>192.168.1.1</strong>.</p><p>Make sure to reboot afterwords.</p></div></div></article></section></div><footer class=footer><div class=container><p>©
 2012 -
 2025
 Chip Senkbeil<br>Views are my own (<a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a>)</p></div></footer></main></body></html>

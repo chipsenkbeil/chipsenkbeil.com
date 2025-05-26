@@ -1,6 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Magnet on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/magnet/</link><description>Recent content in Magnet on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 30 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/magnet/index.xml" rel="self" type="application/rss+xml"/><item><title>Emacs support Magnet</title><link>https://chipsenkbeil.com/notes/emacs-support-magnet/</link><pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/emacs-support-magnet/</guid><description>&lt;p>If you&amp;rsquo;re using homebrew, you&amp;rsquo;d normally install the GUI Emacs application via&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">brew cask install emacs
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The problem is that this installs the standard GNU Emacs leveraging some basic Cocoa GUI, which results in the &lt;a href="https://magnet.crowdcafe.com/" class="external-link" target="_blank" rel="noopener">Magnet&lt;/a>
-application not being able to snap Emacs to any of its grids. If you look at
-the Magnet dropdown with Emacs focused, all of the options will be greyed out.&lt;/p>
-&lt;p>As described in &lt;a href="https://www.reddit.com/r/emacs/comments/8ez3a9/macos_window_snapping_with_magnetdoesnt_work_on/" class="external-link" target="_blank" rel="noopener">this reddit post&lt;/a>, there is an Emacs distribution designed specifically for Mac OS X that adds &lt;a href="https://bitbucket.org/mituharu/emacs-mac/src/f3402395995bf70e50d6e65f841e44d5f9b4603c/README-mac?at=master&amp;amp;fileviewer=file-view-default" class="external-link" target="_blank" rel="noopener">additional features&lt;/a> through a Carbon port (over Cocoa from default homebrew).&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Magnet on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/magnet/</link><description>Recent content in Magnet on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 30 Apr 2020 00:00:00 -0500</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/magnet/index.xml" rel="self" type="application/rss+xml"/><item><title>Emacs support Magnet</title><link>https://chipsenkbeil.com/notes/emacs-support-magnet/</link><pubDate>Thu, 30 Apr 2020 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/emacs-support-magnet/</guid><description>&lt;p>
+If you&amp;#39;re using homebrew, you&amp;#39;d normally install the GUI Emacs application via&lt;/p>
+&lt;pre class="example">
+brew cask install emacs
+&lt;/pre>
+&lt;p>
+The problem is that this installs the standard GNU Emacs leveraging some basic
+Cocoa GUI, which results in the &lt;a href="https://magnet.crowdcafe.com/">Magnet&lt;/a>
+application not being able to snap Emacs to any of its grids. If you look at the
+Magnet dropdown with Emacs focused, all of the options will be greyed out.&lt;/p>
+&lt;p>
+As described in
+&lt;a href="https://www.reddit.com/r/emacs/comments/8ez3a9/macos_window_snapping_with_magnetdoesnt_work_on/">this
+reddit post&lt;/a>, there is an Emacs distribution designed specifically for Mac OS X
+that adds
+&lt;a href="https://bitbucket.org/mituharu/emacs-mac/src/f3402395995bf70e50d6e65f841e44d5f9b4603c/README-mac?at=master&amp;amp;fileviewer=file-view-default">additional
+features&lt;/a> through a Carbon port (over Cocoa from default homebrew).&lt;/p></description></item></channel></rss>

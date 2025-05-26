@@ -1,214 +1,226 @@
-<!doctype html><html lang=en><head><title>Applying GPG and Yubikey: Part 2 (Setup GPG Keys) · Chip Senkbeil</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="Chip Senkbeil"><meta name=description content="If you haven&rsquo;t read my overview
-post, feel free to check it
-out to get an idea of why and how I started using GPG and Yubikey.
-Today we&rsquo;ll be diving into how to set up a new master GPG key and configure it
+<!doctype html><html lang=en><head><title>Applying GPG and Yubikey: Part 2 (Setup GPG Keys) · Chip Senkbeil</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="Chip Senkbeil"><meta name=description content="
+If you haven't read my
+overview post, feel free to check it out to get an idea of why and how I
+started using GPG and Yubikey.
+
+Today we'll be diving into how to set up a new master GPG key and configure it
 for use with the pass utility. Additionally,
-we&rsquo;ll run through the process to create subkeys with the idea of eventually
+we'll run through the process to create subkeys with the idea of eventually
 storing these on Yubikeys.
 
-  Setting up a primary GPG key
-  
-    
-    Link to heading
-  
+
+Setting up a primary GPG key
+
 
 Although I knew I had an old key floating around from previous use, I wanted to
-start from scratch. From reading a variety of guides and documentation online, I knew that I wanted to create a new 4096-bit long RSA key. The time needed generate such a key on modern hardware is negligible and provides the maximum protection offered today. Luckily, the GPG interface has improved drastically since I first used it, so this process - and all of the processes I&rsquo;ll discuss later - has been relatively painless."><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Applying GPG and Yubikey: Part 2 (Setup GPG Keys)"><meta name=twitter:description content="If you haven’t read my overview post, feel free to check it out to get an idea of why and how I started using GPG and Yubikey.
-Today we’ll be diving into how to set up a new master GPG key and configure it for use with the pass utility. Additionally, we’ll run through the process to create subkeys with the idea of eventually storing these on Yubikeys.
-Setting up a primary GPG key Link to heading Although I knew I had an old key floating around from previous use, I wanted to start from scratch. From reading a variety of guides and documentation online, I knew that I wanted to create a new 4096-bit long RSA key. The time needed generate such a key on modern hardware is negligible and provides the maximum protection offered today. Luckily, the GPG interface has improved drastically since I first used it, so this process - and all of the processes I’ll discuss later - has been relatively painless."><meta property="og:url" content="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/"><meta property="og:site_name" content="Chip Senkbeil"><meta property="og:title" content="Applying GPG and Yubikey: Part 2 (Setup GPG Keys)"><meta property="og:description" content="If you haven’t read my overview post, feel free to check it out to get an idea of why and how I started using GPG and Yubikey.
-Today we’ll be diving into how to set up a new master GPG key and configure it for use with the pass utility. Additionally, we’ll run through the process to create subkeys with the idea of eventually storing these on Yubikeys.
-Setting up a primary GPG key Link to heading Although I knew I had an old key floating around from previous use, I wanted to start from scratch. From reading a variety of guides and documentation online, I knew that I wanted to create a new 4096-bit long RSA key. The time needed generate such a key on modern hardware is negligible and provides the maximum protection offered today. Luckily, the GPG interface has improved drastically since I first used it, so this process - and all of the processes I’ll discuss later - has been relatively painless."><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-08-16T00:00:00+00:00"><meta property="article:modified_time" content="2019-12-15T00:00:00+00:00"><meta property="article:tag" content="Gpg"><meta property="article:tag" content="Yubikey"><link rel=canonical href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/><link rel=preload href=https://chipsenkbeil.com/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.2cd2ba040eaadea1390f8199e24bd994fabd69b5a7034b43fc2440c58fd09808.css integrity="sha256-LNK6BA6q3qE5D4GZ4kvZlPq9abWnA0tD/CRAxY/QmAg=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=https://chipsenkbeil.com/images/favicon.svg sizes=any><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=manifest href=https://chipsenkbeil.com/site.webmanifest><link rel=mask-icon href=https://chipsenkbeil.com/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil
+start from scratch. From reading a variety of guides and documentation online, I
+knew that I wanted to create a new 4096-bit long RSA key. The time needed
+generate such a key on modern hardware is negligible and provides the maximum
+protection offered today. Luckily, the GPG interface has improved drastically
+since I first used it, so this process - and all of the processes I'll discuss
+later - has been relatively painless."><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Applying GPG and Yubikey: Part 2 (Setup GPG Keys)"><meta name=twitter:description content="If you haven't read my overview post, feel free to check it out to get an idea of why and how I started using GPG and Yubikey.
+Today we'll be diving into how to set up a new master GPG key and configure it for use with the pass utility. Additionally, we'll run through the process to create subkeys with the idea of eventually storing these on Yubikeys.
+Setting up a primary GPG key Although I knew I had an old key floating around from previous use, I wanted to start from scratch. From reading a variety of guides and documentation online, I knew that I wanted to create a new 4096-bit long RSA key. The time needed generate such a key on modern hardware is negligible and provides the maximum protection offered today. Luckily, the GPG interface has improved drastically since I first used it, so this process - and all of the processes I'll discuss later - has been relatively painless."><meta property="og:url" content="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/"><meta property="og:site_name" content="Chip Senkbeil"><meta property="og:title" content="Applying GPG and Yubikey: Part 2 (Setup GPG Keys)"><meta property="og:description" content="If you haven't read my overview post, feel free to check it out to get an idea of why and how I started using GPG and Yubikey.
+Today we'll be diving into how to set up a new master GPG key and configure it for use with the pass utility. Additionally, we'll run through the process to create subkeys with the idea of eventually storing these on Yubikeys.
+Setting up a primary GPG key Although I knew I had an old key floating around from previous use, I wanted to start from scratch. From reading a variety of guides and documentation online, I knew that I wanted to create a new 4096-bit long RSA key. The time needed generate such a key on modern hardware is negligible and provides the maximum protection offered today. Luckily, the GPG interface has improved drastically since I first used it, so this process - and all of the processes I'll discuss later - has been relatively painless."><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-08-16T00:00:00-05:00"><meta property="article:modified_time" content="2019-12-15T00:00:00-06:00"><meta property="article:tag" content="Gpg"><meta property="article:tag" content="Yubikey"><link rel=canonical href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/><link rel=preload href=https://chipsenkbeil.com/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.2cd2ba040eaadea1390f8199e24bd994fabd69b5a7034b43fc2440c58fd09808.css integrity="sha256-LNK6BA6q3qE5D4GZ4kvZlPq9abWnA0tD/CRAxY/QmAg=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=https://chipsenkbeil.com/images/favicon.svg sizes=any><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=manifest href=https://chipsenkbeil.com/site.webmanifest><link rel=mask-icon href=https://chipsenkbeil.com/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil
 </a><input type=checkbox id=menu-toggle>
 <label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/>Applying GPG and Yubikey: Part 2 (Setup GPG Keys)</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa-solid fa-calendar" aria-hidden=true></i>
-<time datetime=2019-08-16T00:00:00Z>August 16, 2019
+<time datetime=2019-08-16T00:00:00-05:00>August 16, 2019
 </time></span><span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
-9-minute read</span></div><div class=categories><i class="fa-solid fa-folder" aria-hidden=true></i>
+8-minute read</span></div><div class=categories><i class="fa-solid fa-folder" aria-hidden=true></i>
 <a href=https://chipsenkbeil.com/categories/applying/>Applying</a></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
 <span class=tag><a href=https://chipsenkbeil.com/tags/gpg/>Gpg</a>
 </span><span class=separator>•</span>
-<span class=tag><a href=https://chipsenkbeil.com/tags/yubikey/>Yubikey</a></span></div></div></header><div class=post-content><p>If you haven&rsquo;t read <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview>my overview
-post</a>, feel free to check it
-out to get an idea of why and how I started using GPG and Yubikey.</p><p>Today we&rsquo;ll be diving into how to set up a new master GPG key and configure it
-for use with the <a href=https://passwordstore.org/ class=external-link target=_blank rel=noopener>pass</a> utility. Additionally,
-we&rsquo;ll run through the process to create subkeys with the idea of eventually
-storing these on Yubikeys.</p><h2 id=setting-up-a-primary-gpg-key>Setting up a primary GPG key
-<a class=heading-link href=#setting-up-a-primary-gpg-key><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h2><p>Although I knew I had an old key floating around from previous use, I wanted to
-start from scratch. From reading a variety of guides and documentation online, I knew that I wanted to create a new 4096-bit long RSA key. The time needed generate such a key on modern hardware is negligible and provides the maximum protection offered today. Luckily, the GPG interface has improved drastically since I first used it, so this process - and all of the processes I&rsquo;ll discuss later - has been relatively painless.</p><h3 id=step-1-generate-a-full-key>Step 1: Generate a Full Key
-<a class=heading-link href=#step-1-generate-a-full-key><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>For the master key, I went with RSA and setting my own capabilities as I need
+<span class=tag><a href=https://chipsenkbeil.com/tags/yubikey/>Yubikey</a></span></div></div></header><div class=post-content><p>If you haven't read <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview>my
+overview post</a>, feel free to check it out to get an idea of why and how I
+started using GPG and Yubikey.</p><p>Today we'll be diving into how to set up a new master GPG key and configure it
+for use with the <a href=https://passwordstore.org/>pass</a> utility. Additionally,
+we'll run through the process to create subkeys with the idea of eventually
+storing these on Yubikeys.</p><div id=outline-container-headline-1 class=outline-3><h3 id=headline-1>Setting up a primary GPG key</h3><div id=outline-text-headline-1 class=outline-text-3><p>Although I knew I had an old key floating around from previous use, I wanted to
+start from scratch. From reading a variety of guides and documentation online, I
+knew that I wanted to create a new 4096-bit long RSA key. The time needed
+generate such a key on modern hardware is negligible and provides the maximum
+protection offered today. Luckily, the GPG interface has improved drastically
+since I first used it, so this process - and all of the processes I'll discuss
+later - has been relatively painless.</p><div id=outline-container-headline-2 class=outline-4><h4 id=headline-2>Step 1: Generate a Full Key</h4><div id=outline-text-headline-2 class=outline-text-4><p>For the master key, I went with RSA and setting my own capabilities as I need
 more beyond signing. RSA seems to be one of the more common recommendations
-(over DSA) these days.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>gpg --generate-full-key
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Please select what kind of key you want:
-</span></span><span class=line><span class=cl>   (1) RSA and RSA (default)
-</span></span><span class=line><span class=cl>   (2) DSA and Elgamal
-</span></span><span class=line><span class=cl>   (3) DSA (sign only)
-</span></span><span class=line><span class=cl>   (4) RSA (sign only)
-</span></span><span class=line><span class=cl>   (7) DSA (set your own capabilities)
-</span></span><span class=line><span class=cl>   (8) RSA (set your own capabilities)
-</span></span><span class=line><span class=cl>   (9) ECC and ECC
-</span></span><span class=line><span class=cl>  (10) ECC (sign only)
-</span></span><span class=line><span class=cl>  (11) ECC (set your own capabilities)
-</span></span><span class=line><span class=cl>  (13) Existing key
-</span></span><span class=line><span class=cl>Your selection? 8
-</span></span></code></pre></div><h3 id=step-2-assign-capabilities>Step 2: Assign Capabilities
-<a class=heading-link href=#step-2-assign-capabilities><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>I left the capabilities as provided with the intention of creating subkeys
-later that represent the actual capabilities. <strong>Certify</strong> is a unique
-capability to your master key that enables it to approve (sign?) other keys
-that you want to trust. It can also create subkeys which we&rsquo;ll talk about in a
-later post.</p><p>Encryption is the main capability we need for password (and other) encryption.
-Sign is handy to add ownership to emails and commits (again, discussed in later posts). Authentication enables use of a key for entry into servers via SSH and other means.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Possible actions for a RSA key: Sign Certify Encrypt Authenticate
-</span></span><span class=line><span class=cl>Current allowed actions: Sign Certify Encrypt
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>   (S) Toggle the sign capability
-</span></span><span class=line><span class=cl>   (E) Toggle the encrypt capability
-</span></span><span class=line><span class=cl>   (A) Toggle the authenticate capability
-</span></span><span class=line><span class=cl>   (Q) Finished
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Your selection? q
-</span></span></code></pre></div><h3 id=step-3-set-key-bit-length>Step 3: Set key bit length
-<a class=heading-link href=#step-3-set-key-bit-length><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>The more bits you have in your key, the harder it is to crack. These days, it
+(over DSA) these days.</p><pre class=example>
+gpg --generate-full-key
+</pre><pre class=example>
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (7) DSA (set your own capabilities)
+   (8) RSA (set your own capabilities)
+   (9) ECC and ECC
+  (10) ECC (sign only)
+  (11) ECC (set your own capabilities)
+  (13) Existing key
+Your selection? 8
+</pre></div></div><div id=outline-container-headline-3 class=outline-4><h4 id=headline-3>Step 2: Assign Capabilities</h4><div id=outline-text-headline-3 class=outline-text-4><p>I left the capabilities as provided with the intention of creating subkeys later
+that represent the actual capabilities. <strong>Certify</strong> is a unique capability to your
+master key that enables it to approve (sign?) other keys that you want to trust.
+It can also create subkeys which we'll talk about in a later post.</p><p>Encryption is the main capability we need for password (and other) encryption.
+Sign is handy to add ownership to emails and commits (again, discussed in later
+posts). Authentication enables use of a key for entry into servers via SSH and
+other means.</p><pre class=example>
+Possible actions for a RSA key: Sign Certify Encrypt Authenticate
+Current allowed actions: Sign Certify Encrypt
+
+   (S) Toggle the sign capability
+   (E) Toggle the encrypt capability
+   (A) Toggle the authenticate capability
+   (Q) Finished
+
+Your selection? q
+</pre></div></div><div id=outline-container-headline-4 class=outline-4><h4 id=headline-4>Step 3: Set key bit length</h4><div id=outline-text-headline-4 class=outline-text-4><p>The more bits you have in your key, the harder it is to crack. These days, it
 seems that a minimum of 2048 bits is recommended, but many folks I know choose
 to use the maximum supported length of 4096 bits. The needed computation and
-time required to generate the key is negligible with modern hardware; so, I
-went with 4096 bits.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>RSA keys may be between 1024 and 4096 bits long.
-</span></span><span class=line><span class=cl>What keysize do you want? (2048) 4096
-</span></span><span class=line><span class=cl>Requested keysize is 4096 bits
-</span></span></code></pre></div><h3 id=step-4-specify-key-expiration>Step 4: Specify key expiration
-<a class=heading-link href=#step-4-specify-key-expiration><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>For my primary key, I wanted one that would not expire. It will be serving as a
-form of identification for me going forward. Separately, when we create
-subkeys, many of those will be set to expire. I&rsquo;ll be storing my primary key
-offline and am not concerned about having it expire.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Please specify how long the key should be valid.
-</span></span><span class=line><span class=cl>         0 = key does not expire
-</span></span><span class=line><span class=cl>      &lt;n&gt;  = key expires in n days
-</span></span><span class=line><span class=cl>      &lt;n&gt;w = key expires in n weeks
-</span></span><span class=line><span class=cl>      &lt;n&gt;m = key expires in n months
-</span></span><span class=line><span class=cl>      &lt;n&gt;y = key expires in n years
-</span></span><span class=line><span class=cl>Key is valid for? (0)
-</span></span><span class=line><span class=cl>Key does not expire at all
-</span></span><span class=line><span class=cl>Is this correct? (y/N) y
-</span></span></code></pre></div><h3 id=step-5-assign-an-identity-to-your-key>Step 5: Assign an identity to your key
-<a class=heading-link href=#step-5-assign-an-identity-to-your-key><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>You can assign one or more identities to a key and I provided a unique email
-address of mine. As you&rsquo;ll see later, I&rsquo;ll proceed to add many other identities
-including old school email addresses, gmail accounts, and more.</p><p>I&rsquo;ve used identification myself for two purposes: signing my commits - sites
+time required to generate the key is negligible with modern hardware; so, I went
+with 4096 bits.</p><pre class=example>
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 4096
+Requested keysize is 4096 bits
+</pre></div></div><div id=outline-container-headline-5 class=outline-4><h4 id=headline-5>Step 4: Specify key expiration</h4><div id=outline-text-headline-5 class=outline-text-4><p>For my primary key, I wanted one that would not expire. It will be serving as a
+form of identification for me going forward. Separately, when we create subkeys,
+many of those will be set to expire. I'll be storing my primary key offline and
+am not concerned about having it expire.</p><pre class=example>
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &lt;n&gt;  = key expires in n days
+      &lt;n&gt;w = key expires in n weeks
+      &lt;n&gt;m = key expires in n months
+      &lt;n&gt;y = key expires in n years
+Key is valid for? (0)
+Key does not expire at all
+Is this correct? (y/N) y
+</pre></div></div><div id=outline-container-headline-6 class=outline-4><h4 id=headline-6>Step 5: Assign an identity to your key</h4><div id=outline-text-headline-6 class=outline-text-4><p>You can assign one or more identities to a key and I provided a unique email
+address of mine. As you'll see later, I'll proceed to add many other identities
+including old school email addresses, gmail accounts, and more.</p><p>I've used identification myself for two purposes: signing my commits - sites
 like Github require your key to have an identity whose email address matches
 that of a verified email on the site - and use with key lookup for encryption
-recipients (versus using a specific key&rsquo;s long id).</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>GnuPG</span> <span class=n>needs</span> <span class=n>to</span> <span class=n>construct</span> <span class=n>a</span> <span class=n>user</span> <span class=n>ID</span> <span class=n>to</span> <span class=n>identify</span> <span class=n>your</span> <span class=n>key</span><span class=o>.</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>Real</span> <span class=n>name</span><span class=p>:</span> <span class=n>Chip</span> <span class=n>Senkbeil</span>
-</span></span><span class=line><span class=cl><span class=n>Email</span> <span class=n>address</span><span class=p>:</span> <span class=n>chip</span><span class=err>@</span><span class=n>senkbeil</span><span class=o>.</span><span class=n>org</span>
-</span></span><span class=line><span class=cl><span class=n>Comment</span><span class=p>:</span> <span class=n>Personal</span> <span class=p>[</span><span class=n>Senkbeil</span><span class=p>]</span>
-</span></span><span class=line><span class=cl><span class=n>You</span> <span class=n>selected</span> <span class=n>this</span> <span class=n>USER</span><span class=o>-</span><span class=n>ID</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>    <span class=s2>&#34;Chip Senkbeil (Personal [Senkbeil]) &lt;chip@senkbeil.org&gt;&#34;</span>
-</span></span></code></pre></div><h3 id=step-6-verify-key-was-created>Step 6: Verify key was created
-<a class=heading-link href=#step-6-verify-key-was-created><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><blockquote><p>I have a couple of configuration changes in my <code>gpg.conf</code> such as <code>keyid-format 0xlong</code> which may alter the output below from what you would see.</p></blockquote><p>Once I had finished creating my key, I could check out some information about
-it via <code>gpg -k</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>pub   rsa4096/0x6CA6A08DBA640677 2019-03-01 [SC]
-</span></span><span class=line><span class=cl>      2C8160E6AF1166154CDAED266CA6A08DBA640677
-</span></span><span class=line><span class=cl>uid                   [ultimate] Chip Senkbeil (Personal [Senkbeil]) &lt;chip@senkbeil.org&gt;
-</span></span><span class=line><span class=cl>sub   rsa4096/0x588B4B090695884C 2019-03-01 [E]
-</span></span></code></pre></div><p>That lists the public keys for my newly created primary key <strong>and</strong> subkey.
-Notice how the sign and certify permissions are associated with the primary key
-(marked pub) and encryption is placed in a subkey (marked sub).</p><p>You can also view your private keys in a similar manner via <code>gpg -K</code>, which can
+recipients (versus using a specific key's long id).</p><pre class=example>
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: Chip Senkbeil
+Email address: chip@senkbeil.org
+Comment: Personal [Senkbeil]
+You selected this USER-ID:
+    &#34;Chip Senkbeil (Personal [Senkbeil]) &lt;chip@senkbeil.org&gt;&#34;
+</pre></div></div><div id=outline-container-headline-7 class=outline-4><h4 id=headline-7>Step 6: Verify key was created</h4><div id=outline-text-headline-7 class=outline-text-4><blockquote><p>I have a couple of configuration changes in my <code class=verbatim>gpg.conf</code> such as
+<code class=verbatim>keyid-format 0xlong</code> which may alter the output below from what you would see.</p></blockquote><p>Once I had finished creating my key, I could check out some information about it
+via <code class=verbatim>gpg -k</code>:</p><pre class=example>
+pub   rsa4096/0x6CA6A08DBA640677 2019-03-01 [SC]
+      2C8160E6AF1166154CDAED266CA6A08DBA640677
+uid                   [ultimate] Chip Senkbeil (Personal [Senkbeil]) &lt;chip@senkbeil.org&gt;
+sub   rsa4096/0x588B4B090695884C 2019-03-01 [E]
+</pre><p>That lists the public keys for my newly created primary key <strong>and</strong> subkey. Notice
+how the sign and certify permissions are associated with the primary key (marked
+pub) and encryption is placed in a subkey (marked sub).</p><p>You can also view your private keys in a similar manner via <code class=verbatim>gpg -K</code>, which can
 also show information about where a key is located as well as whether or not it
-is available, which we&rsquo;ll get into when we set up our subkeys for use with
-Yubikey.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>/home/chipsenkbeil/.gnupg/pubring.kbx
-</span></span><span class=line><span class=cl>-------------------------------------
-</span></span><span class=line><span class=cl>sec   rsa4096/0x6CA6A08DBA640677 2019-03-01 [SC]
-</span></span><span class=line><span class=cl>      2C8160E6AF1166154CDAED266CA6A08DBA640677
-</span></span><span class=line><span class=cl>uid                   [ultimate] Chip Senkbeil (Personal [Senkbeil]) &lt;chip@senkbeil.org&gt;
-</span></span><span class=line><span class=cl>ssb   rsa4096/0x588B4B090695884C 2019-03-01 [E]
-</span></span></code></pre></div><h3 id=optional-step-7-create-additional-subkeys>(Optional) Step 7: Create additional subkeys
-<a class=heading-link href=#optional-step-7-create-additional-subkeys><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><blockquote><p>Subkeys are incredibly handy for separating responsibilities and limiting
-the impact to your web of trust for your identity if a key is compromised
-or stolen. This is an optional step to create new subkeys for signing and
-authentication, which we&rsquo;ll explore further in later posts.</p></blockquote><p>If you look at the output of <code>gpg -k</code> after creating your first primary key,
-you should notice two different keys, primary labeled with <em>pub</em> and each
-subkey with <em>sub</em>. Each key will have its capabilities listed next to its ID,
-one capital letter per capability. In my case, I had the primary key produced
-with Sign (S) and Certify (C) capabilities and a <em>subkey</em> with Encrypt (E)
+is available, which we'll get into when we set up our subkeys for use with
+Yubikey.</p><pre class=example>
+/home/chipsenkbeil/.gnupg/pubring.kbx
+-------------------------------------
+sec   rsa4096/0x6CA6A08DBA640677 2019-03-01 [SC]
+      2C8160E6AF1166154CDAED266CA6A08DBA640677
+uid                   [ultimate] Chip Senkbeil (Personal [Senkbeil]) &lt;chip@senkbeil.org&gt;
+ssb   rsa4096/0x588B4B090695884C 2019-03-01 [E]
+</pre></div></div><div id=outline-container-headline-8 class=outline-4><h4 id=headline-8>(Optional) Step 7: Create additional subkeys</h4><div id=outline-text-headline-8 class=outline-text-4><blockquote><p>Subkeys are incredibly handy for separating responsibilities and limiting the
+impact to your web of trust for your identity if a key is compromised or stolen.
+This is an optional step to create new subkeys for signing and authentication,
+which we'll explore further in later posts.</p></blockquote><p>If you look at the output of <code class=verbatim>gpg -k</code> after creating your first primary key, you
+should notice two different keys, primary labeled with <em>pub</em> and each subkey
+with <em>sub</em>. Each key will have its capabilities listed next to its ID, one
+capital letter per capability. In my case, I had the primary key produced with
+Sign (S) and Certify (C) capabilities and a <em>subkey</em> with Encrypt (E)
 capability.</p><p>I would prefer to have one subkey per responsibility so that I can store my
 primary key offline and only use it when producing new subkeys, revoking
 subkeys, adding new UIDs, or any other key-modification responsibility.
 Originally, I tried having a single subkey with encrypt, sign, and authenticate
 capabilities; however, this is a discouraged practice and caused issues later.
-Instead, we&rsquo;ll be creating an individual subkey per capability.</p><p>Given that we already have a subkey for the encrypt capability, we only need to
+Instead, we'll be creating an individual subkey per capability.</p><p>Given that we already have a subkey for the encrypt capability, we only need to
 create two subkeys: one for sign and one for authenticate. To start, we need to
-open an interactive menu via <code>gpg --edit-key 6CA6A08DBA640677</code>. You may need to
-include <strong>&ndash;expert</strong> to create/modify keys.</p><blockquote><p>Alternatively, I could have used an UID such as <em><a href=mailto:chip@senkbeil.org>chip@senkbeil.org</a></em> instead of the primary key ID. There are a variety of ways to specify a user id (UID), which are described on the <a href=https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html class=external-link target=_blank rel=noopener>official documentation page</a>.</p></blockquote><h4 id=optional-step-71-create-sign-subkey>(Optional) Step 7.1: Create sign subkey
-<a class=heading-link href=#optional-step-71-create-sign-subkey><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h4><p>We start by being in an interactive CLI where we want to run <code>addkey</code> to begin
-the process of adding a new subkey. This <strong>requires</strong> you to have your primary
-key available, it cannot be removed or stubbed.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>gpg&gt; addkey
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl># You may need to enter your password for the primary key here
-</span></span></code></pre></div><p>Like when creating the primary key, we want to specify capabilities. For the
-signing key, this is fairly straightforward using <strong>RSA (sign only)</strong>.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Please select what kind of key you want:
-</span></span><span class=line><span class=cl>   (3) DSA (sign only)
-</span></span><span class=line><span class=cl>   (4) RSA (sign only)
-</span></span><span class=line><span class=cl>   (5) Elgamal (encrypt only)
-</span></span><span class=line><span class=cl>   (6) RSA (encrypt only)
-</span></span><span class=line><span class=cl>   (7) DSA (set your own capabilities)
-</span></span><span class=line><span class=cl>   (8) RSA (set your own capabilities)
-</span></span><span class=line><span class=cl>Your selection? 4
-</span></span></code></pre></div><p>Similarly, we need to specify a bit length. I&rsquo;ve been using the max of 4096 as
+open an interactive menu via <code class=verbatim>gpg --edit-key 6CA6A08DBA640677</code>. You may need to
+include <strong>–expert</strong> to create/modify keys.</p><blockquote><p>Alternatively, I could have used an UID such as <em>chip@senkbeil.org</em> instead of
+the primary key ID. There are a variety of ways to specify a user id (UID),
+which are described on the
+<a href=https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html>official
+documentation page</a>.</p></blockquote><div id=outline-container-headline-9 class=outline-5><h5 id=headline-9>(Optional) Step 7.1: Create sign subkey</h5><div id=outline-text-headline-9 class=outline-text-5><p>We start by being in an interactive CLI where we want to run <code class=verbatim>addkey</code> to begin
+the process of adding a new subkey. This <strong>requires</strong> you to have your primary key
+available, it cannot be removed or stubbed.</p><pre class=example>
+gpg&gt; addkey
+
+# You may need to enter your password for the primary key here
+</pre><p>Like when creating the primary key, we want to specify capabilities. For the
+signing key, this is fairly straightforward using <strong>RSA (sign only)</strong>.</p><pre class=example>
+Please select what kind of key you want:
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (5) Elgamal (encrypt only)
+   (6) RSA (encrypt only)
+   (7) DSA (set your own capabilities)
+   (8) RSA (set your own capabilities)
+Your selection? 4
+</pre><p>Similarly, we need to specify a bit length. I've been using the max of 4096 as
 my Yubikey supports that length key. If you plan to combine your GPG keys with
-your Yubikey(s), make sure to check the maximum length it supports!</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>RSA keys may be between 1024 and 4096 bits long.
-</span></span><span class=line><span class=cl>What keysize do you want? (2048) 4096
-</span></span></code></pre></div><p>Lastly, we need to specify an expiration for a key. Unlike encryption, I want
-to cause my sign (and authenticate) keys to expire after five years.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Please specify how long the key should be valid.
-</span></span><span class=line><span class=cl>         0 = key does not expire
-</span></span><span class=line><span class=cl>      &lt;n&gt;  = key expires in n days
-</span></span><span class=line><span class=cl>      &lt;n&gt;w = key expires in n weeks
-</span></span><span class=line><span class=cl>      &lt;n&gt;m = key expires in n months
-</span></span><span class=line><span class=cl>      &lt;n&gt;y = key expires in n years
-</span></span><span class=line><span class=cl>Key is valid for? (0) 5y
-</span></span></code></pre></div><h4 id=optional-step-72-create-authenticate-subkey>(Optional) Step 7.2: Create authenticate subkey
-<a class=heading-link href=#optional-step-72-create-authenticate-subkey><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h4><p>We go through a similar flow for the authenticate key, except we need to
-specify our own capabilities via <strong>RSA (set your own capabilities)</strong>.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>gpg&gt; addkey
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl># You may need to enter your password for the primary key here
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Please select what kind of key you want:
-</span></span><span class=line><span class=cl>   (3) DSA (sign only)
-</span></span><span class=line><span class=cl>   (4) RSA (sign only)
-</span></span><span class=line><span class=cl>   (5) Elgamal (encrypt only)
-</span></span><span class=line><span class=cl>   (6) RSA (encrypt only)
-</span></span><span class=line><span class=cl>   (7) DSA (set your own capabilities)
-</span></span><span class=line><span class=cl>   (8) RSA (set your own capabilities)
-</span></span><span class=line><span class=cl>Your selection? 8
-</span></span></code></pre></div><p>By default, sign and encrypt capabilities will be selected. I toggled both of
-those off first and then added authenticate.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Possible actions for a RSA key: Sign Encrypt Authenticate
-</span></span><span class=line><span class=cl>Current allowed actions: Sign Encrypt
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>   (S) Toggle the sign capability
-</span></span><span class=line><span class=cl>   (E) Toggle the encrypt capability
-</span></span><span class=line><span class=cl>   (A) Toggle the authenticate capability
-</span></span><span class=line><span class=cl>   (Q) Finished
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Your selection? S
-</span></span><span class=line><span class=cl>Your selection? E
-</span></span><span class=line><span class=cl>Your selection? A
-</span></span></code></pre></div><p>Lastly, we want to specify our bit length and expiration period. I followed the
-same configuration as with the sign subkey.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>RSA keys may be between 1024 and 4096 bits long.
-</span></span><span class=line><span class=cl>What keysize do you want? (2048) 4096
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Please specify how long the key should be valid.
-</span></span><span class=line><span class=cl>         0 = key does not expire
-</span></span><span class=line><span class=cl>      &lt;n&gt;  = key expires in n days
-</span></span><span class=line><span class=cl>      &lt;n&gt;w = key expires in n weeks
-</span></span><span class=line><span class=cl>      &lt;n&gt;m = key expires in n months
-</span></span><span class=line><span class=cl>      &lt;n&gt;y = key expires in n years
-</span></span><span class=line><span class=cl>Key is valid for? (0) 5y
-</span></span></code></pre></div><h2 id=whats-next>What&rsquo;s next?
-<a class=heading-link href=#whats-next><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h2><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption>the next post</a>, I&rsquo;ll be explaining how I set up <a href=https://passwordstore.org/ class=external-link target=_blank rel=noopener>pass</a> and <a href=https://neomutt.org/ class=external-link target=_blank rel=noopener>neomutt</a> for encrypting passwords and email respectively.</p></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©
+your Yubikey(s), make sure to check the maximum length it supports!</p><pre class=example>
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 4096
+</pre><p>Lastly, we need to specify an expiration for a key. Unlike encryption, I want to
+cause my sign (and authenticate) keys to expire after five years.</p><pre class=example>
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &lt;n&gt;  = key expires in n days
+      &lt;n&gt;w = key expires in n weeks
+      &lt;n&gt;m = key expires in n months
+      &lt;n&gt;y = key expires in n years
+Key is valid for? (0) 5y
+</pre></div></div><div id=outline-container-headline-10 class=outline-5><h5 id=headline-10>(Optional) Step 7.2: Create authenticate subkey</h5><div id=outline-text-headline-10 class=outline-text-5><p>We go through a similar flow for the authenticate key, except we need to specify
+our own capabilities via <strong>RSA (set your own capabilities)</strong>.</p><pre class=example>
+gpg&gt; addkey
+
+# You may need to enter your password for the primary key here
+
+Please select what kind of key you want:
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (5) Elgamal (encrypt only)
+   (6) RSA (encrypt only)
+   (7) DSA (set your own capabilities)
+   (8) RSA (set your own capabilities)
+Your selection? 8
+</pre><p>By default, sign and encrypt capabilities will be selected. I toggled both of
+those off first and then added authenticate.</p><pre class=example>
+Possible actions for a RSA key: Sign Encrypt Authenticate
+Current allowed actions: Sign Encrypt
+
+   (S) Toggle the sign capability
+   (E) Toggle the encrypt capability
+   (A) Toggle the authenticate capability
+   (Q) Finished
+
+Your selection? S
+Your selection? E
+Your selection? A
+</pre><p>Lastly, we want to specify our bit length and expiration period. I followed the
+same configuration as with the sign subkey.</p><pre class=example>
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 4096
+
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &lt;n&gt;  = key expires in n days
+      &lt;n&gt;w = key expires in n weeks
+      &lt;n&gt;m = key expires in n months
+      &lt;n&gt;y = key expires in n years
+Key is valid for? (0) 5y
+</pre></div></div></div></div></div></div><div id=outline-container-headline-11 class=outline-3><h3 id=headline-11>What's next?</h3><div id=outline-text-headline-11 class=outline-text-3><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption>the next post</a>, I'll be
+explaining how I set up <a href=https://passwordstore.org/>pass</a> and
+<a href=https://neomutt.org/>neomutt</a> for encrypting passwords and email
+respectively.</p></div></div></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©
 2012 -
 2025
 Chip Senkbeil<br>Views are my own (<a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a>)</p></div></footer></main></body></html>

@@ -1,28 +1,41 @@
-<!doctype html><html lang=en><head><title>Toggle Dvorak · Chip Senkbeil</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="Chip Senkbeil"><meta name=description content="In my ArchLinux setup with XMonad, I&rsquo;ve found myself wanting to swap
-between QWERTY and Dvorak keyboard layouts when practicing
-Dvorak. While my Kinesis Advantage keyboard allows me to swap
-layouts at the hardware level (I&rsquo;m assuming by simulating Dvorak
-on top of Qwerty), I also found a keyboard-agnostic way to do this.
+<!doctype html><html lang=en><head><title>Toggle Dvorak · Chip Senkbeil</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="Chip Senkbeil"><meta name=description content='
+In my ArchLinux setup with XMonad, I&#39;ve found myself wanting to swap between
+QWERTY and Dvorak keyboard layouts when practicing Dvorak. While my
+Kinesis Advantage keyboard allows me to swap layouts at the hardware level
+(I&#39;m assuming by simulating Dvorak on top of Qwerty), I also found a
+keyboard-agnostic way to do this.
 
-  Configuring Keypress Toggle
-  
-    
-    Link to heading
-  
+
+Configuring Keypress Toggle
+
 
 For X11, create the following configuration at
-/etc/X11/xorg.conf.d/00-keyboard.conf:"><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Toggle Dvorak"><meta name=twitter:description content="In my ArchLinux setup with XMonad, I’ve found myself wanting to swap between QWERTY and Dvorak keyboard layouts when practicing Dvorak. While my Kinesis Advantage keyboard allows me to swap layouts at the hardware level (I’m assuming by simulating Dvorak on top of Qwerty), I also found a keyboard-agnostic way to do this.
-Configuring Keypress Toggle Link to heading For X11, create the following configuration at /etc/X11/xorg.conf.d/00-keyboard.conf:"><meta property="og:url" content="https://chipsenkbeil.com/notes/toggle-dvorak/"><meta property="og:site_name" content="Chip Senkbeil"><meta property="og:title" content="Toggle Dvorak"><meta property="og:description" content="In my ArchLinux setup with XMonad, I’ve found myself wanting to swap between QWERTY and Dvorak keyboard layouts when practicing Dvorak. While my Kinesis Advantage keyboard allows me to swap layouts at the hardware level (I’m assuming by simulating Dvorak on top of Qwerty), I also found a keyboard-agnostic way to do this.
-Configuring Keypress Toggle Link to heading For X11, create the following configuration at /etc/X11/xorg.conf.d/00-keyboard.conf:"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="notes"><meta property="article:published_time" content="2016-08-12T09:36:18-05:00"><meta property="article:modified_time" content="2016-08-12T09:36:18-05:00"><meta property="article:tag" content="Utility"><link rel=canonical href=https://chipsenkbeil.com/notes/toggle-dvorak/><link rel=preload href=https://chipsenkbeil.com/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.2cd2ba040eaadea1390f8199e24bd994fabd69b5a7034b43fc2440c58fd09808.css integrity="sha256-LNK6BA6q3qE5D4GZ4kvZlPq9abWnA0tD/CRAxY/QmAg=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=https://chipsenkbeil.com/images/favicon.svg sizes=any><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=manifest href=https://chipsenkbeil.com/site.webmanifest><link rel=mask-icon href=https://chipsenkbeil.com/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil
+/etc/X11/xorg.conf.d/00-keyboard.conf:
+
+# Read and parsed by systemd-localed. It&#39;s probably wise not to edit this file
+# manually too freely.
+Section "InputClass"
+    Identifier "system-keyboard"
+    MatchIsKeyboard "on"
+    Option "XkbLayout" "us,us"
+    Option "XkbModel" ","
+    Option "XkbVariant" ",dvorak"
+    Option "XkbOptions" "grp:toggle"
+EndSection
+
+
+This enables toggling Dvorak via Right-Alt.'><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Toggle Dvorak"><meta name=twitter:description content='In my ArchLinux setup with XMonad, I&#39;ve found myself wanting to swap between QWERTY and Dvorak keyboard layouts when practicing Dvorak. While my Kinesis Advantage keyboard allows me to swap layouts at the hardware level (I&#39;m assuming by simulating Dvorak on top of Qwerty), I also found a keyboard-agnostic way to do this.
+Configuring Keypress Toggle For X11, create the following configuration at /etc/X11/xorg.conf.d/00-keyboard.conf:
+# Read and parsed by systemd-localed. It&#39;s probably wise not to edit this file # manually too freely. Section "InputClass" Identifier "system-keyboard" MatchIsKeyboard "on" Option "XkbLayout" "us,us" Option "XkbModel" "," Option "XkbVariant" ",dvorak" Option "XkbOptions" "grp:toggle" EndSection This enables toggling Dvorak via Right-Alt.'><meta property="og:url" content="https://chipsenkbeil.com/notes/toggle-dvorak/"><meta property="og:site_name" content="Chip Senkbeil"><meta property="og:title" content="Toggle Dvorak"><meta property="og:description" content='In my ArchLinux setup with XMonad, I&#39;ve found myself wanting to swap between QWERTY and Dvorak keyboard layouts when practicing Dvorak. While my Kinesis Advantage keyboard allows me to swap layouts at the hardware level (I&#39;m assuming by simulating Dvorak on top of Qwerty), I also found a keyboard-agnostic way to do this.
+Configuring Keypress Toggle For X11, create the following configuration at /etc/X11/xorg.conf.d/00-keyboard.conf:
+# Read and parsed by systemd-localed. It&#39;s probably wise not to edit this file # manually too freely. Section "InputClass" Identifier "system-keyboard" MatchIsKeyboard "on" Option "XkbLayout" "us,us" Option "XkbModel" "," Option "XkbVariant" ",dvorak" Option "XkbOptions" "grp:toggle" EndSection This enables toggling Dvorak via Right-Alt.'><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="notes"><meta property="article:published_time" content="2016-08-12T09:36:18-05:00"><meta property="article:modified_time" content="2016-08-12T09:36:18-05:00"><meta property="article:tag" content="Utility"><link rel=canonical href=https://chipsenkbeil.com/notes/toggle-dvorak/><link rel=preload href=https://chipsenkbeil.com/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.2cd2ba040eaadea1390f8199e24bd994fabd69b5a7034b43fc2440c58fd09808.css integrity="sha256-LNK6BA6q3qE5D4GZ4kvZlPq9abWnA0tD/CRAxY/QmAg=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=https://chipsenkbeil.com/images/favicon.svg sizes=any><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=manifest href=https://chipsenkbeil.com/site.webmanifest><link rel=mask-icon href=https://chipsenkbeil.com/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil
 </a><input type=checkbox id=menu-toggle>
-<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container page"><article><header><h1 class=title><a class=title-link href=https://chipsenkbeil.com/notes/toggle-dvorak/>Toggle Dvorak</a></h1></header><p>In my ArchLinux setup with XMonad, I&rsquo;ve found myself wanting to swap
-between <em>QWERTY</em> and <em>Dvorak</em> keyboard layouts when practicing
-<em>Dvorak</em>. While my <em>Kinesis Advantage</em> keyboard allows me to swap
-layouts at the hardware level (I&rsquo;m assuming by simulating Dvorak
-on top of Qwerty), I also found a keyboard-agnostic way to do this.</p><h3 id=configuring-keypress-toggle>Configuring Keypress Toggle
-<a class=heading-link href=#configuring-keypress-toggle><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>For X11, create the following configuration at
-<code>/etc/X11/xorg.conf.d/00-keyboard.conf</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Read and parsed by systemd-localed. It&#39;s probably wise not to edit this file</span>
+<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container page"><article><header><h1 class=title><a class=title-link href=https://chipsenkbeil.com/notes/toggle-dvorak/>Toggle Dvorak</a></h1></header><p>In my ArchLinux setup with XMonad, I've found myself wanting to swap between
+<em>QWERTY</em> and <em>Dvorak</em> keyboard layouts when practicing <em>Dvorak</em>. While my
+<em>Kinesis Advantage</em> keyboard allows me to swap layouts at the hardware level
+(I'm assuming by simulating Dvorak on top of Qwerty), I also found a
+keyboard-agnostic way to do this.</p><div id=outline-container-headline-1 class=outline-4><h4 id=headline-1>Configuring Keypress Toggle</h4><div id=outline-text-headline-1 class=outline-text-4><p>For X11, create the following configuration at
+<code class=verbatim>/etc/X11/xorg.conf.d/00-keyboard.conf</code>:</p><div class="src src-sh"><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1># Read and parsed by systemd-localed. It&#39;s probably wise not to edit this file</span>
 </span></span><span class=line><span class=cl><span class=c1># manually too freely.</span>
 </span></span><span class=line><span class=cl>Section <span class=s2>&#34;InputClass&#34;</span>
 </span></span><span class=line><span class=cl>    Identifier <span class=s2>&#34;system-keyboard&#34;</span>
@@ -31,13 +44,10 @@ on top of Qwerty), I also found a keyboard-agnostic way to do this.</p><h3 id=co
 </span></span><span class=line><span class=cl>    Option <span class=s2>&#34;XkbModel&#34;</span> <span class=s2>&#34;,&#34;</span>
 </span></span><span class=line><span class=cl>    Option <span class=s2>&#34;XkbVariant&#34;</span> <span class=s2>&#34;,dvorak&#34;</span>
 </span></span><span class=line><span class=cl>    Option <span class=s2>&#34;XkbOptions&#34;</span> <span class=s2>&#34;grp:toggle&#34;</span>
-</span></span><span class=line><span class=cl>EndSection
-</span></span></code></pre></div><p>This enables toggling Dvorak via <code>Right-Alt</code>.</p><h3 id=configuring-visual-indicator-with-xmobar>Configuring Visual Indicator with Xmobar
-<a class=heading-link href=#configuring-visual-indicator-with-xmobar><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><p>So, along with XMonad, I use Xmobar to display useful information such
-as my current workspace, battery charge, and time. To avoid confusing
-myself when switching between keyboard layouts, I added a visual
-indicator in the right corner of Xmobar via the following:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-haskell data-lang=haskell><span class=line><span class=cl><span class=c1>-- Display of Xmobar information</span>
+</span></span><span class=line><span class=cl>EndSection</span></span></code></pre></div></div><p>This enables toggling Dvorak via <code class=verbatim>Right-Alt</code>.</p></div></div><div id=outline-container-headline-2 class=outline-4><h4 id=headline-2>Configuring Visual Indicator with Xmobar</h4><div id=outline-text-headline-2 class=outline-text-4><p>So, along with XMonad, I use Xmobar to display useful information such as my
+current workspace, battery charge, and time. To avoid confusing myself when
+switching between keyboard layouts, I added a visual indicator in the right
+corner of Xmobar via the following:</p><div class="src src-haskell"><div class=highlight><pre tabindex=0 class=chroma><code class=language-haskell data-lang=haskell><span class=line><span class=cl><span class=c1>-- Display of Xmobar information</span>
 </span></span><span class=line><span class=cl><span class=p>,</span> <span class=n>template</span> <span class=ow>=</span> <span class=s>&#34;%StdinReader%  }{ %battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% | %KAUS% | %date% || %kbd% &#34;</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=p>,</span> <span class=n>commands</span> <span class=ow>=</span>
@@ -49,8 +59,7 @@ indicator in the right corner of Xmobar via the following:</p><div class=highlig
 </span></span><span class=line><span class=cl>    <span class=p>,</span> <span class=kt>Run</span> <span class=kt>Kbd</span>            <span class=p>[</span> <span class=p>(</span><span class=s>&#34;us(dvorak)&#34;</span> <span class=p>,</span> <span class=s>&#34;&lt;fc=#00008B&gt;DV&lt;/fc&gt;&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>                         <span class=p>,</span> <span class=p>(</span><span class=s>&#34;us&#34;</span>         <span class=p>,</span> <span class=s>&#34;&lt;fc=#8B0000&gt;US&lt;/fc&gt;&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>                         <span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=p>]</span>
-</span></span></code></pre></div></article></section></div><footer class=footer><div class=container><p>©
+</span></span><span class=line><span class=cl>    <span class=p>]</span></span></span></code></pre></div></div></div></div></article></section></div><footer class=footer><div class=container><p>©
 2012 -
 2025
 Chip Senkbeil<br>Views are my own (<a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a>)</p></div></footer></main></body></html>
