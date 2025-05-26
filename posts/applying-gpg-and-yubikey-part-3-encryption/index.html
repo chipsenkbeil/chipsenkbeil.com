@@ -1,39 +1,65 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Chip Senkbeil"><meta name=description content="Chip Senkbeil's Personal Website"><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Applying GPG and Yubikey: Part 3 (Encryption)"><meta name=twitter:description content="As a reminder, you can check out overview post if you&rsquo;re curious about why and in what ways I started using GPG and Yubikey. If you haven&rsquo;t set up your GPG keys yet, I also talk about a simple flow in my second post.
-Today, we&rsquo;re going specifically into using GPG for encryption and how to integrate GPG into pass and neomutt.
-Refresher of current state At this point, we have our primary key for signing and certifying (SC) other keys."><meta property="og:title" content="Applying GPG and Yubikey: Part 3 (Encryption)"><meta property="og:description" content="As a reminder, you can check out overview post if you&rsquo;re curious about why and in what ways I started using GPG and Yubikey. If you haven&rsquo;t set up your GPG keys yet, I also talk about a simple flow in my second post.
-Today, we&rsquo;re going specifically into using GPG for encryption and how to integrate GPG into pass and neomutt.
-Refresher of current state At this point, we have our primary key for signing and certifying (SC) other keys."><meta property="og:type" content="article"><meta property="og:url" content="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-09-01T00:00:00+00:00"><meta property="article:modified_time" content="2019-09-01T00:00:00+00:00"><base href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/><title>Applying GPG and Yubikey: Part 3 (Encryption) · Chip Senkbeil</title><link rel=canonical href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/><link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel=stylesheet><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.8.1/css/all.css integrity=sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz+DRsBr08iQK1YWABpw=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/styles/gruvbox.css><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><meta name=generator content="Hugo 0.111.3"></head><body><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil</a>
-<input type=checkbox id=menu-toggle>
-<label class="menu-button float-right" for=menu-toggle><i class="fas fa-bars"></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title>Applying GPG and Yubikey: Part 3 (Encryption)</h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fas fa-calendar"></i>
-<time datetime=2019-09-01T00:00:00Z>September 1, 2019</time></span>
-<span class=reading-time><i class="fas fa-clock"></i>
-9 minutes read</span></div><div class=categories><i class="fas fa-folder"></i>
-<a href=https://chipsenkbeil.com/categories/applying/>applying</a></div><div class=tags><i class="fas fa-tag"></i>
-<a href=https://chipsenkbeil.com/tags/gpg/>gpg</a>
-<span class=separator>•</span>
-<a href=https://chipsenkbeil.com/tags/yubikey/>yubikey</a></div></div></header><div><p>As a reminder, you can check out <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview>overview
+<!doctype html><html lang=en><head><title>Applying GPG and Yubikey: Part 3 (Encryption) · Chip Senkbeil</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="Chip Senkbeil"><meta name=description content="As a reminder, you can check out overview
+post if you&rsquo;re curious
+about why and in what ways I started using GPG and Yubikey. If you haven&rsquo;t
+set up your GPG keys yet, I also talk about a simple flow in my second
+post.
+Today, we&rsquo;re going specifically into using GPG for encryption and
+how to integrate GPG into pass and
+neomutt.
+
+  Refresher of current state
+  
+    
+    Link to heading
+  
+
+At this point, we have our primary key for signing and certifying (SC) other keys.
+You should also notice a second key (labelled as a subkey here) that is purely
+for encryption (E). We will be using that encryption key for our utilities
+today."><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Applying GPG and Yubikey: Part 3 (Encryption)"><meta name=twitter:description content="As a reminder, you can check out overview post if you’re curious about why and in what ways I started using GPG and Yubikey. If you haven’t set up your GPG keys yet, I also talk about a simple flow in my second post.
+Today, we’re going specifically into using GPG for encryption and how to integrate GPG into pass and neomutt.
+Refresher of current state Link to heading At this point, we have our primary key for signing and certifying (SC) other keys. You should also notice a second key (labelled as a subkey here) that is purely for encryption (E). We will be using that encryption key for our utilities today."><meta property="og:url" content="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/"><meta property="og:site_name" content="Chip Senkbeil"><meta property="og:title" content="Applying GPG and Yubikey: Part 3 (Encryption)"><meta property="og:description" content="As a reminder, you can check out overview post if you’re curious about why and in what ways I started using GPG and Yubikey. If you haven’t set up your GPG keys yet, I also talk about a simple flow in my second post.
+Today, we’re going specifically into using GPG for encryption and how to integrate GPG into pass and neomutt.
+Refresher of current state Link to heading At this point, we have our primary key for signing and certifying (SC) other keys. You should also notice a second key (labelled as a subkey here) that is purely for encryption (E). We will be using that encryption key for our utilities today."><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-09-01T00:00:00+00:00"><meta property="article:modified_time" content="2019-09-01T00:00:00+00:00"><meta property="article:tag" content="Gpg"><meta property="article:tag" content="Yubikey"><link rel=canonical href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/><link rel=preload href=https://chipsenkbeil.com/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=https://chipsenkbeil.com/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=https://chipsenkbeil.com/css/coder.min.2cd2ba040eaadea1390f8199e24bd994fabd69b5a7034b43fc2440c58fd09808.css integrity="sha256-LNK6BA6q3qE5D4GZ4kvZlPq9abWnA0tD/CRAxY/QmAg=" crossorigin=anonymous media=screen><link rel=stylesheet href=https://chipsenkbeil.com/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=https://chipsenkbeil.com/images/favicon.svg sizes=any><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://chipsenkbeil.com/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=https://chipsenkbeil.com/images/apple-touch-icon.png><link rel=manifest href=https://chipsenkbeil.com/site.webmanifest><link rel=mask-icon href=https://chipsenkbeil.com/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://chipsenkbeil.com/>Chip Senkbeil
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/>Applying GPG and Yubikey: Part 3 (Encryption)</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa-solid fa-calendar" aria-hidden=true></i>
+<time datetime=2019-09-01T00:00:00Z>September 1, 2019
+</time></span><span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
+9-minute read</span></div><div class=categories><i class="fa-solid fa-folder" aria-hidden=true></i>
+<a href=https://chipsenkbeil.com/categories/applying/>Applying</a></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
+<span class=tag><a href=https://chipsenkbeil.com/tags/gpg/>Gpg</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=https://chipsenkbeil.com/tags/yubikey/>Yubikey</a></span></div></div></header><div class=post-content><p>As a reminder, you can check out <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview>overview
 post</a> if you&rsquo;re curious
 about why and in what ways I started using GPG and Yubikey. If you haven&rsquo;t
 set up your GPG keys yet, I also talk about a simple flow <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup>in my second
 post</a>.</p><p>Today, we&rsquo;re going specifically into using GPG for encryption and
-how to integrate GPG into <a href=https://passwordstore.org/>pass</a> and
-<a href=https://neomutt.org/>neomutt</a>.</p><h2 id=refresher-of-current-state>Refresher of current state</h2><p>At this point, we have our primary key for signing and certifying (SC) other keys.
+how to integrate GPG into <a href=https://passwordstore.org/ class=external-link target=_blank rel=noopener>pass</a> and
+<a href=https://neomutt.org/ class=external-link target=_blank rel=noopener>neomutt</a>.</p><h2 id=refresher-of-current-state>Refresher of current state
+<a class=heading-link href=#refresher-of-current-state><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>At this point, we have our primary key for signing and certifying (SC) other keys.
 You should also notice a second key (labelled as a subkey here) that is purely
 for encryption (E). We will be using that encryption key for our utilities
 today.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>pub   rsa4096/0x6CA6A08DBA640677 2019-03-01 [SC]
 </span></span><span class=line><span class=cl>      2C8160E6AF1166154CDAED266CA6A08DBA640677
 </span></span><span class=line><span class=cl>uid                   [ultimate] Chip Senkbeil (Personal [Senkbeil]) &lt;chip@senkbeil.org&gt;
 </span></span><span class=line><span class=cl>sub   rsa4096/0x588B4B090695884C 2019-03-01 [E]
-</span></span></code></pre></div><h2 id=using-my-gpg-key-to-encrypt-and-decrypt-files>Using my GPG key to encrypt and decrypt files</h2><p>Congratulations! Now that we have a GPG key that has encryption capabilities, w
+</span></span></code></pre></div><h2 id=using-my-gpg-key-to-encrypt-and-decrypt-files>Using my GPG key to encrypt and decrypt files
+<a class=heading-link href=#using-my-gpg-key-to-encrypt-and-decrypt-files><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>Congratulations! Now that we have a GPG key that has encryption capabilities, w
 e can use it to both encrypt files intended to be accessed by others as well as
-decrypt files meant for us.</p><h3 id=encrypting-a-file>Encrypting a file</h3><p>Suppose we have a file named <strong>myfile.txt</strong> that contains a message we want to
+decrypt files meant for us.</p><h3 id=encrypting-a-file>Encrypting a file
+<a class=heading-link href=#encrypting-a-file><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Suppose we have a file named <strong>myfile.txt</strong> that contains a message we want to
 encrypt. The idea is that we would also indicate who can decrypt the message.
 With standard GPG, we would indicate this by using <code>--recipient &lt;some id></code>
 where the id could be an email address like <strong>bob@example.com</strong> or a specific
-key&rsquo;s id. <a href=https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html>This GPG page</a> has a list of all possible forms of ID that can be used, although I typically stick to an email address. As a note, you can provide more than one recipient, which can be handy in a variety of situations including when you want to include yourself as a recipient so you can decrypt the message to read it later yourself.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>gpg --encrypt --recipient bob@example.com --output myfile.txt.gpg myfile.txt
+key&rsquo;s id. <a href=https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html class=external-link target=_blank rel=noopener>This GPG page</a> has a list of all possible forms of ID that can be used, although I typically stick to an email address. As a note, you can provide more than one recipient, which can be handy in a variety of situations including when you want to include yourself as a recipient so you can decrypt the message to read it later yourself.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>gpg --encrypt --recipient bob@example.com --output myfile.txt.gpg myfile.txt
 </span></span></code></pre></div><p>The above would encrypt the file named <strong>myfile.txt</strong> to be decrypted by
 <strong>bob@example.com</strong> and store the output as <strong>myfile.txt.gpg</strong>.</p><p>This requires us to have Bob&rsquo;s public key with an id of <strong>bob@example.com</strong>
-associated, otherwise when encrypting we have no idea what public key to use.</p><h3 id=decrypting-a-file>Decrypting a file</h3><p>Decrypting is fairly straightforward. We specify that we want to decrypt a file
+associated, otherwise when encrypting we have no idea what public key to use.</p><h3 id=decrypting-a-file>Decrypting a file
+<a class=heading-link href=#decrypting-a-file><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Decrypting is fairly straightforward. We specify that we want to decrypt a file
 and optionally the output file we want to store the results. GPG is fairly
 smart and will find the appropriate private key to use when decrypting based on
 the recipients.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>gpg --decrypt --output myfile.txt myfile.txt.gpg
@@ -43,13 +69,17 @@ that fits one of the recipients, it&rsquo;ll indicate a failure. Otherwise, you&
 see a result like below:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ gpg --decrypt --output hello.txt hello.txt.gpg
 </span></span><span class=line><span class=cl>gpg: encrypted with 4096-bit RSA key, ID 0x588B4B090695884C, created 2019-03-01
 </span></span><span class=line><span class=cl>      &#34;Chip Senkbeil (Personal [Senkbeil]) &lt;chip@senkbeil.org&gt;&#34;
-</span></span></code></pre></div><h2 id=using-my-gpg-key-for-encrypting-passwords>Using my GPG key for encrypting passwords</h2><p>Great, so we can encrypt and decrypt files using GPG! Now it&rsquo;s time to install
-<a href=https://passwordstore.org/>pass</a> so we can manage our passwords and keep them
+</span></span></code></pre></div><h2 id=using-my-gpg-key-for-encrypting-passwords>Using my GPG key for encrypting passwords
+<a class=heading-link href=#using-my-gpg-key-for-encrypting-passwords><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>Great, so we can encrypt and decrypt files using GPG! Now it&rsquo;s time to install
+<a href=https://passwordstore.org/ class=external-link target=_blank rel=noopener>pass</a> so we can manage our passwords and keep them
 secure using GPG. The <strong>pass</strong> utility is often available as a package on
 platforms like Fedora, ArchLinux, and even Mac OS X:</p><ul><li>Fedora: <code>dnf install pass</code></li><li>ArchLinux: <code>pacman -S pass</code></li><li>Mac OS X: <code>brew install pass</code></li></ul><p><strong>Pass</strong> itself is a fairly straightforward bash script that manages passwords
 by storing each password in an individual files and encrypting them using GPG.
 The idea is that <strong>pass</strong> encrypts files specifying ourselves as recipient so
-we can decrypt and access passwords later.</p><h3 id=initializing-the-password-store>Initializing the password store</h3><p>With <strong>pass</strong> installed, we need to initialize it by indicating what key (or
+we can decrypt and access passwords later.</p><h3 id=initializing-the-password-store>Initializing the password store
+<a class=heading-link href=#initializing-the-password-store><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>With <strong>pass</strong> installed, we need to initialize it by indicating what key (or
 multiple keys) we want to use when decrypting password files. To do this, we
 run <code>pass init &lt;some id></code>, where the ID could be a specific encryption key like
 my subkey of <strong>0x588B4B090695884C</strong>, an email address like my user id of
@@ -59,12 +89,16 @@ id of the key used in <strong>$HOME/.password-store/.gpg-id</strong>.</p><p>Fina
 using git. To begin using that functionality, we also need to initialize our
 git repository via <code>pass git init</code>. All future git operations such as pushing
 updates to a remote backup are done via <code>pass git push</code> and other
-interactions on top of <code>pass git</code>.</p><h3 id=optional-importing-passwords-from-lastpass>[Optional] Importing passwords from lastpass</h3><blockquote><p>If you don&rsquo;t use <strong>LastPass</strong> to manage your passwords, you can skip this
+interactions on top of <code>pass git</code>.</p><h3 id=optional-importing-passwords-from-lastpass>[Optional] Importing passwords from lastpass
+<a class=heading-link href=#optional-importing-passwords-from-lastpass><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><blockquote><p>If you don&rsquo;t use <strong>LastPass</strong> to manage your passwords, you can skip this
 step; however, if you use some other form of password management, chances are
 that you want to migrate your existing passwords over to <strong>pass</strong> rather than
-starting from scratch. I&rsquo;d recommend checking out the multi-platform <a href=https://github.com/roddhjav/pass-import>pass import</a> extension and reading more
-about how to export your passwords from an existing platform.</p></blockquote><p>After initializing pass, I needed to import my passwords from <a href=https://www.lastpass.com/>lastpass</a>, which is what I used for work and personal use before making the switch. Luckily for me, there were a variety of scripts and extensions I could use to import my passwords into pass <em>after</em> I had exported them from <em>lastpass</em>.</p><p>To export my passwords to a CSV, I navigated the lastpass web interface and
-selected <strong>More Options > Advanced > Export</strong>.</p><p>From there, I could either install the multi-platform <a href=https://github.com/roddhjav/pass-import>pass import</a> extension and import my passwords via <code>pass import lastpass.csv</code> or use the ruby script <a href=https://git.zx2c4.com/password-store/tree/contrib/importers/lastpass2pass.rb>lastpass2pass.rb</a>. To be honest, I&rsquo;ve forgotten which I used as it&rsquo;s been over half a year since I made the switch. Regardless, the result was that I now had all of my passwords and other associated information (like usernames) imported with each file having a name like <strong>example.com</strong> to represent a website whose credentials I had stored. This made it easier to integrate with 3rd-party utilities like <a href=https://github.com/browserpass/browserpass-extension>browserpass</a>.</p><h3 id=using-password-store>Using password store</h3><p>With <strong>Pass</strong> initialized and (optionally) existing passwords imported, we&rsquo;re
+starting from scratch. I&rsquo;d recommend checking out the multi-platform <a href=https://github.com/roddhjav/pass-import class=external-link target=_blank rel=noopener>pass import</a> extension and reading more
+about how to export your passwords from an existing platform.</p></blockquote><p>After initializing pass, I needed to import my passwords from <a href=https://www.lastpass.com/ class=external-link target=_blank rel=noopener>lastpass</a>, which is what I used for work and personal use before making the switch. Luckily for me, there were a variety of scripts and extensions I could use to import my passwords into pass <em>after</em> I had exported them from <em>lastpass</em>.</p><p>To export my passwords to a CSV, I navigated the lastpass web interface and
+selected <strong>More Options > Advanced > Export</strong>.</p><p>From there, I could either install the multi-platform <a href=https://github.com/roddhjav/pass-import class=external-link target=_blank rel=noopener>pass import</a> extension and import my passwords via <code>pass import lastpass.csv</code> or use the ruby script <a href=https://git.zx2c4.com/password-store/tree/contrib/importers/lastpass2pass.rb class=external-link target=_blank rel=noopener>lastpass2pass.rb</a>. To be honest, I&rsquo;ve forgotten which I used as it&rsquo;s been over half a year since I made the switch. Regardless, the result was that I now had all of my passwords and other associated information (like usernames) imported with each file having a name like <strong>example.com</strong> to represent a website whose credentials I had stored. This made it easier to integrate with 3rd-party utilities like <a href=https://github.com/browserpass/browserpass-extension class=external-link target=_blank rel=noopener>browserpass</a>.</p><h3 id=using-password-store>Using password store
+<a class=heading-link href=#using-password-store><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>With <strong>Pass</strong> initialized and (optionally) existing passwords imported, we&rsquo;re
 good to go to begin using it.</p><blockquote><p><strong>Pass</strong> has an excellent manual page via <code>man pass</code> as well as a handy help
 section via <code>pass --help</code> to get an indepth understanding of the tool&rsquo;s
 functionality.</p></blockquote><p>By default, executing <code>pass</code> will provide a list of passwords based on a
@@ -83,15 +117,19 @@ store directory, you&rsquo;d find files like
 default editor of vim set via <strong>$EDITOR</strong></li></ol><p><strong>Pass</strong> has a variety of other functions and extensions you can add, but my
 main three are part of the CRUD-style operations of creating, editing, and
 reading passwords. Changes to passwords will also be reflected in our git
-repository that we initialized earlier.</p><h2 id=using-my-gpg-key-for-email-encryption>Using my GPG key for email encryption</h2><blockquote><p>This is a more personal section about how I use GPG in combination with my
-offline mail managed by <a href=https://neomutt.org/>neomutt</a> and indexed with
-<a href=https://notmuchmail.org/>notmuch</a>. Your setup may be entirely different,
+repository that we initialized earlier.</p><h2 id=using-my-gpg-key-for-email-encryption>Using my GPG key for email encryption
+<a class=heading-link href=#using-my-gpg-key-for-email-encryption><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><blockquote><p>This is a more personal section about how I use GPG in combination with my
+offline mail managed by <a href=https://neomutt.org/ class=external-link target=_blank rel=noopener>neomutt</a> and indexed with
+<a href=https://notmuchmail.org/ class=external-link target=_blank rel=noopener>notmuch</a>. Your setup may be entirely different,
 so you should definitely do your own research here!</p></blockquote><p>Encrypting mail using GPG has never been an incredibly popular option. It&rsquo;s
 difficult to get right and the vast majority of people you email on a regular
 basis do not even have GPG keys let alone encrypt their mail with them.</p><p>I still wanted to give encrypting (and signing discussed later) a try, so
 here&rsquo;s the setup I currently have with <strong>neomutt</strong> that automatically encrypts
 mail where possible and still enables <strong>notmuch</strong> to index encrypted mail so we
-can easily search through it.</p><h3 id=neomutt-configuration>Neomutt configuration</h3><p>Below I have <strong>crypt.mutt</strong>, a stripped-down version of my GPG-related
+can easily search through it.</p><h3 id=neomutt-configuration>Neomutt configuration
+<a class=heading-link href=#neomutt-configuration><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Below I have <strong>crypt.mutt</strong>, a stripped-down version of my GPG-related
 configurations for neomutt where I only have listed ones related to encryption
 (not signing which we will discuss later):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># &lt;&lt; CRYPTO: GENERAL CONFIG &gt;&gt;</span>
 </span></span><span class=line><span class=cl>
@@ -129,13 +167,15 @@ configurations for neomutt where I only have listed ones related to encryption
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># Set the key to use for encryption/decryption of email</span>
 </span></span><span class=line><span class=cl><span class=nb>set</span> <span class=nv>pgp_default_key</span> <span class=o>=</span> <span class=s2>&#34;0x588B4B090695884C&#34;</span>
-</span></span></code></pre></div><h3 id=notmuch-configuration>Notmuch configuration</h3><p>When using <strong>notmuch</strong> to index mail, the tool relies on being able to access
+</span></span></code></pre></div><h3 id=notmuch-configuration>Notmuch configuration
+<a class=heading-link href=#notmuch-configuration><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>When using <strong>notmuch</strong> to index mail, the tool relies on being able to access
 the contents of the mail. If mail is encrypted as we configured above,
 <strong>notmuch</strong> is not going to be able to index the mail.</p><p>Luckily, we can configure <strong>notmuch</strong> to use GPG keys to decrypt mail when
 indexing. This relies on a database-specific setting called <strong>index.decrypt</strong>.
 If set to <em>nostash</em> or <em>true</em>, <strong>notmuch</strong> will use GPG keys to decrypt mail
 when encountered. The default is <em>auto</em>, which will only use stashed session
-keys and not those available on our computer (or YubiKey).</p><p>Quoting from <a href=https://notmuchmail.org/manpages/notmuch-config-1/>notmuch config manpage</a>:</p><blockquote><p>When indexing an encrypted e-mail message, if this variable is set to true,
+keys and not those available on our computer (or YubiKey).</p><p>Quoting from <a href=https://notmuchmail.org/manpages/notmuch-config-1/ class=external-link target=_blank rel=noopener>notmuch config manpage</a>:</p><blockquote><p>When indexing an encrypted e-mail message, if this variable is set to true,
 notmuch will try to decrypt the message and index the cleartext, stashing a
 copy of any discovered session keys for the message. If auto, it will try to
 index the cleartext if a stashed session key is already known for the
@@ -145,7 +185,12 @@ present.</p></blockquote><blockquote><p>nostash is the same as true except that 
 newly-discovered session keys in the database.</p></blockquote><p>For me, I set to <em>nostash</em> as I have my keys stored on YubiKeys with password
 protection:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>notmuch config index.decrypt set nostash
 </span></span></code></pre></div><p>Now, when <strong>notmuch</strong> is indexing mail, it can take advantage of my GPG key(s)
-to handle any encrypted mail it encounters.</p><h2 id=whats-next>What&rsquo;s next?</h2><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing>the next post</a>, I&rsquo;ll be
+to handle any encrypted mail it encounters.</p><h2 id=whats-next>What&rsquo;s next?
+<a class=heading-link href=#whats-next><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing>the next post</a>, I&rsquo;ll be
 explaining how to configure git to sign commits and update neomutt to use a
 signing key for our email that can work independently or in combination with
-encryption.</p></div><footer></footer></article></section></div><footer class=footer><section class=container><p>Views are my own<br><a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a></p>© 2024</section></footer></main><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-71733200-2","auto"),ga("send","pageview"))</script></body></html>
+encryption.</p></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©
+2012 -
+2025
+Chip Senkbeil<br>Views are my own (<a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a>)</p></div></footer></main></body></html>

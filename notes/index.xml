@@ -1,20 +1,399 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Notes on Chip Senkbeil</title><link>https://chipsenkbeil.com/notes/</link><description>Recent content in Notes on Chip Senkbeil</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 30 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>Emacs support Magnet</title><link>https://chipsenkbeil.com/notes/emacs-support-magnet/</link><pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/emacs-support-magnet/</guid><description>If you&amp;rsquo;re using homebrew, you&amp;rsquo;d normally install the GUI Emacs application via
-brew cask install emacs The problem is that this installs the standard GNU Emacs leveraging some basic Cocoa GUI, which results in the Magnet application not being able to snap Emacs to any of its grids. If you look at the Magnet dropdown with Emacs focused, all of the options will be greyed out.
-As described in this reddit post, there is an Emacs distribution designed specifically for Mac OS X that adds additional features through a Carbon port (over Cocoa from default homebrew).</description></item><item><title>Configuring Calibre Server from CLI</title><link>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</link><pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</guid><description>Watching
-Installing on a FreeBSD Jail Very easy to do on FreeBSD 11.3 via the FreeNAS GUI.
-Create a new jail and set a specific IPv4 address to host. For me, this was 192.168.5.33 Enter into a shell within the jail and run pkg install calibre FreeBSD will ask if we want to download and set up the package manager, which we do. After that, it&amp;rsquo;ll install a lot of packages (Python 3.</description></item><item><title>Linux Virtual Monitors with xrandr</title><link>https://chipsenkbeil.com/notes/linux-virtual-monitors-with-xrandr/</link><pubDate>Wed, 14 Aug 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/linux-virtual-monitors-with-xrandr/</guid><description>I recently learned that you can configure virtual monitors with xrandr. There are two different ways to use this: treat multiple physical monitors as one giant virtual monitor or treat one physical monitor as multiple virtual monitors.
-Note that this requires xrandr 1.5.0 or higher, which introduces setmonitor as an option in the CLI.
-Why do I want to do this? My primary interest here is to split a super widescreen monitor like the Dell 49&amp;quot; UltraSharp Curved Monitor (U4919DW) as multiple separate displays.</description></item><item><title>Qutebrowser Cheatsheet</title><link>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</link><pubDate>Wed, 03 Jul 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</guid><description>Tabs Navigating Tabs Key Combination Description Shift+j Go to next tab (to the right), looping around to first tab if at the end Shift+k Go to previous tab (to the left), looping around to last tab if at the beginning gt Open list of tabs to fuzzy search and jump to specified tab +Shift+t Go to tab at N Moving Tabs Key Combination Description gD Move current tab to new window Deleting Tabs Key Combination Description d Close current tab co Close all tabs but current tab Element Selection Select Input Key Combination Description gi Go to primary input textbox (not sure how it decides) ;t Provide hints for selecting an input textbox Select Hyperlink on Page Key Combination Description f Provide hints for selecting a hyperlink (to open in current tab) Shift+f Provide hints for selecting a hyperlink (to open in new tab) URLs Open URL Key Combination Description o Open list of history/quickmarks as well as be able to provide own link to go to in current tab Shift+o Open list of history/quickmarks as well as be able to provide own link to go to in new tab Pages Page Navigation Key Combination Description gg Jump to top of page Shift+g Jump to bottom of page [N]+j Move down 1 line in page, or N lines if specified [N]+k Move up 1 line in page, or N lines if specified Page History Key Combination Description Shift+h Go back in history of current tab Shift+l Go forward in history of current tab Page Search Key Combination Description / Search for text in current tab n Move forward in search in current tab Shift+n Move backward in search in current tab</description></item><item><title>Raspbian Static IP</title><link>https://chipsenkbeil.com/notes/raspbian-static-ip/</link><pubDate>Sat, 22 Jun 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/raspbian-static-ip/</guid><description>The main changes need to occur in /etc/dhcpcd.conf.
-Find Interface Name Before editing that file, we need to look up our ethernet interface name. This used to be something easy like eth0, but Debian appears to have changed interface names. Run ifconfig to see Debian&amp;rsquo;s current interfaces. With the Raspberry Pi 3 B+, there will also be a wifi interface shown as below:
-enxb827ebb61344: flags=4163&amp;lt;UP,BROADCAST,RUNNING,MULTICAST&amp;gt; mtu 1500 ether b8:27:eb:b6:13:44 txqueuelen 1000 (Ethernet) RX packets 24867 bytes 5952214 (5.</description></item><item><title>Proxmox Changes</title><link>https://chipsenkbeil.com/notes/proxmox-changes/</link><pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/proxmox-changes/</guid><description>Removing subscription notice sed -i.bak &amp;#39;s/NotFound/Active/g&amp;#39; /usr/share/perl5/PVE/API2/Subscription.pm &amp;amp;&amp;amp; systemctl restart pveproxy.service Generating Let&amp;rsquo;s Encrypt certs https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x_and_newer)#Let.27s_Encrypt_using_acme.sh
-Supporting port 80 &amp;amp; 443 By default, proxmox looks for traffic only on port 8006. Based on my readings online, forcefully changing the port - which is now hardcoded - can cause a lot of problems. Instead, the most recent and successful recommendation has been to use nginx to redirect traffic on port 80 and 443 to port 8006.</description></item><item><title>Search Github</title><link>https://chipsenkbeil.com/notes/search-github/</link><pubDate>Mon, 13 Mar 2017 20:51:09 -0500</pubDate><guid>https://chipsenkbeil.com/notes/search-github/</guid><description>Couple of notes about searching on Github that have proven to be quite useful:
-You can include/exclude specific files using the filename property in a search.
-The following searches for content &amp;ldquo;some content&amp;rdquo; only in .config files.
-some content filename:.config The following searches for content &amp;ldquo;some content&amp;rdquo; in all files but .config files.
-some content -filename:.config You can include/exclude specific users and organizations in a search. This is handy when I&amp;rsquo;m trying to judge how much use a library of mine is getting in the open source community while avoiding my own projects.</description></item><item><title>Toggle Dvorak</title><link>https://chipsenkbeil.com/notes/toggle-dvorak/</link><pubDate>Fri, 12 Aug 2016 09:36:18 -0500</pubDate><guid>https://chipsenkbeil.com/notes/toggle-dvorak/</guid><description>In my ArchLinux setup with XMonad, I&amp;rsquo;ve found myself wanting to swap between QWERTY and Dvorak keyboard layouts when practicing Dvorak. While my Kinesis Advantage keyboard allows me to swap layouts at the hardware level (I&amp;rsquo;m assuming by simulating Dvorak on top of Qwerty), I also found a keyboard-agnostic way to do this.
-Configuring Keypress Toggle For X11, create the following configuration at /etc/X11/xorg.conf.d/00-keyboard.conf:
-# Read and parsed by systemd-localed. It&amp;#39;s probably wise not to edit this file # manually too freely.</description></item><item><title>Fix for XMonad with XMobar</title><link>https://chipsenkbeil.com/notes/fix-for-xmonad-with-xmobar/</link><pubDate>Wed, 17 Feb 2016 07:49:30 -0600</pubDate><guid>https://chipsenkbeil.com/notes/fix-for-xmonad-with-xmobar/</guid><description>When I updated XMonad late last year (2015), I noticed a bug where any application that I opened on my first workspace would cover XMobar.
-E.g. Opening a terminal or Vivaldi took up the entire screen. The solution I found was, conveniently, located in a post on the ArchLinux forum.
-Essentially, you just need to add a handleEventHook with docksEventHook and handleEventHook defaultConfig.
--- My overall config that is used elsewhere myConfig = defaultConfig { manageHook = manageDocks &amp;lt;+&amp;gt; manageHook defaultConfig , layoutHook = avoidStruts $ layoutHook defaultConfig , handleEventHook = mconcat [ docksEventHook , handleEventHook defaultConfig ] , startupHook = setWMName &amp;#34;LG3D&amp;#34; , terminal = &amp;#34;urxvtcd&amp;#34; , modMask = mod1Mask , borderWidth = 1 , focusedBorderColor = &amp;#34;blue&amp;#34; }</description></item><item><title>Using blkid to get device information</title><link>https://chipsenkbeil.com/notes/blkid/</link><pubDate>Wed, 07 Mar 2012 12:31:47 -0500</pubDate><guid>https://chipsenkbeil.com/notes/blkid/</guid><description>Quite often, I find myself needing to remind myself of devices connected to my computer so that I know what to type for the pmount program, which is really handy to have! The program [i]blkid[/i] is capable of doing this; however, I didn&amp;rsquo;t care for the default output and found myself using this format:
-blkid -o list -c /dev/null What this does is tell the program to output the information in a user-friendly list of devices through &amp;lsquo;-o list&amp;rsquo; and not report previous devices using &amp;lsquo;-c /dev/null.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Notes on Chip Senkbeil</title><link>https://chipsenkbeil.com/notes/</link><description>Recent content in Notes on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 30 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>Emacs support Magnet</title><link>https://chipsenkbeil.com/notes/emacs-support-magnet/</link><pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/emacs-support-magnet/</guid><description>&lt;p>If you&amp;rsquo;re using homebrew, you&amp;rsquo;d normally install the GUI Emacs application via&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">brew cask install emacs
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The problem is that this installs the standard GNU Emacs leveraging some basic Cocoa GUI, which results in the &lt;a href="https://magnet.crowdcafe.com/" class="external-link" target="_blank" rel="noopener">Magnet&lt;/a>
+application not being able to snap Emacs to any of its grids. If you look at
+the Magnet dropdown with Emacs focused, all of the options will be greyed out.&lt;/p>
+&lt;p>As described in &lt;a href="https://www.reddit.com/r/emacs/comments/8ez3a9/macos_window_snapping_with_magnetdoesnt_work_on/" class="external-link" target="_blank" rel="noopener">this reddit post&lt;/a>, there is an Emacs distribution designed specifically for Mac OS X that adds &lt;a href="https://bitbucket.org/mituharu/emacs-mac/src/f3402395995bf70e50d6e65f841e44d5f9b4603c/README-mac?at=master&amp;amp;fileviewer=file-view-default" class="external-link" target="_blank" rel="noopener">additional features&lt;/a> through a Carbon port (over Cocoa from default homebrew).&lt;/p></description></item><item><title>Configuring Calibre Server from CLI</title><link>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</link><pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</guid><description>&lt;p>Watching&lt;/p>
+&lt;h2 id="installing-on-a-freebsd-jail">
+ Installing on a FreeBSD Jail
+ &lt;a class="heading-link" href="#installing-on-a-freebsd-jail">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h2>
+&lt;p>Very easy to do on FreeBSD 11.3 via the FreeNAS GUI.&lt;/p>
+&lt;ol>
+&lt;li>Create a new jail and set a specific IPv4 address to host. For me, this
+was 192.168.5.33&lt;/li>
+&lt;li>Enter into a shell within the jail and run &lt;code>pkg install calibre&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>FreeBSD will ask if we want to download and set up the package manager,
+which we do. After that, it&amp;rsquo;ll install a lot of packages (Python 3.7,
+some Perl, etc.) and then all CLI commands should be available.&lt;/p></description></item><item><title>Linux Virtual Monitors with xrandr</title><link>https://chipsenkbeil.com/notes/linux-virtual-monitors-with-xrandr/</link><pubDate>Wed, 14 Aug 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/linux-virtual-monitors-with-xrandr/</guid><description>&lt;p>I recently learned that you can configure virtual monitors with xrandr. There
+are two different ways to use this: treat multiple physical monitors as
+one giant virtual monitor or treat one physical monitor as multiple
+virtual monitors.&lt;/p>
+&lt;blockquote>
+&lt;p>Note that this requires xrandr 1.5.0 or higher, which introduces setmonitor
+as an option in the CLI.&lt;/p>&lt;/blockquote>
+&lt;h2 id="why-do-i-want-to-do-this">
+ Why do I want to do this?
+ &lt;a class="heading-link" href="#why-do-i-want-to-do-this">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h2>
+&lt;p>My primary interest here is to split a super widescreen monitor like the
+&lt;a href="https://www.dell.com/en-us/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-arnw/monitors-monitor-accessories" class="external-link" target="_blank" rel="noopener">Dell 49&amp;quot; UltraSharp Curved Monitor (U4919DW)&lt;/a> as multiple separate displays. I like the way that dwm breaks up monitors into multiple spaces and when I have two or three separate monitors I normally use a center monitor for focused work with the side monitors containing music, calendar, and chat.&lt;/p></description></item><item><title>Qutebrowser Cheatsheet</title><link>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</link><pubDate>Wed, 03 Jul 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</guid><description>&lt;h2 id="tabs">
+ Tabs
+ &lt;a class="heading-link" href="#tabs">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h2>
+&lt;h3 id="navigating-tabs">
+ Navigating Tabs
+ &lt;a class="heading-link" href="#navigating-tabs">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Key Combination&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Shift+j&lt;/td>
+ &lt;td>Go to next tab (to the right), looping around to first tab if at the end&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Shift+k&lt;/td>
+ &lt;td>Go to previous tab (to the left), looping around to last tab if at the beginning&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>gt&lt;/td>
+ &lt;td>Open list of tabs to fuzzy search and jump to specified tab&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;N>+Shift+t&lt;/td>
+ &lt;td>Go to tab at N&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="moving-tabs">
+ Moving Tabs
+ &lt;a class="heading-link" href="#moving-tabs">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Key Combination&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>gD&lt;/td>
+ &lt;td>Move current tab to new window&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="deleting-tabs">
+ Deleting Tabs
+ &lt;a class="heading-link" href="#deleting-tabs">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Key Combination&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>d&lt;/td>
+ &lt;td>Close current tab&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>co&lt;/td>
+ &lt;td>Close all tabs but current tab&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="element-selection">
+ Element Selection
+ &lt;a class="heading-link" href="#element-selection">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h2>
+&lt;h3 id="select-input">
+ Select Input
+ &lt;a class="heading-link" href="#select-input">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Key Combination&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>gi&lt;/td>
+ &lt;td>Go to primary input textbox (not sure how it decides)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>;t&lt;/td>
+ &lt;td>Provide hints for selecting an input textbox&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="select-hyperlink-on-page">
+ Select Hyperlink on Page
+ &lt;a class="heading-link" href="#select-hyperlink-on-page">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Key Combination&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>f&lt;/td>
+ &lt;td>Provide hints for selecting a hyperlink (to open in current tab)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Shift+f&lt;/td>
+ &lt;td>Provide hints for selecting a hyperlink (to open in new tab)&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="urls">
+ URLs
+ &lt;a class="heading-link" href="#urls">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h2>
+&lt;h3 id="open-url">
+ Open URL
+ &lt;a class="heading-link" href="#open-url">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Key Combination&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>o&lt;/td>
+ &lt;td>Open list of history/quickmarks as well as be able to provide own link to go to in current tab&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Shift+o&lt;/td>
+ &lt;td>Open list of history/quickmarks as well as be able to provide own link to go to in new tab&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="pages">
+ Pages
+ &lt;a class="heading-link" href="#pages">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h2>
+&lt;h3 id="page-navigation">
+ Page Navigation
+ &lt;a class="heading-link" href="#page-navigation">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Key Combination&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>gg&lt;/td>
+ &lt;td>Jump to top of page&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Shift+g&lt;/td>
+ &lt;td>Jump to bottom of page&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>[N]+j&lt;/td>
+ &lt;td>Move down 1 line in page, or N lines if specified&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>[N]+k&lt;/td>
+ &lt;td>Move up 1 line in page, or N lines if specified&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="page-history">
+ Page History
+ &lt;a class="heading-link" href="#page-history">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Key Combination&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Shift+h&lt;/td>
+ &lt;td>Go back in history of current tab&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Shift+l&lt;/td>
+ &lt;td>Go forward in history of current tab&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="page-search">
+ Page Search
+ &lt;a class="heading-link" href="#page-search">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Key Combination&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>/&lt;/td>
+ &lt;td>Search for text in current tab&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>n&lt;/td>
+ &lt;td>Move forward in search in current tab&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Shift+n&lt;/td>
+ &lt;td>Move backward in search in current tab&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>Raspbian Static IP</title><link>https://chipsenkbeil.com/notes/raspbian-static-ip/</link><pubDate>Sat, 22 Jun 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/raspbian-static-ip/</guid><description>&lt;p>The main changes need to occur in &lt;code>/etc/dhcpcd.conf&lt;/code>.&lt;/p>
+&lt;h3 id="find-interface-name">
+ Find Interface Name
+ &lt;a class="heading-link" href="#find-interface-name">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;p>Before editing that file, we need to look up our ethernet interface name.
+This used to be something easy like &lt;strong>eth0&lt;/strong>, but Debian appears to have
+&lt;a href="https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names" class="external-link" target="_blank" rel="noopener">changed interface names&lt;/a>. Run &lt;code>ifconfig&lt;/code> to see Debian&amp;rsquo;s current interfaces. With the Raspberry Pi 3 B+, there will also be a wifi interface shown as below:&lt;/p></description></item><item><title>Proxmox Changes</title><link>https://chipsenkbeil.com/notes/proxmox-changes/</link><pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/proxmox-changes/</guid><description>&lt;h3 id="removing-subscription-notice">
+ Removing subscription notice
+ &lt;a class="heading-link" href="#removing-subscription-notice">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sed -i.bak &lt;span class="s1">&amp;#39;s/NotFound/Active/g&amp;#39;&lt;/span> /usr/share/perl5/PVE/API2/Subscription.pm &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> systemctl restart pveproxy.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="generating-lets-encrypt-certs">
+ Generating Let&amp;rsquo;s Encrypt certs
+ &lt;a class="heading-link" href="#generating-lets-encrypt-certs">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;p>&lt;a href="https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_%28Version_4.x_and_newer%29#Let.27s_Encrypt_using_acme.sh" class="external-link" target="_blank" rel="noopener">https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x_and_newer)#Let.27s_Encrypt_using_acme.sh&lt;/a>&lt;/p>
+&lt;h3 id="supporting-port-80--443">
+ Supporting port 80 &amp;amp; 443
+ &lt;a class="heading-link" href="#supporting-port-80--443">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;p>By default, proxmox looks for traffic only on port 8006. Based on my readings
+online, forcefully changing the port - which is now hardcoded - can cause a lot
+of problems. Instead, the most recent and successful recommendation has been to
+use &lt;em>nginx&lt;/em> to redirect traffic on port 80 and 443 to port 8006. Below is
+the configuration created at &lt;code>/etc/nginx/conf.d/proxmox.conf&lt;/code> after clearing
+the files &lt;code>/etc/nginx/conf.d/default&lt;/code> and &lt;code>/etc/nginx/site-enabled/default&lt;/code>.&lt;/p></description></item><item><title>Search Github</title><link>https://chipsenkbeil.com/notes/search-github/</link><pubDate>Mon, 13 Mar 2017 20:51:09 -0500</pubDate><guid>https://chipsenkbeil.com/notes/search-github/</guid><description>&lt;p>Couple of notes about searching on Github that have proven to be quite useful:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>You can include/exclude specific files using the &lt;code>filename&lt;/code> property in a
+search.&lt;/p>
+&lt;p>The following searches for content &lt;em>&amp;ldquo;some content&amp;rdquo;&lt;/em> only in &lt;code>.config&lt;/code> files.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">some content filename:.config
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The following searches for content &lt;em>&amp;ldquo;some content&amp;rdquo;&lt;/em> in all files but
+&lt;code>.config&lt;/code> files.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">some content -filename:.config
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>You can include/exclude specific users and organizations in a search. This
+is handy when I&amp;rsquo;m trying to judge how much use a library of mine is getting
+in the open source community while avoiding my own projects.&lt;/p></description></item><item><title>Toggle Dvorak</title><link>https://chipsenkbeil.com/notes/toggle-dvorak/</link><pubDate>Fri, 12 Aug 2016 09:36:18 -0500</pubDate><guid>https://chipsenkbeil.com/notes/toggle-dvorak/</guid><description>&lt;p>In my ArchLinux setup with XMonad, I&amp;rsquo;ve found myself wanting to swap
+between &lt;em>QWERTY&lt;/em> and &lt;em>Dvorak&lt;/em> keyboard layouts when practicing
+&lt;em>Dvorak&lt;/em>. While my &lt;em>Kinesis Advantage&lt;/em> keyboard allows me to swap
+layouts at the hardware level (I&amp;rsquo;m assuming by simulating Dvorak
+on top of Qwerty), I also found a keyboard-agnostic way to do this.&lt;/p>
+&lt;h3 id="configuring-keypress-toggle">
+ Configuring Keypress Toggle
+ &lt;a class="heading-link" href="#configuring-keypress-toggle">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;p>For X11, create the following configuration at
+&lt;code>/etc/X11/xorg.conf.d/00-keyboard.conf&lt;/code>:&lt;/p></description></item><item><title>Fix for XMonad with XMobar</title><link>https://chipsenkbeil.com/notes/fix-for-xmonad-with-xmobar/</link><pubDate>Wed, 17 Feb 2016 07:49:30 -0600</pubDate><guid>https://chipsenkbeil.com/notes/fix-for-xmonad-with-xmobar/</guid><description>&lt;p>When I updated XMonad late last year (2015), I noticed a bug where any
+application that I opened on my first workspace would cover XMobar.&lt;/p>
+&lt;pre>&lt;code>E.g. Opening a terminal or Vivaldi took up the entire screen.
+&lt;/code>&lt;/pre>
+&lt;p>The solution I found was, conveniently, located in a &lt;a href="https://bbs.archlinux.org/viewtopic.php?id=206890" class="external-link" target="_blank" rel="noopener">post on the ArchLinux
+forum&lt;/a>.&lt;/p>
+&lt;p>Essentially, you just need to add a &lt;code>handleEventHook&lt;/code> with &lt;code>docksEventHook&lt;/code>
+and &lt;code>handleEventHook defaultConfig&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-haskell" data-lang="haskell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">-- My overall config that is used elsewhere&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">myConfig&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">defaultConfig&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">manageHook&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">manageDocks&lt;/span> &lt;span class="o">&amp;lt;+&amp;gt;&lt;/span> &lt;span class="n">manageHook&lt;/span> &lt;span class="n">defaultConfig&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">layoutHook&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">avoidStruts&lt;/span> &lt;span class="o">$&lt;/span> &lt;span class="n">layoutHook&lt;/span> &lt;span class="n">defaultConfig&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">handleEventHook&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">mconcat&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">[&lt;/span> &lt;span class="n">docksEventHook&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">handleEventHook&lt;/span> &lt;span class="n">defaultConfig&lt;/span> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">startupHook&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">setWMName&lt;/span> &lt;span class="s">&amp;#34;LG3D&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">terminal&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="s">&amp;#34;urxvtcd&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">modMask&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">mod1Mask&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">borderWidth&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">focusedBorderColor&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="s">&amp;#34;blue&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Using blkid to get device information</title><link>https://chipsenkbeil.com/notes/blkid/</link><pubDate>Wed, 07 Mar 2012 12:31:47 -0500</pubDate><guid>https://chipsenkbeil.com/notes/blkid/</guid><description>&lt;p>Quite often, I find myself needing to remind myself of devices connected to my
+computer so that I know what to type for the pmount program, which is really
+handy to have! The program [i]blkid[/i] is capable of doing this; however, I
+didn&amp;rsquo;t care for the default output and found myself using this format:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">blkid -o list -c /dev/null
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://chipsenkbeil.com/img/post/blkid.jpg" alt="Example of usage">&lt;/p>
+&lt;p>What this does is tell the program to output the information in a user-friendly
+list of devices through &amp;lsquo;-o list&amp;rsquo; and not report previous devices using &amp;lsquo;-c
+/dev/null.&amp;rsquo;&lt;/p></description></item></channel></rss>

@@ -1,3 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>raspbian on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/raspbian/</link><description>Recent content in raspbian on Chip Senkbeil</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 22 Jun 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/raspbian/index.xml" rel="self" type="application/rss+xml"/><item><title>Raspbian Static IP</title><link>https://chipsenkbeil.com/notes/raspbian-static-ip/</link><pubDate>Sat, 22 Jun 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/raspbian-static-ip/</guid><description>The main changes need to occur in /etc/dhcpcd.conf.
-Find Interface Name Before editing that file, we need to look up our ethernet interface name. This used to be something easy like eth0, but Debian appears to have changed interface names. Run ifconfig to see Debian&amp;rsquo;s current interfaces. With the Raspberry Pi 3 B+, there will also be a wifi interface shown as below:
-enxb827ebb61344: flags=4163&amp;lt;UP,BROADCAST,RUNNING,MULTICAST&amp;gt; mtu 1500 ether b8:27:eb:b6:13:44 txqueuelen 1000 (Ethernet) RX packets 24867 bytes 5952214 (5.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Raspbian on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/raspbian/</link><description>Recent content in Raspbian on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 22 Jun 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/raspbian/index.xml" rel="self" type="application/rss+xml"/><item><title>Raspbian Static IP</title><link>https://chipsenkbeil.com/notes/raspbian-static-ip/</link><pubDate>Sat, 22 Jun 2019 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/raspbian-static-ip/</guid><description>&lt;p>The main changes need to occur in &lt;code>/etc/dhcpcd.conf&lt;/code>.&lt;/p>
+&lt;h3 id="find-interface-name">
+ Find Interface Name
+ &lt;a class="heading-link" href="#find-interface-name">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;p>Before editing that file, we need to look up our ethernet interface name.
+This used to be something easy like &lt;strong>eth0&lt;/strong>, but Debian appears to have
+&lt;a href="https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names" class="external-link" target="_blank" rel="noopener">changed interface names&lt;/a>. Run &lt;code>ifconfig&lt;/code> to see Debian&amp;rsquo;s current interfaces. With the Raspberry Pi 3 B+, there will also be a wifi interface shown as below:&lt;/p></description></item></channel></rss>

@@ -1,3 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>calibre on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/calibre/</link><description>Recent content in calibre on Chip Senkbeil</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 19 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/calibre/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuring Calibre Server from CLI</title><link>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</link><pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</guid><description>Watching
-Installing on a FreeBSD Jail Very easy to do on FreeBSD 11.3 via the FreeNAS GUI.
-Create a new jail and set a specific IPv4 address to host. For me, this was 192.168.5.33 Enter into a shell within the jail and run pkg install calibre FreeBSD will ask if we want to download and set up the package manager, which we do. After that, it&amp;rsquo;ll install a lot of packages (Python 3.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Calibre on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/calibre/</link><description>Recent content in Calibre on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 19 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/calibre/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuring Calibre Server from CLI</title><link>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</link><pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate><guid>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</guid><description>&lt;p>Watching&lt;/p>
+&lt;h2 id="installing-on-a-freebsd-jail">
+ Installing on a FreeBSD Jail
+ &lt;a class="heading-link" href="#installing-on-a-freebsd-jail">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h2>
+&lt;p>Very easy to do on FreeBSD 11.3 via the FreeNAS GUI.&lt;/p>
+&lt;ol>
+&lt;li>Create a new jail and set a specific IPv4 address to host. For me, this
+was 192.168.5.33&lt;/li>
+&lt;li>Enter into a shell within the jail and run &lt;code>pkg install calibre&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>FreeBSD will ask if we want to download and set up the package manager,
+which we do. After that, it&amp;rsquo;ll install a lot of packages (Python 3.7,
+some Perl, etc.) and then all CLI commands should be available.&lt;/p></description></item></channel></rss>

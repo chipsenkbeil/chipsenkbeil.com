@@ -1,7 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>snippet on Chip Senkbeil</title><link>https://chipsenkbeil.com/categories/snippet/</link><description>Recent content in snippet on Chip Senkbeil</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 12 Aug 2016 09:36:18 -0500</lastBuildDate><atom:link href="https://chipsenkbeil.com/categories/snippet/index.xml" rel="self" type="application/rss+xml"/><item><title>Toggle Dvorak</title><link>https://chipsenkbeil.com/notes/toggle-dvorak/</link><pubDate>Fri, 12 Aug 2016 09:36:18 -0500</pubDate><guid>https://chipsenkbeil.com/notes/toggle-dvorak/</guid><description>In my ArchLinux setup with XMonad, I&amp;rsquo;ve found myself wanting to swap between QWERTY and Dvorak keyboard layouts when practicing Dvorak. While my Kinesis Advantage keyboard allows me to swap layouts at the hardware level (I&amp;rsquo;m assuming by simulating Dvorak on top of Qwerty), I also found a keyboard-agnostic way to do this.
-Configuring Keypress Toggle For X11, create the following configuration at /etc/X11/xorg.conf.d/00-keyboard.conf:
-# Read and parsed by systemd-localed. It&amp;#39;s probably wise not to edit this file # manually too freely.</description></item><item><title>Fix for XMonad with XMobar</title><link>https://chipsenkbeil.com/notes/fix-for-xmonad-with-xmobar/</link><pubDate>Wed, 17 Feb 2016 07:49:30 -0600</pubDate><guid>https://chipsenkbeil.com/notes/fix-for-xmonad-with-xmobar/</guid><description>When I updated XMonad late last year (2015), I noticed a bug where any application that I opened on my first workspace would cover XMobar.
-E.g. Opening a terminal or Vivaldi took up the entire screen. The solution I found was, conveniently, located in a post on the ArchLinux forum.
-Essentially, you just need to add a handleEventHook with docksEventHook and handleEventHook defaultConfig.
--- My overall config that is used elsewhere myConfig = defaultConfig { manageHook = manageDocks &amp;lt;+&amp;gt; manageHook defaultConfig , layoutHook = avoidStruts $ layoutHook defaultConfig , handleEventHook = mconcat [ docksEventHook , handleEventHook defaultConfig ] , startupHook = setWMName &amp;#34;LG3D&amp;#34; , terminal = &amp;#34;urxvtcd&amp;#34; , modMask = mod1Mask , borderWidth = 1 , focusedBorderColor = &amp;#34;blue&amp;#34; }</description></item><item><title>Using blkid to get device information</title><link>https://chipsenkbeil.com/notes/blkid/</link><pubDate>Wed, 07 Mar 2012 12:31:47 -0500</pubDate><guid>https://chipsenkbeil.com/notes/blkid/</guid><description>Quite often, I find myself needing to remind myself of devices connected to my computer so that I know what to type for the pmount program, which is really handy to have! The program [i]blkid[/i] is capable of doing this; however, I didn&amp;rsquo;t care for the default output and found myself using this format:
-blkid -o list -c /dev/null What this does is tell the program to output the information in a user-friendly list of devices through &amp;lsquo;-o list&amp;rsquo; and not report previous devices using &amp;lsquo;-c /dev/null.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Snippet on Chip Senkbeil</title><link>https://chipsenkbeil.com/categories/snippet/</link><description>Recent content in Snippet on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 12 Aug 2016 09:36:18 -0500</lastBuildDate><atom:link href="https://chipsenkbeil.com/categories/snippet/index.xml" rel="self" type="application/rss+xml"/><item><title>Toggle Dvorak</title><link>https://chipsenkbeil.com/notes/toggle-dvorak/</link><pubDate>Fri, 12 Aug 2016 09:36:18 -0500</pubDate><guid>https://chipsenkbeil.com/notes/toggle-dvorak/</guid><description>&lt;p>In my ArchLinux setup with XMonad, I&amp;rsquo;ve found myself wanting to swap
+between &lt;em>QWERTY&lt;/em> and &lt;em>Dvorak&lt;/em> keyboard layouts when practicing
+&lt;em>Dvorak&lt;/em>. While my &lt;em>Kinesis Advantage&lt;/em> keyboard allows me to swap
+layouts at the hardware level (I&amp;rsquo;m assuming by simulating Dvorak
+on top of Qwerty), I also found a keyboard-agnostic way to do this.&lt;/p>
+&lt;h3 id="configuring-keypress-toggle">
+ Configuring Keypress Toggle
+ &lt;a class="heading-link" href="#configuring-keypress-toggle">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h3>
+&lt;p>For X11, create the following configuration at
+&lt;code>/etc/X11/xorg.conf.d/00-keyboard.conf&lt;/code>:&lt;/p></description></item><item><title>Fix for XMonad with XMobar</title><link>https://chipsenkbeil.com/notes/fix-for-xmonad-with-xmobar/</link><pubDate>Wed, 17 Feb 2016 07:49:30 -0600</pubDate><guid>https://chipsenkbeil.com/notes/fix-for-xmonad-with-xmobar/</guid><description>&lt;p>When I updated XMonad late last year (2015), I noticed a bug where any
+application that I opened on my first workspace would cover XMobar.&lt;/p>
+&lt;pre>&lt;code>E.g. Opening a terminal or Vivaldi took up the entire screen.
+&lt;/code>&lt;/pre>
+&lt;p>The solution I found was, conveniently, located in a &lt;a href="https://bbs.archlinux.org/viewtopic.php?id=206890" class="external-link" target="_blank" rel="noopener">post on the ArchLinux
+forum&lt;/a>.&lt;/p>
+&lt;p>Essentially, you just need to add a &lt;code>handleEventHook&lt;/code> with &lt;code>docksEventHook&lt;/code>
+and &lt;code>handleEventHook defaultConfig&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-haskell" data-lang="haskell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">-- My overall config that is used elsewhere&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">myConfig&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">defaultConfig&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="n">manageHook&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">manageDocks&lt;/span> &lt;span class="o">&amp;lt;+&amp;gt;&lt;/span> &lt;span class="n">manageHook&lt;/span> &lt;span class="n">defaultConfig&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">layoutHook&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">avoidStruts&lt;/span> &lt;span class="o">$&lt;/span> &lt;span class="n">layoutHook&lt;/span> &lt;span class="n">defaultConfig&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">handleEventHook&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">mconcat&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">[&lt;/span> &lt;span class="n">docksEventHook&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">handleEventHook&lt;/span> &lt;span class="n">defaultConfig&lt;/span> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">startupHook&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">setWMName&lt;/span> &lt;span class="s">&amp;#34;LG3D&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">terminal&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="s">&amp;#34;urxvtcd&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">modMask&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="n">mod1Mask&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">borderWidth&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">,&lt;/span> &lt;span class="n">focusedBorderColor&lt;/span> &lt;span class="ow">=&lt;/span> &lt;span class="s">&amp;#34;blue&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Using blkid to get device information</title><link>https://chipsenkbeil.com/notes/blkid/</link><pubDate>Wed, 07 Mar 2012 12:31:47 -0500</pubDate><guid>https://chipsenkbeil.com/notes/blkid/</guid><description>&lt;p>Quite often, I find myself needing to remind myself of devices connected to my
+computer so that I know what to type for the pmount program, which is really
+handy to have! The program [i]blkid[/i] is capable of doing this; however, I
+didn&amp;rsquo;t care for the default output and found myself using this format:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">blkid -o list -c /dev/null
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://chipsenkbeil.com/img/post/blkid.jpg" alt="Example of usage">&lt;/p>
+&lt;p>What this does is tell the program to output the information in a user-friendly
+list of devices through &amp;lsquo;-o list&amp;rsquo; and not report previous devices using &amp;lsquo;-c
+/dev/null.&amp;rsquo;&lt;/p></description></item></channel></rss>
