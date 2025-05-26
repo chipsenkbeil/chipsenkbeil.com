@@ -7,8 +7,7 @@ Find Interface Name
 &lt;div id="outline-text-headline-1" class="outline-text-4">
 &lt;p>Before editing that file, we need to look up our ethernet interface name. This
 used to be something easy like &lt;strong>eth0&lt;/strong>, but Debian appears to have
-&lt;a href="https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names">changed
-interface names&lt;/a>. Run &lt;code class="verbatim">ifconfig&lt;/code> to see Debian&amp;#39;s current interfaces. With the
+&lt;a href="https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names">changed interface names&lt;/a>. Run &lt;code class="verbatim">ifconfig&lt;/code> to see Debian&amp;#39;s current interfaces. With the
 Raspberry Pi 3 B+, there will also be a wifi interface shown as below:&lt;/p>
 &lt;pre class="example">
 enxb827ebb61344: flags=4163&amp;lt;UP,BROADCAST,RUNNING,MULTICAST&amp;gt; mtu 1500

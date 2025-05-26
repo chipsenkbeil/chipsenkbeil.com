@@ -12,6 +12,7 @@ into remote servers and associating with Github.
 Using my GPG key for authenticating over SSH
 
 
+
 One handy use case for GPG keys related to authentication is using a GPG key to
 access remote servers over SSH. Rather than using password-based authentication
 or SSH public key authentication via ssh-keygen, we can leverage a GPG key
@@ -33,7 +34,7 @@ Using my GPG key for authenticating over SSH One handy use case for GPG keys rel
 curious about why and in what ways I started using GPG and Yubikey. If you
 haven't set up your GPG keys yet, I also talk about a simple flow
 <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup>in my second post</a>.</p><p>Today, we're going specifically into using GPG for authentication for SSHing
-into remote servers and associating with Github.</p><div id=outline-container-headline-1 class=outline-4><h4 id=headline-1>Using my GPG key for authenticating over SSH</h4><div id=outline-text-headline-1 class=outline-text-4><p>One handy use case for GPG keys related to authentication is using a GPG key to
+into remote servers and associating with Github.</p><div id=outline-container-headline-1 class=outline-2><h2 id=headline-1>Using my GPG key for authenticating over SSH</h2><div id=outline-text-headline-1 class=outline-text-2><p>One handy use case for GPG keys related to authentication is using a GPG key to
 access remote servers over SSH. Rather than using password-based authentication
 or SSH public key authentication via <code class=verbatim>ssh-keygen</code>, we can leverage a GPG key
 with authentication capabilities to connect instead.</p><p>The prerequisite is that we need a GPG key with authentication capabilities.
@@ -41,7 +42,7 @@ Make sure that you have one by checking your keys and capabilities via <code cla
 authentication over SSH and am leveraging my GPG auth subkey rather than the
 traditional <a href=https://www.ssh.com/ssh/key/>SSH key</a> because it enables me to
 only manage a single key and I can store my GPG key on external hardware like a
-Yubikey in the same manner as my encryption and signing keys.</p><p>There are a couple of requirements to plug in a GPG auth key for use via SSH:</p><ol><li>Add the keygrip of the auth key to <strong>$HOME/.gnupg/sshcontrol</strong></li><li>Enable SSH support for the GPG agent</li><li>Export the SSH auth socket from the GPG agent</li><li>Copy over the ssh-rsa contents of the GPG auth key to the remote server(s)</li></ol><div id=outline-container-headline-2 class=outline-5><h5 id=headline-2>More Details</h5><div id=outline-text-headline-2 class=outline-text-5><p>Based on <a href=https://opensource.com/article/19/4/gpg-subkeys-ssh>this article</a>
+Yubikey in the same manner as my encryption and signing keys.</p><p>There are a couple of requirements to plug in a GPG auth key for use via SSH:</p><ol><li>Add the keygrip of the auth key to <strong>$HOME/.gnupg/sshcontrol</strong></li><li>Enable SSH support for the GPG agent</li><li>Export the SSH auth socket from the GPG agent</li><li>Copy over the ssh-rsa contents of the GPG auth key to the remote server(s)</li></ol><div id=outline-container-headline-2 class=outline-3><h3 id=headline-2>More Details</h3><div id=outline-text-headline-2 class=outline-text-3><p>Based on <a href=https://opensource.com/article/19/4/gpg-subkeys-ssh>this article</a>
 from April 2019, we need to make ssh aware of GPG auth keys.</p><p>As mentioned, the first step is to get the keygrips of auth keys via
 <code class=verbatim>gpg -K --with-keygrip</code> and place them into <strong>$HOME/.gnupg/sshcontrol</strong>.</p><p>From there, the second step is to make sure that <strong>gpg-agent</strong> is configured with
 ssh by adding <code class=verbatim>enable-ssh-support</code> to <strong>$HOME/.gnupg/gpg-agent.conf</strong> and
@@ -55,16 +56,15 @@ remote server(s) where we want to use our GPG auth key to connect. This makes
 them aware of valid keys to accept incoming requests. We can get the key via
 <code class=verbatim>ssh-add -L</code>, which should output one or more <strong>ssh-rsa</strong> public keys based on our
 GPG auth key if the agent has been configured correctly and we have exported
-<strong>SSH_AUTH_SOCK</strong>.</p><p>Copy entire output from <code class=verbatim>ssh-add -L</code> to each remote machine's
-<strong>$HOME/.ssh/authorized_keys</strong> file, or alternatively use
+SSH_AUTH_SOCK*.</p><p>Copy entire output from <code class=verbatim>ssh-add -L</code> to each remote machine's
+$HOME/.ssh/authorized_keys* file, or alternatively use
 <code class=verbatim>ssh-copy-id &lt;username>@&lt;server></code> to smart copy the keys over that do not yet
 exist.</p><blockquote><p>I had two keys show up, one with my card number for the yubikey and one listed
 as none. I only added the key that had the card number to my remote servers and
-it worked fine.</p></blockquote></div></div></div></div><div id=outline-container-headline-3 class=outline-4><h4 id=headline-3>Connecting my GPG auth key with Github for SSH</h4><div id=outline-text-headline-3 class=outline-text-4><figure><img src=https://chipsenkbeil.com/img/post/keys/github-keys.png alt=/img/post/keys/github-keys.png title=/img/post/keys/github-keys.png><figcaption>Github SSH & GPG keys</figcaption></figure><p>Adding support for Github authentication is very similar to the steps listed for
+it worked fine.</p></blockquote></div></div></div></div><div id=outline-container-headline-3 class=outline-2><h2 id=headline-3>Connecting my GPG auth key with Github for SSH</h2><div id=outline-text-headline-3 class=outline-text-2><figure><img src=https://chipsenkbeil.com/img/post/keys/github-keys.png alt=/img/post/keys/github-keys.png title=/img/post/keys/github-keys.png><figcaption>Github SSH & GPG keys</figcaption></figure><p>Adding support for Github authentication is very similar to the steps listed for
 a remote server that you own with the distinction that we need to copy the
 output of <code class=verbatim>ssh-add -L</code> to a textbox on Github's website when adding a new SSH
-key (our GPG auth key).</p><figure><img src=https://chipsenkbeil.com/img/post/keys/github-add-ssh-key.png alt=/img/post/keys/github-add-ssh-key.png title=/img/post/keys/github-add-ssh-key.png><figcaption>Adding a new SSH key on Github</figcaption></figure></div></div><div id=outline-container-headline-4 class=outline-3><h3 id=headline-4>What's next?</h3><div id=outline-text-headline-4 class=outline-text-3><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-6-setting-up-yubikeys>the next
-post</a>, I'll be explaining how configure a Yubikey to host GPG subkeys for
+key (our GPG auth key).</p><figure><img src=https://chipsenkbeil.com/img/post/keys/github-add-ssh-key.png alt=/img/post/keys/github-add-ssh-key.png title=/img/post/keys/github-add-ssh-key.png><figcaption>Adding a new SSH key on Github</figcaption></figure></div></div><div id=outline-container-headline-4 class=outline-2><h2 id=headline-4>What's next?</h2><div id=outline-text-headline-4 class=outline-text-2><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-6-setting-up-yubikeys>the next post</a>, I'll be explaining how configure a Yubikey to host GPG subkeys for
 encryption, signing, and authentication as well as my process to maintain a
 single set of keys across multiple Yubikeys for different computers and other
 devices.</p></div></div></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©

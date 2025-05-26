@@ -7,7 +7,7 @@
 <a href=https://chipsenkbeil.com/categories/tool/>Tool</a></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
 <span class=tag><a href=https://chipsenkbeil.com/tags/tmux/>Tmux</a>
 </span><span class=separator>•</span>
-<span class=tag><a href=https://chipsenkbeil.com/tags/xmonad/>Xmonad</a></span></div></div></header><div class=post-content><div id=outline-container-headline-1 class=outline-4><h4 id=headline-1>The Reason</h4><div id=outline-text-headline-1 class=outline-text-4><p>I've been playing around with <code class=verbatim>tmux</code> a lot lately and have come to like it quite
+<span class=tag><a href=https://chipsenkbeil.com/tags/xmonad/>Xmonad</a></span></div></div></header><div class=post-content><div id=outline-container-headline-1 class=outline-2><h2 id=headline-1>The Reason</h2><div id=outline-text-headline-1 class=outline-text-2><p>I've been playing around with <code class=verbatim>tmux</code> a lot lately and have come to like it quite
 a lot for the panes and windows - something I used quite a lot with my XMonad
 setup on my old Fujitsu laptop. The panes act as my individual terminals with
 which I can write code, read documentation, chat on IRC (using <code class=verbatim>weechat</code> or
@@ -23,7 +23,7 @@ continued to nag me about the need of a prefix as well as the use of keys like
 double quotes and percent. I was used to XMonad, where creating a new pane
 involved a single <code class=verbatim>Mod-Shift-Enter</code> and navigating between tiles was a simple
 <code class=verbatim>Mod-Tab</code>. Because of this, I began to look into ways to rebind tmux keys to be
-more like XMonad.</p></div></div><div id=outline-container-headline-2 class=outline-4><h4 id=headline-2>The Process</h4><div id=outline-text-headline-2 class=outline-text-4><p>tmux provides multiple ways to rebind keys and perform startup actions. The
+more like XMonad.</p></div></div><div id=outline-container-headline-2 class=outline-2><h2 id=headline-2>The Process</h2><div id=outline-text-headline-2 class=outline-text-2><p>tmux provides multiple ways to rebind keys and perform startup actions. The
 first is to execute the actions from the terminal:</p><div class="src src-raw"><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>tmux bind-key d kill-pane</span></span></code></pre></div></div><p>Another option is to perform the task within a running tmux instance by entering
 <code class=verbatim>Ctrl-b :</code>, which enters a command mode for you to enter tmux actions.</p><p>Of course, these methods were not what I needed. What I discovered was that tmux
 could source a file to get its bindings. You could have <code class=verbatim>.tmux.conf</code> within your
@@ -34,7 +34,7 @@ would use the following:</p><div class="src src-raw"><div class=highlight><pre t
 above would actually be <code class=verbatim>Ctrl-b Space</code> as the combination. Luckily, tmux
 provides a way to avoid the prefix when performing actions. The <code class=verbatim>-n</code> switch
 indicates that no prefix should be used.</p><div class="src src-raw"><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>bind-key -n C-Space next-layout</span></span></code></pre></div></div><p>The above indicates that the series of keystrokes <code class=verbatim>Ctrl-Space</code> should change the
-layout used in tmux, no prefix needed.</p></div></div><div id=outline-container-headline-3 class=outline-4><h4 id=headline-3>The Issue</h4><div id=outline-text-headline-3 class=outline-text-4><p>The issue I discovered was that modifier keys - Control, Shift, Function, Alt -
+layout used in tmux, no prefix needed.</p></div></div><div id=outline-container-headline-3 class=outline-2><h2 id=headline-3>The Issue</h2><div id=outline-text-headline-3 class=outline-text-2><p>The issue I discovered was that modifier keys - Control, Shift, Function, Alt -
 were not fully supported in tmux. In fact, modifier keys are not fully supported
 in a lot of applications. Instead, you see certain keycodes appear when a
 modifier key is used in combination with a normal key. If you execute <code class=verbatim>xmodmap</code>
@@ -46,7 +46,7 @@ alt and shift keys. If you print this table, you'll notice that quite a few keys
 do not have bindings for shift/mode switch keys.</p><p>Furthermore, after looking at tmux's source, it appears that only certain keys
 are checked for modifiers before passing the keystroke to the application
 running within tmux. Because of this, I cannot use a setup like
-<code class=verbatim>Ctrl-Shift-Return</code> for creating a new terminal tile using standard tmux.</p></div></div><div id=outline-container-headline-4 class=outline-4><h4 id=headline-4>The Potential Solution</h4><div id=outline-text-headline-4 class=outline-text-4><p>At least, I did not believe that I could. I discovered that tmux provided even
+<code class=verbatim>Ctrl-Shift-Return</code> for creating a new terminal tile using standard tmux.</p></div></div><div id=outline-container-headline-4 class=outline-2><h2 id=headline-4>The Potential Solution</h2><div id=outline-text-headline-4 class=outline-text-2><p>At least, I did not believe that I could. I discovered that tmux provided even
 more functionality through the ability to not only launch shell programs but
 also check the return status of said programs!</p><div class="src src-raw"><div class=highlight><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=c1># Run command if system is Mac OS X
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>if</span><span class=o>-</span><span class=n>shell</span><span class=w> </span><span class=s1>&#39;test `uname` == &#34;DARWIN&#34;&#39;</span><span class=w> </span><span class=o>&lt;</span><span class=n>COMMAND</span><span class=o>&gt;</span><span class=w> </span><span class=p>[</span><span class=n>OPTIONAL</span><span class=w> </span><span class=n>COMMAND</span><span class=p>]</span></span></span></code></pre></div></div><p>Because of this ability, I thought about having a small program that could be
@@ -59,17 +59,17 @@ utilities that could detect shift and control key presses, but they were bound
 in the X11 system, which I did not want to impose as a restriction for my setup.
 In fact, my hope was that this could be run very easily without an X11 system.
 Furthermore, as a new owner of a Macbook Air - Linux will be put on it soon
-enough - I wanted this to be able to work on OS X as well.</p></div></div><div id=outline-container-headline-5 class=outline-4><h4 id=headline-5>The Mac OS X Solution</h4><div id=outline-text-headline-5 class=outline-text-4><p>Cocoa provides the functionality to directly check if modifier keys are pressed,
+enough - I wanted this to be able to work on OS X as well.</p></div></div><div id=outline-container-headline-5 class=outline-2><h2 id=headline-5>The Mac OS X Solution</h2><div id=outline-text-headline-5 class=outline-text-2><p>Cocoa provides the functionality to directly check if modifier keys are pressed,
 which is incredibly useful. So, I simply wrote a small Cocoa application that
 returns success based on the state of modifier keys. The documentation indicates
 that Mac OS X v10.6+ is needed to use this functionality; so, this means my
 solution will only work for Snow Leopard or higher (sorry Leopard and Tiger).</p><p>You can find the small program bundled with the main project
-<a href=https://chipsenkbeil.com/software/tmux-xmonad-bindings/>here</a>.</p></div></div><div id=outline-container-headline-6 class=outline-4><h4 id=headline-6>The Linux Solution</h4><div id=outline-text-headline-6 class=outline-text-4><p>This took a little digging before I realized that I needed to access the
+<a href=https://chipsenkbeil.com/software/tmux-xmonad-bindings/>here</a>.</p></div></div><div id=outline-container-headline-6 class=outline-2><h2 id=headline-6>The Linux Solution</h2><div id=outline-text-headline-6 class=outline-text-2><p>This took a little digging before I realized that I needed to access the
 keyboard interface directly, rather than accessing information from a program.
 This meant accessing <code class=verbatim>/dev/my_keyboard_interface</code>, which would vary from
 computer to computer.</p><p>I wrote a small C program to demonstrate this functionality
 <a href=https://chipsenkbeil.com/software/keyboard-state/>here</a>.</p><p>Unfortunately, after joining IBM in January of 2014, I was not able to continue
-pursuing this project.</p></div></div><div id=outline-container-headline-7 class=outline-4><h4 id=headline-7>The Final Result</h4><div id=outline-text-headline-7 class=outline-text-4><p>Overall, the configuration combined with the modifier keys captured by an
+pursuing this project.</p></div></div><div id=outline-container-headline-7 class=outline-2><h2 id=headline-7>The Final Result</h2><div id=outline-text-headline-7 class=outline-text-2><p>Overall, the configuration combined with the modifier keys captured by an
 external program successfully produced a working replica of XMonad's key
 bindings using tmux, giving me a more comfortable layout for moving panes and
 navigating.</p><p>You can find the project <a href=https://chipsenkbeil.com/software/tmux-xmonad-bindings/>here</a>.</p></div></div></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©

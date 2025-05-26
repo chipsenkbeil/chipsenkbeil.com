@@ -9,6 +9,7 @@ keyboard-agnostic way to do this.
 Configuring Keypress Toggle
 
 
+
 For X11, create the following configuration at
 /etc/X11/xorg.conf.d/00-keyboard.conf:
 
@@ -34,7 +35,7 @@ Configuring Keypress Toggle For X11, create the following configuration at /etc/
 <em>QWERTY</em> and <em>Dvorak</em> keyboard layouts when practicing <em>Dvorak</em>. While my
 <em>Kinesis Advantage</em> keyboard allows me to swap layouts at the hardware level
 (I'm assuming by simulating Dvorak on top of Qwerty), I also found a
-keyboard-agnostic way to do this.</p><div id=outline-container-headline-1 class=outline-4><h4 id=headline-1>Configuring Keypress Toggle</h4><div id=outline-text-headline-1 class=outline-text-4><p>For X11, create the following configuration at
+keyboard-agnostic way to do this.</p><div id=outline-container-headline-1 class=outline-2><h2 id=headline-1>Configuring Keypress Toggle</h2><div id=outline-text-headline-1 class=outline-text-2><p>For X11, create the following configuration at
 <code class=verbatim>/etc/X11/xorg.conf.d/00-keyboard.conf</code>:</p><div class="src src-sh"><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1># Read and parsed by systemd-localed. It&#39;s probably wise not to edit this file</span>
 </span></span><span class=line><span class=cl><span class=c1># manually too freely.</span>
 </span></span><span class=line><span class=cl>Section <span class=s2>&#34;InputClass&#34;</span>
@@ -44,7 +45,7 @@ keyboard-agnostic way to do this.</p><div id=outline-container-headline-1 class=
 </span></span><span class=line><span class=cl>    Option <span class=s2>&#34;XkbModel&#34;</span> <span class=s2>&#34;,&#34;</span>
 </span></span><span class=line><span class=cl>    Option <span class=s2>&#34;XkbVariant&#34;</span> <span class=s2>&#34;,dvorak&#34;</span>
 </span></span><span class=line><span class=cl>    Option <span class=s2>&#34;XkbOptions&#34;</span> <span class=s2>&#34;grp:toggle&#34;</span>
-</span></span><span class=line><span class=cl>EndSection</span></span></code></pre></div></div><p>This enables toggling Dvorak via <code class=verbatim>Right-Alt</code>.</p></div></div><div id=outline-container-headline-2 class=outline-4><h4 id=headline-2>Configuring Visual Indicator with Xmobar</h4><div id=outline-text-headline-2 class=outline-text-4><p>So, along with XMonad, I use Xmobar to display useful information such as my
+</span></span><span class=line><span class=cl>EndSection</span></span></code></pre></div></div><p>This enables toggling Dvorak via <code class=verbatim>Right-Alt</code>.</p></div></div><div id=outline-container-headline-2 class=outline-2><h2 id=headline-2>Configuring Visual Indicator with Xmobar</h2><div id=outline-text-headline-2 class=outline-text-2><p>So, along with XMonad, I use Xmobar to display useful information such as my
 current workspace, battery charge, and time. To avoid confusing myself when
 switching between keyboard layouts, I added a visual indicator in the right
 corner of Xmobar via the following:</p><div class="src src-haskell"><div class=highlight><pre tabindex=0 class=chroma><code class=language-haskell data-lang=haskell><span class=line><span class=cl><span class=c1>-- Display of Xmobar information</span>

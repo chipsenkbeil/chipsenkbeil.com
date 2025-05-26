@@ -7,6 +7,7 @@ were as follows:
 Using CSS Columns
 
 
+
 CSS Columns enabled an easy, powerful way to spread page summaries across
 multiple columns. Furthermore, you can prevent page summaries from being broken
 up in the middle by using column-break-inside: avoid;. However, I had no way
@@ -24,7 +25,7 @@ Using CSS Columns CSS Columns enabled an easy, powerful way to spread page summa
 <a href=https://chipsenkbeil.com/categories/experiment/>Experiment</a></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
 <span class=tag><a href=https://chipsenkbeil.com/tags/css/>Css</a></span></div></div></header><div class=post-content><p>I spent two days investigating this and could not find a solution that worked.
 Eventually, I gave up and added the Masonry Javascript library. My two attempts
-were as follows:</p><div id=outline-container-headline-1 class=outline-4><h4 id=headline-1>Using CSS Columns</h4><div id=outline-text-headline-1 class=outline-text-4><p>CSS Columns enabled an easy, powerful way to spread page summaries across
+were as follows:</p><div id=outline-container-headline-1 class=outline-2><h2 id=headline-1>Using CSS Columns</h2><div id=outline-text-headline-1 class=outline-text-2><p>CSS Columns enabled an easy, powerful way to spread page summaries across
 multiple columns. Furthermore, you can prevent page summaries from being broken
 up in the middle by using <code class=verbatim>column-break-inside: avoid;</code>. However, I had no way
 to order the page summaries dynamically such that the most recent summaries were
@@ -49,7 +50,7 @@ summaries going down the first column and into the second, etc.</p><div class="s
 </span></span><span class=line><span class=cl>    <span class=n>column-break-inside</span><span class=p>:</span><span class=kc>avoid</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=k>page-break-inside</span><span class=p>:</span> <span class=kc>avoid</span><span class=p>;</span>           <span class=c>/* Theoretically FF 20+ */</span>
 </span></span><span class=line><span class=cl>    <span class=k>break-inside</span><span class=p>:</span> <span class=kc>avoid-column</span><span class=p>;</span>         <span class=c>/* IE 11 */</span>
-</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div><div id=outline-container-headline-2 class=outline-4><h4 id=headline-2>Using Flexbox</h4><div id=outline-text-headline-2 class=outline-text-4><p>This involved using flexbox to simulate a Masonry layout by using
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div><div id=outline-container-headline-2 class=outline-2><h2 id=headline-2>Using Flexbox</h2><div id=outline-text-headline-2 class=outline-text-2><p>This involved using flexbox to simulate a Masonry layout by using
 <code class=verbatim>flex-flow: column wrap</code> to have items flow from top to bottom with no extra
 spacing (similar to Masonry). There were two issues with this approach: page
 summaries still flowed from top to bottom instead of left to right and I

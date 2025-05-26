@@ -6,8 +6,7 @@ E.g. Opening a terminal or Vivaldi took up the entire screen.
 
 
 The solution I found was, conveniently, located in a
-post on the ArchLinux
-forum.
+post on the ArchLinux forum.
 
 Essentially, you just need to add a handleEventHook with docksEventHook and
 handleEventHook defaultConfig.
@@ -37,8 +36,7 @@ Essentially, you just need to add a handleEventHook with docksEventHook and hand
 application that I opened on my first workspace would cover XMobar.</p><pre class=example>
 E.g. Opening a terminal or Vivaldi took up the entire screen.
 </pre><p>The solution I found was, conveniently, located in a
-<a href="https://bbs.archlinux.org/viewtopic.php?id=206890">post on the ArchLinux
-forum</a>.</p><p>Essentially, you just need to add a <code class=verbatim>handleEventHook</code> with <code class=verbatim>docksEventHook</code> and
+<a href="https://bbs.archlinux.org/viewtopic.php?id=206890">post on the ArchLinux forum</a>.</p><p>Essentially, you just need to add a <code class=verbatim>handleEventHook</code> with <code class=verbatim>docksEventHook</code> and
 <code class=verbatim>handleEventHook defaultConfig</code>.</p><div class="src src-haskell"><div class=highlight><pre tabindex=0 class=chroma><code class=language-haskell data-lang=haskell><span class=line><span class=cl><span class=c1>-- My overall config that is used elsewhere</span>
 </span></span><span class=line><span class=cl><span class=nf>myConfig</span> <span class=ow>=</span> <span class=n>defaultConfig</span>
 </span></span><span class=line><span class=cl>    <span class=p>{</span> <span class=n>manageHook</span> <span class=ow>=</span> <span class=n>manageDocks</span> <span class=o>&lt;+&gt;</span> <span class=n>manageHook</span> <span class=n>defaultConfig</span>

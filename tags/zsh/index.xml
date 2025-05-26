@@ -8,8 +8,12 @@ functionality - I decided to explore writing a zsh function to be exposed in my
 shell. This function&amp;#39;s goal was to manage my notes, providing functionality to
 list existing notes, create new notes, and delete old notes. At the end of the
 day, I arrived at a 122 line zsh function as seen
-&lt;a href="https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/#source-code">at the bottom of
-this post&lt;/a>.&lt;/p></description></item><item><title>Reducing the Barrier to Entry in Note Taking</title><link>https://chipsenkbeil.com/posts/reducing-the-barrier-to-entry-in-note-taking/</link><pubDate>Sun, 01 Jul 2018 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/reducing-the-barrier-to-entry-in-note-taking/</guid><description>&lt;p>
+&lt;a href="https://chipsenkbeil.com/posts/breaking-down-the-zsh-notes-function/#source-code">at the bottom of this post&lt;/a>.&lt;/p></description></item><item><title>Reducing the Barrier to Entry in Note Taking</title><link>https://chipsenkbeil.com/posts/reducing-the-barrier-to-entry-in-note-taking/</link><pubDate>Sun, 01 Jul 2018 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/reducing-the-barrier-to-entry-in-note-taking/</guid><description>&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
+The Challenge
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>
 One of my biggest challenges to accomplishing something is the barrier to entry.
 Starting a project, exercising, and even writing this blog post take genuine
 effort for me to do. After realizing this as one of my biggest obstacles to

@@ -10,18 +10,17 @@ application not being able to snap Emacs to any of its grids. If you look at the
 Magnet dropdown with Emacs focused, all of the options will be greyed out.&lt;/p>
 &lt;p>
 As described in
-&lt;a href="https://www.reddit.com/r/emacs/comments/8ez3a9/macos_window_snapping_with_magnetdoesnt_work_on/">this
-reddit post&lt;/a>, there is an Emacs distribution designed specifically for Mac OS X
+&lt;a href="https://www.reddit.com/r/emacs/comments/8ez3a9/macos_window_snapping_with_magnetdoesnt_work_on/">this reddit post&lt;/a>, there is an Emacs distribution designed specifically for Mac OS X
 that adds
-&lt;a href="https://bitbucket.org/mituharu/emacs-mac/src/f3402395995bf70e50d6e65f841e44d5f9b4603c/README-mac?at=master&amp;amp;fileviewer=file-view-default">additional
-features&lt;/a> through a Carbon port (over Cocoa from default homebrew).&lt;/p></description></item><item><title>Configuring Calibre Server from CLI</title><link>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</link><pubDate>Sun, 19 Apr 2020 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</guid><description>&lt;p>
+&lt;a href="https://bitbucket.org/mituharu/emacs-mac/src/f3402395995bf70e50d6e65f841e44d5f9b4603c/README-mac?at=master&amp;amp;fileviewer=file-view-default">additional features&lt;/a> through a Carbon port (over Cocoa from default homebrew).&lt;/p></description></item><item><title>Configuring Calibre Server from CLI</title><link>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</link><pubDate>Sun, 19 Apr 2020 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</guid><description>&lt;p>
 Watching&lt;/p>
-&lt;div id="outline-container-headline-1" class="outline-3">
-&lt;h3 id="headline-1">
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Installing on a FreeBSD Jail
-&lt;/h3>
-&lt;div id="outline-text-headline-1" class="outline-text-3">
-&lt;p>Very easy to do on FreeBSD 11.3 via the FreeNAS GUI.&lt;/p>
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>
+Very easy to do on FreeBSD 11.3 via the FreeNAS GUI.&lt;/p>
 &lt;ol>
 &lt;li>Create a new jail and set a specific IPv4 address to host. For me, this was
 192.168.5.33&lt;/li>
@@ -31,16 +30,14 @@ Installing on a FreeBSD Jail
 do. After that, it&amp;#39;ll install a lot of packages (Python 3.7, some Perl, etc.)
 and then all CLI commands should be available.&lt;/p></description></item><item><title>Configuring autorandr</title><link>https://chipsenkbeil.com/notes/configuring-autorandr/</link><pubDate>Sun, 15 Dec 2019 00:00:00 -0600</pubDate><guid>https://chipsenkbeil.com/notes/configuring-autorandr/</guid><description>&lt;p>
 I have successfully moved over to using super ultrawide monitors both at work
-(&lt;a href="https://www.dell.com/en-us/work/shop/accessories/apd/210-arnw">Dell
-U4919DW&lt;/a>) and at home
-(&lt;a href="https://www.samsung.com/us/computing/monitors/gaming/49-crg9-dual-qhd-curved-qled-gaming-monitor-lc49rg90ssnxza/">Samsung
-CRG90&lt;/a> + &lt;a href="https://www.caldigit.com/ts3-plus/">CalDigit TS3 Plus&lt;/a>). I&amp;#39;ve set
+(&lt;a href="https://www.dell.com/en-us/work/shop/accessories/apd/210-arnw">Dell U4919DW&lt;/a>) and at home
+(&lt;a href="https://www.samsung.com/us/computing/monitors/gaming/49-crg9-dual-qhd-curved-qled-gaming-monitor-lc49rg90ssnxza/">Samsung CRG90&lt;/a> + &lt;a href="https://www.caldigit.com/ts3-plus/">CalDigit TS3 Plus&lt;/a>). I&amp;#39;ve set
 these up as one-cable solutions over USB-C via Alternate Mode (Dell) and/or
 Thunderbolt 3 (Samsung + CalDigit), which makes my life much easier.&lt;/p>
-&lt;div id="outline-container-headline-1" class="outline-4">
-&lt;h4 id="headline-1">
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Combining with virtual monitors
-&lt;/h4>
+&lt;/h2>
 &lt;/div></description></item><item><title>Linux Virtual Monitors with xrandr</title><link>https://chipsenkbeil.com/notes/linux-virtual-monitors-with-xrandr/</link><pubDate>Wed, 14 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/linux-virtual-monitors-with-xrandr/</guid><description>&lt;p>
 I recently learned that you can configure virtual monitors with xrandr. There
 are two different ways to use this: treat multiple physical monitors as one
@@ -50,26 +47,26 @@ monitors.&lt;/p>
 &lt;p>Note that this requires xrandr 1.5.0 or higher, which introduces setmonitor as
 an option in the CLI.&lt;/p>
 &lt;/blockquote>
-&lt;div id="outline-container-headline-1" class="outline-3">
-&lt;h3 id="headline-1">
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Why do I want to do this?
-&lt;/h3>
-&lt;div id="outline-text-headline-1" class="outline-text-3">
-&lt;p>My primary interest here is to split a super widescreen monitor like the
-&lt;a href="https://www.dell.com/en-us/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-arnw/monitors-monitor-accessories">Dell
-49” UltraSharp Curved Monitor (U4919DW)&lt;/a> as multiple separate displays. I like
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>
+My primary interest here is to split a super widescreen monitor like the
+&lt;a href="https://www.dell.com/en-us/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-arnw/monitors-monitor-accessories">Dell 49” UltraSharp Curved Monitor (U4919DW)&lt;/a> as multiple separate displays. I like
 the way that dwm breaks up monitors into multiple spaces and when I have two or
 three separate monitors I normally use a center monitor for focused work with
-the side monitors containing music, calendar, and chat.&lt;/p></description></item><item><title>Qutebrowser Cheatsheet</title><link>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</link><pubDate>Wed, 03 Jul 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</guid><description>&lt;div id="outline-container-headline-1" class="outline-3">
-&lt;h3 id="headline-1">
+the side monitors containing music, calendar, and chat.&lt;/p></description></item><item><title>Qutebrowser Cheatsheet</title><link>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</link><pubDate>Wed, 03 Jul 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</guid><description>&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Tabs
-&lt;/h3>
-&lt;div id="outline-text-headline-1" class="outline-text-3">
-&lt;div id="outline-container-headline-2" class="outline-4">
-&lt;h4 id="headline-2">
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;div id="outline-container-headline-2" class="outline-3">
+&lt;h3 id="headline-2">
 Navigating Tabs
-&lt;/h4>
-&lt;div id="outline-text-headline-2" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-2" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -98,11 +95,11 @@ Navigating Tabs
 &lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-3" class="outline-4">
-&lt;h4 id="headline-3">
+&lt;div id="outline-container-headline-3" class="outline-3">
+&lt;h3 id="headline-3">
 Moving Tabs
-&lt;/h4>
-&lt;div id="outline-text-headline-3" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-3" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -119,11 +116,11 @@ Moving Tabs
 &lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-4" class="outline-4">
-&lt;h4 id="headline-4">
+&lt;div id="outline-container-headline-4" class="outline-3">
+&lt;h3 id="headline-4">
 Deleting Tabs
-&lt;/h4>
-&lt;div id="outline-text-headline-4" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-4" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -146,16 +143,16 @@ Deleting Tabs
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-5" class="outline-3">
-&lt;h3 id="headline-5">
+&lt;div id="outline-container-headline-5" class="outline-2">
+&lt;h2 id="headline-5">
 Element Selection
-&lt;/h3>
-&lt;div id="outline-text-headline-5" class="outline-text-3">
-&lt;div id="outline-container-headline-6" class="outline-4">
-&lt;h4 id="headline-6">
+&lt;/h2>
+&lt;div id="outline-text-headline-5" class="outline-text-2">
+&lt;div id="outline-container-headline-6" class="outline-3">
+&lt;h3 id="headline-6">
 Select Input
-&lt;/h4>
-&lt;div id="outline-text-headline-6" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-6" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -176,11 +173,11 @@ Select Input
 &lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-7" class="outline-4">
-&lt;h4 id="headline-7">
+&lt;div id="outline-container-headline-7" class="outline-3">
+&lt;h3 id="headline-7">
 Select Hyperlink on Page
-&lt;/h4>
-&lt;div id="outline-text-headline-7" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-7" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -203,16 +200,16 @@ Select Hyperlink on Page
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-8" class="outline-3">
-&lt;h3 id="headline-8">
+&lt;div id="outline-container-headline-8" class="outline-2">
+&lt;h2 id="headline-8">
 URLs
-&lt;/h3>
-&lt;div id="outline-text-headline-8" class="outline-text-3">
-&lt;div id="outline-container-headline-9" class="outline-4">
-&lt;h4 id="headline-9">
+&lt;/h2>
+&lt;div id="outline-text-headline-8" class="outline-text-2">
+&lt;div id="outline-container-headline-9" class="outline-3">
+&lt;h3 id="headline-9">
 Open URL
-&lt;/h4>
-&lt;div id="outline-text-headline-9" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-9" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -235,16 +232,16 @@ Open URL
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-10" class="outline-3">
-&lt;h3 id="headline-10">
+&lt;div id="outline-container-headline-10" class="outline-2">
+&lt;h2 id="headline-10">
 Pages
-&lt;/h3>
-&lt;div id="outline-text-headline-10" class="outline-text-3">
-&lt;div id="outline-container-headline-11" class="outline-4">
-&lt;h4 id="headline-11">
+&lt;/h2>
+&lt;div id="outline-text-headline-10" class="outline-text-2">
+&lt;div id="outline-container-headline-11" class="outline-3">
+&lt;h3 id="headline-11">
 Page Navigation
-&lt;/h4>
-&lt;div id="outline-text-headline-11" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-11" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -273,11 +270,11 @@ Page Navigation
 &lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-12" class="outline-4">
-&lt;h4 id="headline-12">
+&lt;div id="outline-container-headline-12" class="outline-3">
+&lt;h3 id="headline-12">
 Page History
-&lt;/h4>
-&lt;div id="outline-text-headline-12" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-12" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -298,11 +295,11 @@ Page History
 &lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-13" class="outline-4">
-&lt;h4 id="headline-13">
+&lt;div id="outline-container-headline-13" class="outline-3">
+&lt;h3 id="headline-13">
 Page Search
-&lt;/h4>
-&lt;div id="outline-text-headline-13" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-13" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -337,8 +334,7 @@ Find Interface Name
 &lt;div id="outline-text-headline-1" class="outline-text-4">
 &lt;p>Before editing that file, we need to look up our ethernet interface name. This
 used to be something easy like &lt;strong>eth0&lt;/strong>, but Debian appears to have
-&lt;a href="https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names">changed
-interface names&lt;/a>. Run &lt;code class="verbatim">ifconfig&lt;/code> to see Debian&amp;#39;s current interfaces. With the
+&lt;a href="https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names">changed interface names&lt;/a>. Run &lt;code class="verbatim">ifconfig&lt;/code> to see Debian&amp;#39;s current interfaces. With the
 Raspberry Pi 3 B+, there will also be a wifi interface shown as below:&lt;/p>
 &lt;pre class="example">
 enxb827ebb61344: flags=4163&amp;lt;UP,BROADCAST,RUNNING,MULTICAST&amp;gt; mtu 1500
@@ -366,30 +362,32 @@ wlan0: flags=4099&amp;lt;UP,BROADCAST,MULTICAST&amp;gt; mtu 1500
 &lt;/pre>
 &lt;p>
 Notice &lt;strong>enxb827ebb61344&lt;/strong>, the ridiculously ugly interface name that we&amp;#39;ll need
-when setting our static IP.&lt;/p></description></item><item><title>Proxmox Changes</title><link>https://chipsenkbeil.com/notes/proxmox-changes/</link><pubDate>Sun, 14 Jan 2018 00:00:00 -0600</pubDate><guid>https://chipsenkbeil.com/notes/proxmox-changes/</guid><description>&lt;div id="outline-container-headline-1" class="outline-4">
-&lt;h4 id="headline-1">
+when setting our static IP.&lt;/p></description></item><item><title>Proxmox Changes</title><link>https://chipsenkbeil.com/notes/proxmox-changes/</link><pubDate>Sun, 14 Jan 2018 00:00:00 -0600</pubDate><guid>https://chipsenkbeil.com/notes/proxmox-changes/</guid><description>&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Removing subscription notice
-&lt;/h4>
-&lt;div id="outline-text-headline-1" class="outline-text-4">
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
 &lt;div class="src src-sh">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">sed -i.bak &lt;span class="s1">&amp;#39;s/NotFound/Active/g&amp;#39;&lt;/span> /usr/share/perl5/PVE/API2/Subscription.pm &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> systemctl restart pveproxy.service&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-2" class="outline-4">
-&lt;h4 id="headline-2">
+&lt;div id="outline-container-headline-2" class="outline-2">
+&lt;h2 id="headline-2">
 Generating Let&amp;#39;s Encrypt certs
-&lt;/h4>
-&lt;div id="outline-text-headline-2" class="outline-text-4">
-&lt;p>&lt;a href="https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x_and_newer)#Let.27s_Encrypt_using_acme.sh">https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x_and_newer)#Let.27s_Encrypt_using_acme.sh&lt;/a>&lt;/p>
+&lt;/h2>
+&lt;div id="outline-text-headline-2" class="outline-text-2">
+&lt;p>
+https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x_and_newer)#Let.27s_Encrypt_using_acme.sh&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-3" class="outline-4">
-&lt;h4 id="headline-3">
+&lt;div id="outline-container-headline-3" class="outline-2">
+&lt;h2 id="headline-3">
 Supporting port 80 &amp;amp; 443
-&lt;/h4>
-&lt;div id="outline-text-headline-3" class="outline-text-4">
-&lt;p>By default, proxmox looks for traffic only on port 8006. Based on my readings
+&lt;/h2>
+&lt;div id="outline-text-headline-3" class="outline-text-2">
+&lt;p>
+By default, proxmox looks for traffic only on port 8006. Based on my readings
 online, forcefully changing the port - which is now hardcoded - can cause a lot
 of problems. Instead, the most recent and successful recommendation has been to
 use &lt;em>nginx&lt;/em> to redirect traffic on port 80 and 443 to port 8006. Below is the
@@ -421,12 +419,13 @@ In my ArchLinux setup with XMonad, I&amp;#39;ve found myself wanting to swap bet
 &lt;em>Kinesis Advantage&lt;/em> keyboard allows me to swap layouts at the hardware level
 (I&amp;#39;m assuming by simulating Dvorak on top of Qwerty), I also found a
 keyboard-agnostic way to do this.&lt;/p>
-&lt;div id="outline-container-headline-1" class="outline-4">
-&lt;h4 id="headline-1">
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Configuring Keypress Toggle
-&lt;/h4>
-&lt;div id="outline-text-headline-1" class="outline-text-4">
-&lt;p>For X11, create the following configuration at
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>
+For X11, create the following configuration at
 &lt;code class="verbatim">/etc/X11/xorg.conf.d/00-keyboard.conf&lt;/code>:&lt;/p>
 &lt;div class="src src-sh">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Read and parsed by systemd-localed. It&amp;#39;s probably wise not to edit this file&lt;/span>
@@ -449,8 +448,7 @@ E.g. Opening a terminal or Vivaldi took up the entire screen.
 &lt;/pre>
 &lt;p>
 The solution I found was, conveniently, located in a
-&lt;a href="https://bbs.archlinux.org/viewtopic.php?id=206890">post on the ArchLinux
-forum&lt;/a>.&lt;/p>
+&lt;a href="https://bbs.archlinux.org/viewtopic.php?id=206890">post on the ArchLinux forum&lt;/a>.&lt;/p>
 &lt;p>
 Essentially, you just need to add a &lt;code class="verbatim">handleEventHook&lt;/code> with &lt;code class="verbatim">docksEventHook&lt;/code> and
 &lt;code class="verbatim">handleEventHook defaultConfig&lt;/code>.&lt;/p>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Calibre on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/calibre/</link><description>Recent content in Calibre on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 19 Apr 2020 00:00:00 -0500</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/calibre/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuring Calibre Server from CLI</title><link>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</link><pubDate>Sun, 19 Apr 2020 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/configuring-calibre-server-from-cli/</guid><description>&lt;p>
 Watching&lt;/p>
-&lt;div id="outline-container-headline-1" class="outline-3">
-&lt;h3 id="headline-1">
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Installing on a FreeBSD Jail
-&lt;/h3>
-&lt;div id="outline-text-headline-1" class="outline-text-3">
-&lt;p>Very easy to do on FreeBSD 11.3 via the FreeNAS GUI.&lt;/p>
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>
+Very easy to do on FreeBSD 11.3 via the FreeNAS GUI.&lt;/p>
 &lt;ol>
 &lt;li>Create a new jail and set a specific IPv4 address to host. For me, this was
 192.168.5.33&lt;/li>

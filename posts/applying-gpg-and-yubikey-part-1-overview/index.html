@@ -20,12 +20,12 @@ In this post, I'm going to dive into GPG and YubiKey at a high level and explain
 applying GPG and YubiKey. I won't pretend that I am an expert on either GPG or
 Yubikey. Instead, I'll be focusing on how I have been using GPG and a variety of
 Yubikey devices to enhance my computer experience.</p><p>In this post, I'm going to dive into GPG and YubiKey at a high level and explain
-what they are to my understanding and how I am using them.</p><div id=outline-container-headline-1 class=outline-3><h3 id=headline-1>What is GPG?</h3><div id=outline-text-headline-1 class=outline-text-3><p>To quote <a href=https://gnupg.org/>GnuPG's website</a>:</p><blockquote><p>GnuPG is a complete and free implementation of the OpenPGP standard as defined
+what they are to my understanding and how I am using them.</p><div id=outline-container-headline-1 class=outline-2><h2 id=headline-1>What is GPG?</h2><div id=outline-text-headline-1 class=outline-text-2><p>To quote <a href=https://gnupg.org/>GnuPG's website</a>:</p><blockquote><p>GnuPG is a complete and free implementation of the OpenPGP standard as defined
 by RFC4880 (also known as PGP). GnuPG allows you to <strong>encrypt and sign your data
 and communications</strong>; it features a versatile key management system, along with
 access modules for all kinds of public key directories.</p></blockquote><p>To my understanding, GPG uses a method of encryption known as
-<a href=https://en.wikipedia.org/wiki/Public-key_cryptography>public key asymmetric
-cryptography</a>, using key pairs to encrypt and decrypt information. GPG has a
+<a href=https://en.wikipedia.org/wiki/Public-key_cryptography>public key asymmetric cryptography</a>,
+using key pairs to encrypt and decrypt information. GPG has a
 bunch of other algorithms related to ciphers, hashing, and compression, but my
 main use case is with public key cryptography typically revolving around
 <a href=https://en.wikipedia.org/wiki/RSA_(cryptosystem)>RSA</a> usage. Additionally,
@@ -34,12 +34,10 @@ have leveraged.</p><p>GPG offers three different capabilities with RSA:</p><ul><
 the primary capabilities that I use day-to-day are the former three.</p><p>In a nutshell, I've been using GPG to these things:</p><ul><li>Encrypt/decrypt my passwords managed by <a href=https://passwordstore.org/>pass</a></li><li>Digitally sign my email & git commits</li><li>Authenticate into my personal servers</li></ul><p>While another big use of GPG is to encrypt your email, I've rarely encrypted (or
 decrypted) any email myself. I do have neomutt configured to encrypt email <em>if</em>
 I have all of the recipients' public keys, but I don't know anyone using
-encrypted mail aside from <a href=https://lukesmith.xyz/>Luke Smith</a>.</p></div></div><div id=outline-container-headline-2 class=outline-3><h3 id=headline-2>What is YubiKey?</h3><div id=outline-text-headline-2 class=outline-text-3><figure><img src=https://chipsenkbeil.com/img/post/my-yubikeys.png alt=/img/post/my-yubikeys.png title=/img/post/my-yubikeys.png><figcaption>Picture of YubiKeys</figcaption></figure><p>To my knowledge, a <a href=https://en.wikipedia.org/wiki/YubiKey>YubiKey</a> is a
+encrypted mail aside from <a href=https://lukesmith.xyz/>Luke Smith</a>.</p></div></div><div id=outline-container-headline-2 class=outline-2><h2 id=headline-2>What is YubiKey?</h2><div id=outline-text-headline-2 class=outline-text-2><figure><img src=https://chipsenkbeil.com/img/post/my-yubikeys.png alt=/img/post/my-yubikeys.png title=/img/post/my-yubikeys.png><figcaption>Picture of YubiKeys</figcaption></figure><p>To my knowledge, a <a href=https://en.wikipedia.org/wiki/YubiKey>YubiKey</a> is a
 hardware device built for authentication. Made by
 <a href=http://yubico.com/>Yubico</a>, these keys provide a variety of features ranging
-from <a href=https://en.wikipedia.org/wiki/One-time_password>one-time password
-(OTP)</a> generation to <a href=https://en.wikipedia.org/wiki/Universal_2nd_Factor>U2F
-(universal two-factor)</a> authentication.</p><p>I use a YubiKey in two ways:</p><ul><li>one-time passwords (OTP)</li><li>public-key cryptography (encryption/authentication/signing)</li></ul><p>At work, we have YubiKeys configured with one-time passwords to sign in to
+from <a href=https://en.wikipedia.org/wiki/One-time_password>one-time password (OTP)</a> generation to <a href=https://en.wikipedia.org/wiki/Universal_2nd_Factor>U2F (universal two-factor)</a> authentication.</p><p>I use a YubiKey in two ways:</p><ul><li>one-time passwords (OTP)</li><li>public-key cryptography (encryption/authentication/signing)</li></ul><p>At work, we have YubiKeys configured with one-time passwords to sign in to
 various services by touching the device. It's incredibly handy versus needing to
 open my phone for Duo Mobile two-factor authentication.</p><p>Separately, I use YubiKeys (both at work and home) to store and use my GPG keys.
 Yubico - the company producing YubiKey devices - released the 4th generation of
@@ -52,13 +50,11 @@ signing requests will be done on the YubiKey device itself. This means even if
 your computer is compromised from a remote attacker, your keys will remain safe,
 although your keys can still be used by GPG until the cache of your YubiKey
 password has expired.</p><p>Another bonus is that I don't need to worry about copying my keys across
-different computers. Instead, I can transfer the YubiKey between devices.</p></div></div><div id=outline-container-headline-3 class=outline-3><h3 id=headline-3>What did I do?</h3><div id=outline-text-headline-3 class=outline-text-3><p>There was a lot of learning on my part to figure out how to set up GPG keys, how
+different computers. Instead, I can transfer the YubiKey between devices.</p></div></div><div id=outline-container-headline-3 class=outline-2><h2 id=headline-3>What did I do?</h2><div id=outline-text-headline-3 class=outline-text-2><p>There was a lot of learning on my part to figure out how to set up GPG keys, how
 to move said keys to YubiKeys, and what configuration changes and tools were
 needed to get the environment I wanted/needed.</p><p>This wasn't my first time creating a GPG key. When
-<a href=https://checker.apache.org/keys/4282790f8e3b4bba.html>publishing releases for
-Apache Toree</a> and
-<a href="https://search.maven.org/search?q=g:org.scala-debugger">publishing releases
-for Ensime's Scala Debugger</a> as early as June of 2015, I created a new key to
+<a href=https://checker.apache.org/keys/4282790f8e3b4bba.html>publishing releases for Apache Toree</a> and
+<a href="https://search.maven.org/search?q=g:org.scala-debugger">publishing releases for Ensime's Scala Debugger</a> as early as June of 2015, I created a new key to
 do the signing, not really understanding what the key was but knowing that I
 needed one to upload jars.</p><p>Enter 2019 and I had become interested in switching from
 <a href=https://lastpass.com/>LastPass</a> to <a href=https://passwordstore.org/>Pass</a> in
@@ -66,8 +62,7 @@ order to remove the need for network access when accessing my passwords. Yes,
 LastPass was able to cache passwords and even had its own CLI that I could embed
 into my various configuration scripts, but I often had issues where the cache
 was invalidated or some reason prevented me from accessing my passwords when I
-needed them. Additionally, I wanted more direct control over my password data.</p></div></div><div id=outline-container-headline-4 class=outline-3><h3 id=headline-4>What's next?</h3><div id=outline-text-headline-4 class=outline-text-3><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key>the next
-post</a>, I'll be explaining how I set up my primary GPG key.</p></div></div></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©
+needed them. Additionally, I wanted more direct control over my password data.</p></div></div><div id=outline-container-headline-4 class=outline-2><h2 id=headline-4>What's next?</h2><div id=outline-text-headline-4 class=outline-text-2><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key>the next post</a>, I'll be explaining how I set up my primary GPG key.</p></div></div></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©
 2012 -
 2025
 Chip Senkbeil<br>Views are my own (<a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a>)</p></div></footer></main></body></html>

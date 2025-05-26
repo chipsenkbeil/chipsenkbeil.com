@@ -4,12 +4,13 @@ In my ArchLinux setup with XMonad, I&amp;#39;ve found myself wanting to swap bet
 &lt;em>Kinesis Advantage&lt;/em> keyboard allows me to swap layouts at the hardware level
 (I&amp;#39;m assuming by simulating Dvorak on top of Qwerty), I also found a
 keyboard-agnostic way to do this.&lt;/p>
-&lt;div id="outline-container-headline-1" class="outline-4">
-&lt;h4 id="headline-1">
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Configuring Keypress Toggle
-&lt;/h4>
-&lt;div id="outline-text-headline-1" class="outline-text-4">
-&lt;p>For X11, create the following configuration at
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>
+For X11, create the following configuration at
 &lt;code class="verbatim">/etc/X11/xorg.conf.d/00-keyboard.conf&lt;/code>:&lt;/p>
 &lt;div class="src src-sh">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Read and parsed by systemd-localed. It&amp;#39;s probably wise not to edit this file&lt;/span>
@@ -32,8 +33,7 @@ E.g. Opening a terminal or Vivaldi took up the entire screen.
 &lt;/pre>
 &lt;p>
 The solution I found was, conveniently, located in a
-&lt;a href="https://bbs.archlinux.org/viewtopic.php?id=206890">post on the ArchLinux
-forum&lt;/a>.&lt;/p>
+&lt;a href="https://bbs.archlinux.org/viewtopic.php?id=206890">post on the ArchLinux forum&lt;/a>.&lt;/p>
 &lt;p>
 Essentially, you just need to add a &lt;code class="verbatim">handleEventHook&lt;/code> with &lt;code class="verbatim">docksEventHook&lt;/code> and
 &lt;code class="verbatim">handleEventHook defaultConfig&lt;/code>.&lt;/p>

@@ -6,8 +6,7 @@ E.g. Opening a terminal or Vivaldi took up the entire screen.
 &lt;/pre>
 &lt;p>
 The solution I found was, conveniently, located in a
-&lt;a href="https://bbs.archlinux.org/viewtopic.php?id=206890">post on the ArchLinux
-forum&lt;/a>.&lt;/p>
+&lt;a href="https://bbs.archlinux.org/viewtopic.php?id=206890">post on the ArchLinux forum&lt;/a>.&lt;/p>
 &lt;p>
 Essentially, you just need to add a &lt;code class="verbatim">handleEventHook&lt;/code> with &lt;code class="verbatim">docksEventHook&lt;/code> and
 &lt;code class="verbatim">handleEventHook defaultConfig&lt;/code>.&lt;/p>

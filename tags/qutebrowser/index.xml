@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Qutebrowser on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/qutebrowser/</link><description>Recent content in Qutebrowser on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 03 Jul 2019 00:00:00 -0500</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/qutebrowser/index.xml" rel="self" type="application/rss+xml"/><item><title>Qutebrowser Cheatsheet</title><link>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</link><pubDate>Wed, 03 Jul 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</guid><description>&lt;div id="outline-container-headline-1" class="outline-3">
-&lt;h3 id="headline-1">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Qutebrowser on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/qutebrowser/</link><description>Recent content in Qutebrowser on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 03 Jul 2019 00:00:00 -0500</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/qutebrowser/index.xml" rel="self" type="application/rss+xml"/><item><title>Qutebrowser Cheatsheet</title><link>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</link><pubDate>Wed, 03 Jul 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/notes/qutebrowser-cheatsheet/</guid><description>&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Tabs
-&lt;/h3>
-&lt;div id="outline-text-headline-1" class="outline-text-3">
-&lt;div id="outline-container-headline-2" class="outline-4">
-&lt;h4 id="headline-2">
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;div id="outline-container-headline-2" class="outline-3">
+&lt;h3 id="headline-2">
 Navigating Tabs
-&lt;/h4>
-&lt;div id="outline-text-headline-2" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-2" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -36,11 +36,11 @@ Navigating Tabs
 &lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-3" class="outline-4">
-&lt;h4 id="headline-3">
+&lt;div id="outline-container-headline-3" class="outline-3">
+&lt;h3 id="headline-3">
 Moving Tabs
-&lt;/h4>
-&lt;div id="outline-text-headline-3" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-3" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -57,11 +57,11 @@ Moving Tabs
 &lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-4" class="outline-4">
-&lt;h4 id="headline-4">
+&lt;div id="outline-container-headline-4" class="outline-3">
+&lt;h3 id="headline-4">
 Deleting Tabs
-&lt;/h4>
-&lt;div id="outline-text-headline-4" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-4" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -84,16 +84,16 @@ Deleting Tabs
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-5" class="outline-3">
-&lt;h3 id="headline-5">
+&lt;div id="outline-container-headline-5" class="outline-2">
+&lt;h2 id="headline-5">
 Element Selection
-&lt;/h3>
-&lt;div id="outline-text-headline-5" class="outline-text-3">
-&lt;div id="outline-container-headline-6" class="outline-4">
-&lt;h4 id="headline-6">
+&lt;/h2>
+&lt;div id="outline-text-headline-5" class="outline-text-2">
+&lt;div id="outline-container-headline-6" class="outline-3">
+&lt;h3 id="headline-6">
 Select Input
-&lt;/h4>
-&lt;div id="outline-text-headline-6" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-6" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -114,11 +114,11 @@ Select Input
 &lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-7" class="outline-4">
-&lt;h4 id="headline-7">
+&lt;div id="outline-container-headline-7" class="outline-3">
+&lt;h3 id="headline-7">
 Select Hyperlink on Page
-&lt;/h4>
-&lt;div id="outline-text-headline-7" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-7" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -141,16 +141,16 @@ Select Hyperlink on Page
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-8" class="outline-3">
-&lt;h3 id="headline-8">
+&lt;div id="outline-container-headline-8" class="outline-2">
+&lt;h2 id="headline-8">
 URLs
-&lt;/h3>
-&lt;div id="outline-text-headline-8" class="outline-text-3">
-&lt;div id="outline-container-headline-9" class="outline-4">
-&lt;h4 id="headline-9">
+&lt;/h2>
+&lt;div id="outline-text-headline-8" class="outline-text-2">
+&lt;div id="outline-container-headline-9" class="outline-3">
+&lt;h3 id="headline-9">
 Open URL
-&lt;/h4>
-&lt;div id="outline-text-headline-9" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-9" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -173,16 +173,16 @@ Open URL
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-10" class="outline-3">
-&lt;h3 id="headline-10">
+&lt;div id="outline-container-headline-10" class="outline-2">
+&lt;h2 id="headline-10">
 Pages
-&lt;/h3>
-&lt;div id="outline-text-headline-10" class="outline-text-3">
-&lt;div id="outline-container-headline-11" class="outline-4">
-&lt;h4 id="headline-11">
+&lt;/h2>
+&lt;div id="outline-text-headline-10" class="outline-text-2">
+&lt;div id="outline-container-headline-11" class="outline-3">
+&lt;h3 id="headline-11">
 Page Navigation
-&lt;/h4>
-&lt;div id="outline-text-headline-11" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-11" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -211,11 +211,11 @@ Page Navigation
 &lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-12" class="outline-4">
-&lt;h4 id="headline-12">
+&lt;div id="outline-container-headline-12" class="outline-3">
+&lt;h3 id="headline-12">
 Page History
-&lt;/h4>
-&lt;div id="outline-text-headline-12" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-12" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -236,11 +236,11 @@ Page History
 &lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-13" class="outline-4">
-&lt;h4 id="headline-13">
+&lt;div id="outline-container-headline-13" class="outline-3">
+&lt;h3 id="headline-13">
 Page Search
-&lt;/h4>
-&lt;div id="outline-text-headline-13" class="outline-text-4">
+&lt;/h3>
+&lt;div id="outline-text-headline-13" class="outline-text-3">
 &lt;table>
 &lt;thead>
 &lt;tr>

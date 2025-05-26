@@ -2,8 +2,7 @@
 </a><input type=checkbox id=menu-toggle>
 <label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/notes/>notes</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/miscellaneous/>miscellaneous</a></li><li class=navigation-item><a class=navigation-link href=https://chipsenkbeil.com/about/>about</a></li></ul></section></nav><div class=content><section class="container page"><article><header><h1 class=title><a class=title-link href=https://chipsenkbeil.com/notes/raspbian-static-ip/>Raspbian Static IP</a></h1></header><p>The main changes need to occur in <code class=verbatim>/etc/dhcpcd.conf</code>.</p><div id=outline-container-headline-1 class=outline-4><h4 id=headline-1>Find Interface Name</h4><div id=outline-text-headline-1 class=outline-text-4><p>Before editing that file, we need to look up our ethernet interface name. This
 used to be something easy like <strong>eth0</strong>, but Debian appears to have
-<a href=https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names>changed
-interface names</a>. Run <code class=verbatim>ifconfig</code> to see Debian's current interfaces. With the
+<a href=https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names>changed interface names</a>. Run <code class=verbatim>ifconfig</code> to see Debian's current interfaces. With the
 Raspberry Pi 3 B+, there will also be a wifi interface shown as below:</p><pre class=example>
 enxb827ebb61344: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         ether b8:27:eb:b6:13:44  txqueuelen 1000  (Ethernet)
@@ -28,7 +27,7 @@ wlan0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
         TX packets 0  bytes 0 (0.0 B)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 </pre><p>Notice <strong>enxb827ebb61344</strong>, the ridiculously ugly interface name that we'll need
-when setting our static IP.</p></div></div><div id=outline-container-headline-2 class=outline-4><h4 id=headline-2>Updating /etc/dhcpcd.conf</h4><div id=outline-text-headline-2 class=outline-text-4><p>With the interface name for ethernet written down, we can open up
+when setting our static IP.</p></div></div><div id=outline-container-headline-2 class=outline-2><h2 id=headline-2>Updating /etc/dhcpcd.conf</h2><div id=outline-text-headline-2 class=outline-text-2><p>With the interface name for ethernet written down, we can open up
 <code class=verbatim>/etc/dhcpcd.conf</code>. There may already be a section for configuring a static IP
 address. Either way, we'll want something like the following:</p><pre class=example>
 # Static IP for raspberry pi (192.168.1.10)

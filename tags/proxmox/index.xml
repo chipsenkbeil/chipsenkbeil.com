@@ -1,27 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Proxmox on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/proxmox/</link><description>Recent content in Proxmox on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 14 Jan 2018 00:00:00 -0600</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/proxmox/index.xml" rel="self" type="application/rss+xml"/><item><title>Proxmox Changes</title><link>https://chipsenkbeil.com/notes/proxmox-changes/</link><pubDate>Sun, 14 Jan 2018 00:00:00 -0600</pubDate><guid>https://chipsenkbeil.com/notes/proxmox-changes/</guid><description>&lt;div id="outline-container-headline-1" class="outline-4">
-&lt;h4 id="headline-1">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Proxmox on Chip Senkbeil</title><link>https://chipsenkbeil.com/tags/proxmox/</link><description>Recent content in Proxmox on Chip Senkbeil</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 14 Jan 2018 00:00:00 -0600</lastBuildDate><atom:link href="https://chipsenkbeil.com/tags/proxmox/index.xml" rel="self" type="application/rss+xml"/><item><title>Proxmox Changes</title><link>https://chipsenkbeil.com/notes/proxmox-changes/</link><pubDate>Sun, 14 Jan 2018 00:00:00 -0600</pubDate><guid>https://chipsenkbeil.com/notes/proxmox-changes/</guid><description>&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Removing subscription notice
-&lt;/h4>
-&lt;div id="outline-text-headline-1" class="outline-text-4">
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
 &lt;div class="src src-sh">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">sed -i.bak &lt;span class="s1">&amp;#39;s/NotFound/Active/g&amp;#39;&lt;/span> /usr/share/perl5/PVE/API2/Subscription.pm &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> systemctl restart pveproxy.service&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-2" class="outline-4">
-&lt;h4 id="headline-2">
+&lt;div id="outline-container-headline-2" class="outline-2">
+&lt;h2 id="headline-2">
 Generating Let&amp;#39;s Encrypt certs
-&lt;/h4>
-&lt;div id="outline-text-headline-2" class="outline-text-4">
-&lt;p>&lt;a href="https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x_and_newer)#Let.27s_Encrypt_using_acme.sh">https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x_and_newer)#Let.27s_Encrypt_using_acme.sh&lt;/a>&lt;/p>
+&lt;/h2>
+&lt;div id="outline-text-headline-2" class="outline-text-2">
+&lt;p>
+https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x_and_newer)#Let.27s_Encrypt_using_acme.sh&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;div id="outline-container-headline-3" class="outline-4">
-&lt;h4 id="headline-3">
+&lt;div id="outline-container-headline-3" class="outline-2">
+&lt;h2 id="headline-3">
 Supporting port 80 &amp;amp; 443
-&lt;/h4>
-&lt;div id="outline-text-headline-3" class="outline-text-4">
-&lt;p>By default, proxmox looks for traffic only on port 8006. Based on my readings
+&lt;/h2>
+&lt;div id="outline-text-headline-3" class="outline-text-2">
+&lt;p>
+By default, proxmox looks for traffic only on port 8006. Based on my readings
 online, forcefully changing the port - which is now hardcoded - can cause a lot
 of problems. Instead, the most recent and successful recommendation has been to
 use &lt;em>nginx&lt;/em> to redirect traffic on port 80 and 443 to port 8006. Below is the

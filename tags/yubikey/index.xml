@@ -14,7 +14,8 @@ created in parts &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yub
 Yubikey
 &lt;/h2>
 &lt;div id="outline-text-headline-1" class="outline-text-2">
-&lt;p>I&amp;#39;ve got multiple Yubikeys configured across different devices and primarily use
+&lt;p>
+I&amp;#39;ve got multiple Yubikeys configured across different devices and primarily use
 them for password management and SSH authentication. Rather than keeping
 physical subkeys on each of these machines, I instead have a dedicated Yubikey
 for each device that hosts the subkeys, keeping them protected from direct
@@ -27,12 +28,13 @@ haven&amp;#39;t set up your GPG keys yet, I also talk about a simple flow
 &lt;p>
 Today, we&amp;#39;re going specifically into using GPG for authentication for SSHing
 into remote servers and associating with Github.&lt;/p>
-&lt;div id="outline-container-headline-1" class="outline-4">
-&lt;h4 id="headline-1">
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Using my GPG key for authenticating over SSH
-&lt;/h4>
-&lt;div id="outline-text-headline-1" class="outline-text-4">
-&lt;p>One handy use case for GPG keys related to authentication is using a GPG key to
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>
+One handy use case for GPG keys related to authentication is using a GPG key to
 access remote servers over SSH. Rather than using password-based authentication
 or SSH public key authentication via &lt;code class="verbatim">ssh-keygen&lt;/code>, we can leverage a GPG key
 with authentication capabilities to connect instead.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 4 (Signing)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/</link><pubDate>Mon, 02 Sep 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing/</guid><description>&lt;p>
@@ -42,8 +44,7 @@ curious about why and in what ways I started using GPG and Yubikey. If you
 haven&amp;#39;t set up your GPG keys yet, I also talk about a simple flow
 &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup">in my second post&lt;/a>. Finally,
 the email signing section expects you to have already set up encryption, so you
-should really check out &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption">my
-third post&lt;/a> regarding encryption setup with neomutt.&lt;/p>
+should really check out &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption">my third post&lt;/a> regarding encryption setup with neomutt.&lt;/p>
 &lt;p>
 Today, we&amp;#39;re going specifically into using GPG for signing email and git
 commits.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 3 (Encryption)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/</link><pubDate>Sun, 01 Sep 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-3-encryption/</guid><description>&lt;p>
@@ -56,131 +57,30 @@ haven&amp;#39;t set up your GPG keys yet, I also talk about a simple flow
 Today, we&amp;#39;re going specifically into using GPG for encryption and how to
 integrate GPG into &lt;a href="https://passwordstore.org/">pass&lt;/a> and
 &lt;a href="https://neomutt.org/">neomutt&lt;/a>.&lt;/p>
-&lt;div id="outline-container-headline-1" class="outline-3">
-&lt;h3 id="headline-1">
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Refresher of current state
-&lt;/h3>
-&lt;div id="outline-text-headline-1" class="outline-text-3">
-&lt;p>At this point, we have our primary key for signing and certifying (SC) other
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>
+At this point, we have our primary key for signing and certifying (SC) other
 keys. You should also notice a second key (labelled as a subkey here) that is
 purely for encryption (E). We will be using that encryption key for our
-utilities today.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 7 (Mobile)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-7-mobile/</link><pubDate>Mon, 26 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-7-mobile/</guid><description>&lt;div id="outline-container-headline-1" class="outline-4">
-&lt;h4 id="headline-1">
-Using GPG key on mobile
-&lt;/h4>
-&lt;div id="outline-text-headline-1" class="outline-text-4">
-&lt;p>Mention YubiKey NFC, Password Store app, and OpenKeychain app&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;div id="outline-container-headline-2" class="outline-4">
-&lt;h4 id="headline-2">
-Revoking my GPG key
-&lt;/h4>
-&lt;div id="outline-text-headline-2" class="outline-text-4">
-&lt;p>Mention old process of making unique subkey for each YubiKey Mention process of
-revoking&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;div id="outline-container-headline-3" class="outline-3">
-&lt;h3 id="headline-3">
-Conclusion
-&lt;/h3>
-&lt;div id="outline-text-headline-3" class="outline-text-3">
-&lt;p>TODO… what should be put here?&lt;/p>
-&lt;p>
-What is it?&lt;/p>
-&lt;p>
-Why did I need it?&lt;/p>
-&lt;p>
-What did I do?&lt;/p>
-&lt;p>
-Conclusion&lt;/p>
-&lt;p>
-When adding new keys at the same time to GPG (recipients) or passwordstore, I
-needed to add an exclamation mark to the end. E.g. 0xDEADBEEF! in order to force
-encryption with that key and allow multiple keys as options.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 8 (Revoking Keys)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-8-revoking-keys/</link><pubDate>Mon, 26 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-8-revoking-keys/</guid><description>&lt;div id="outline-container-headline-1" class="outline-4">
-&lt;h4 id="headline-1">
-Revoking my GPG key
-&lt;/h4>
-&lt;div id="outline-text-headline-1" class="outline-text-4">
-&lt;p>Mention old process of making unique subkey for each YubiKey Mention process of
-revoking&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;div id="outline-container-headline-2" class="outline-3">
-&lt;h3 id="headline-2">
-Conclusion
-&lt;/h3>
-&lt;div id="outline-text-headline-2" class="outline-text-3">
-&lt;p>TODO… what should be put here?&lt;/p>
-&lt;p>
-What is it?&lt;/p>
-&lt;p>
-Why did I need it?&lt;/p>
-&lt;p>
-What did I do?&lt;/p>
-&lt;p>
-Conclusion&lt;/p>
-&lt;p>
-When adding new keys at the same time to GPG (recipients) or passwordstore, I
-needed to add an exclamation mark to the end. E.g. 0xDEADBEEF! in order to force
-encryption with that key and allow multiple keys as options.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 9 (Keyservers)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-9-keyservers/</link><pubDate>Mon, 26 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-9-keyservers/</guid><description>&lt;div id="outline-container-headline-1" class="outline-4">
-&lt;h4 id="headline-1">
-Traditional Keyservers
-&lt;/h4>
-&lt;div id="outline-text-headline-1" class="outline-text-4">
-&lt;p>Discuss keyservers, cite some examples, and how to use them&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;div id="outline-container-headline-2" class="outline-4">
-&lt;h4 id="headline-2">
-Keybase
-&lt;/h4>
-&lt;div id="outline-text-headline-2" class="outline-text-4">
-&lt;p>Discuss keybase and how to use it&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;div id="outline-container-headline-3" class="outline-4">
-&lt;h4 id="headline-3">
-Revoking my GPG key
-&lt;/h4>
-&lt;div id="outline-text-headline-3" class="outline-text-4">
-&lt;p>Mention old process of making unique subkey for each YubiKey Mention process of
-revoking&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;div id="outline-container-headline-4" class="outline-3">
-&lt;h3 id="headline-4">
-Conclusion
-&lt;/h3>
-&lt;div id="outline-text-headline-4" class="outline-text-3">
-&lt;p>TODO… what should be put here?&lt;/p>
-&lt;p>
-What is it?&lt;/p>
-&lt;p>
-Why did I need it?&lt;/p>
-&lt;p>
-What did I do?&lt;/p>
-&lt;p>
-Conclusion&lt;/p>
-&lt;p>
-When adding new keys at the same time to GPG (recipients) or passwordstore, I
-needed to add an exclamation mark to the end. E.g. 0xDEADBEEF! in order to force
-encryption with that key and allow multiple keys as options.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 2 (Setup GPG Keys)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/</link><pubDate>Fri, 16 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/</guid><description>&lt;p>
-If you haven&amp;#39;t read &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview">my
-overview post&lt;/a>, feel free to check it out to get an idea of why and how I
+utilities today.&lt;/p></description></item><item><title>Applying GPG and Yubikey: Part 2 (Setup GPG Keys)</title><link>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/</link><pubDate>Fri, 16 Aug 2019 00:00:00 -0500</pubDate><guid>https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key/</guid><description>&lt;p>
+If you haven&amp;#39;t read &lt;a href="https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-1-overview">my overview post&lt;/a>, feel free to check it out to get an idea of why and how I
 started using GPG and Yubikey.&lt;/p>
 &lt;p>
 Today we&amp;#39;ll be diving into how to set up a new master GPG key and configure it
 for use with the &lt;a href="https://passwordstore.org/">pass&lt;/a> utility. Additionally,
 we&amp;#39;ll run through the process to create subkeys with the idea of eventually
 storing these on Yubikeys.&lt;/p>
-&lt;div id="outline-container-headline-1" class="outline-3">
-&lt;h3 id="headline-1">
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
 Setting up a primary GPG key
-&lt;/h3>
-&lt;div id="outline-text-headline-1" class="outline-text-3">
-&lt;p>Although I knew I had an old key floating around from previous use, I wanted to
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>
+Although I knew I had an old key floating around from previous use, I wanted to
 start from scratch. From reading a variety of guides and documentation online, I
 knew that I wanted to create a new 4096-bit long RSA key. The time needed
 generate such a key on modern hardware is negligible and provides the maximum

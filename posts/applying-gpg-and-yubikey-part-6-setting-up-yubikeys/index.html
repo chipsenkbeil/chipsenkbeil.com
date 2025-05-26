@@ -14,6 +14,7 @@ created in parts 3,
 Yubikey
 
 
+
 I've got multiple Yubikeys configured across different devices and primarily use
 them for password management and SSH authentication. Rather than keeping
 physical subkeys on each of these machines, I instead have a dedicated Yubikey
@@ -42,7 +43,7 @@ created in parts <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey
 them for password management and SSH authentication. Rather than keeping
 physical subkeys on each of these machines, I instead have a dedicated Yubikey
 for each device that hosts the subkeys, keeping them protected from direct
-exposure.</p><div id=outline-container-headline-2 class=outline-3><h3 id=headline-2>GPG Subkeys</h3><div id=outline-text-headline-2 class=outline-text-3><p>In order to have a simpler setup, I maintain a single encryption, signing, and
+exposure.</p></div></div><div id=outline-container-headline-2 class=outline-2><h2 id=headline-2>GPG Subkeys</h2><div id=outline-text-headline-2 class=outline-text-2><p>In order to have a simpler setup, I maintain a single encryption, signing, and
 authentication subkey set that is copied to each of my Yubikeys. By design, when
 you move a subkey over to a Yubikey, the local instance is destroyed. To
 maintain the same subkey, you have to copy your GPG folder prior to transferring
@@ -71,7 +72,7 @@ Encryption key....: [none]
 Authentication key: [none]
 General key info..: [none]
 </pre><p>Notice how the signature, encryption, and authentication keys are all marked as
-<code class=verbatim>[none]</code>!</p><div id=outline-container-headline-3 class=outline-4><h4 id=headline-3>Moving subkeys to yubikey</h4><div id=outline-text-headline-3 class=outline-text-4><p>The act of transferring a subkey over to a Yubikey is destructive, and will
+<code class=verbatim>[none]</code>!</p><div id=outline-container-headline-3 class=outline-3><h3 id=headline-3>Moving subkeys to yubikey</h3><div id=outline-text-headline-3 class=outline-text-3><p>The act of transferring a subkey over to a Yubikey is destructive, and will
 result in a <strong>stub</strong> remaining on the local machine that does nothing without
 access to the Yubikey itself. Below are the steps I take to transfer each subkey
 one at a time:</p><ol><li>We need to edit the local key via <code class=verbatim>gpg --expert --edit-key chip@senkbeil.org</code></li><li>Make sure to select the proper key using <code class=verbatim>key 1</code> or whatever number
@@ -80,14 +81,14 @@ key</li><li>Enter <code class=verbatim>keytocard</code>, which will prompt for t
 is for the master key, not the yubikey) and then the yubikey admin password,
 which is <code class=verbatim>12345678</code> by default</li><li>Do the same for each other subkey by deselecting the current subkey (e.g.
 <code class=verbatim>key 1</code> again) and then selecting the next subkey (e.g. <code class=verbatim>key 2</code>)</li><li>Enter <code class=verbatim>quit</code> and say <code class=verbatim>y</code> to the prompt to save the changes and produce local
-stubs</li></ol></div></div><div id=outline-container-headline-4 class=outline-4><h4 id=headline-4>Adding details such as public key URL and name to Yubikey</h4><div id=outline-text-headline-4 class=outline-text-4><p>Out of the box, your Yubikey comes with no information and a default admin
+stubs</li></ol></div></div><div id=outline-container-headline-4 class=outline-3><h3 id=headline-4>Adding details such as public key URL and name to Yubikey</h3><div id=outline-text-headline-4 class=outline-text-3><p>Out of the box, your Yubikey comes with no information and a default admin
 password and regular password.</p><ul><li>The admin password is used to change your regular password and transfer GPG
 keys over to the Yubikey.</li><li>The regular password is used for authentication whenever your computer needs
 to leverage a key stored on your Yubikey.</li></ul><p>Whenever I'm setting up a new Yubikey, here are the steps I take:</p><ol><li>We need to edit the card via <code class=verbatim>gpg --expert --edit-card</code></li><li>Access the admin commands via <code class=verbatim>admin</code></li><li><p>Use <code class=verbatim>passwd</code> to change the passwords</p><ul><li>To change the regular password, use <code class=verbatim>123456</code> as the default and then
 provide the new password</li><li>To change the admin password, use <code class=verbatim>12345678</code> as the default and then
 provide the new password</li></ul></li><li><p>Use <code class=verbatim>url</code> to change the url. I use
 <code class=verbatim>https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg</code> as the public key url.</p><ul><li>Providing this enables us to pull in the public keys for a new Yubikey
-automatically via <code class=verbatim>fetch</code>!</li><li><em>Setting this requires re-entering the admin Yubikey password.</em></li></ul></li><li>Use <code class=verbatim>name</code> to change the surname (Senkbeil) and given name (Chip).</li><li>Use <code class=verbatim>lang</code> to change the language to English (en).</li><li>Enter <code class=verbatim>quit</code> to exit and save changes</li></ol></div></div><div id=outline-container-headline-5 class=outline-4><h4 id=headline-5>Removing master key from local system</h4><div id=outline-text-headline-5 class=outline-text-4><p>With the subkeys moved over to our Yubikey, it's a good idea to remove the
+automatically via <code class=verbatim>fetch</code>!</li><li><em>Setting this requires re-entering the admin Yubikey password.</em></li></ul></li><li>Use <code class=verbatim>name</code> to change the surname (Senkbeil) and given name (Chip).</li><li>Use <code class=verbatim>lang</code> to change the language to English (en).</li><li>Enter <code class=verbatim>quit</code> to exit and save changes</li></ol></div></div><div id=outline-container-headline-5 class=outline-3><h3 id=headline-5>Removing master key from local system</h3><div id=outline-text-headline-5 class=outline-text-3><p>With the subkeys moved over to our Yubikey, it's a good idea to remove the
 master key from our local system. You should have a backup of this either in a
 paper form or in a secure storage you trust! I only use my master key to manage
 subkeys, delegating all other operations to the subkeys themselves.</p><p>To remove the master key, we want to delete the local secret key using
@@ -95,7 +96,7 @@ subkeys, delegating all other operations to the subkeys themselves.</p><p>To rem
 one of my identity's email addresses.</p><p>When this is done, <code class=verbatim>gpg -K</code> will be blank. This means that we need to re-import
 our key information. To do this, edit our card using <code class=verbatim>gpg --expert --edit-card</code>.</p><p>From there, since we have the public key available and defined in the <strong>url</strong>, we
 can run <code class=verbatim>fetch</code> to get and import the information.</p><p>Now, <code class=verbatim>gpg -K</code> should reflect the private master key with a <code class=verbatim>#</code> to indicate not
-locally available and <code class=verbatim>></code> for subkeys to imply the same.</p></div></div></div></div><div id=outline-container-headline-6 class=outline-3><h3 id=headline-6>Disabling OTP</h3><div id=outline-text-headline-6 class=outline-text-3><p>By default, the Yubikey will be sensitive to touch as it attempts to provide a
+locally available and <code class=verbatim>></code> for subkeys to imply the same.</p></div></div></div></div><div id=outline-container-headline-6 class=outline-2><h2 id=headline-6>Disabling OTP</h2><div id=outline-text-headline-6 class=outline-text-2><p>By default, the Yubikey will be sensitive to touch as it attempts to provide a
 one-time password (OTP). Since I don't use that functionality myself, I'd prefer
 to disable it so I don't accidentally activate it when brushing the key with my
 leg when using a laptop. To do this, I need to install the yubikey manager to
@@ -115,10 +116,10 @@ OpenPGP         Enabled
 PIV             Enabled
 OATH            Enabled
 FIDO2           Disabled
-</pre></div></div><div id=outline-container-headline-7 class=outline-3><h3 id=headline-7>What's next?</h3><div id=outline-text-headline-7 class=outline-text-3><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-7-mobile>the next post</a>, I'll be
+</pre></div></div><div id=outline-container-headline-7 class=outline-2><h2 id=headline-7>What's next?</h2><div id=outline-text-headline-7 class=outline-text-2><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-7-mobile>the next post</a>, I'll be
 explaining how to set up NFC on an Android device to leverage your Yubikey for
 password management in conjunction with
-<a href=https://www.passwordstore.org/>password store</a>.</p></div></div></div></div></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©
+<a href=https://www.passwordstore.org/>password store</a>.</p></div></div></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©
 2012 -
 2025
 Chip Senkbeil<br>Views are my own (<a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a>)</p></div></footer></main></body></html>

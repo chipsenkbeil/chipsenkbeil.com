@@ -4,14 +4,13 @@
 are two different ways to use this: treat multiple physical monitors as one
 giant virtual monitor or treat one physical monitor as multiple virtual
 monitors.</p><blockquote><p>Note that this requires xrandr 1.5.0 or higher, which introduces setmonitor as
-an option in the CLI.</p></blockquote><div id=outline-container-headline-1 class=outline-3><h3 id=headline-1>Why do I want to do this?</h3><div id=outline-text-headline-1 class=outline-text-3><p>My primary interest here is to split a super widescreen monitor like the
-<a href=https://www.dell.com/en-us/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-arnw/monitors-monitor-accessories>Dell
-49” UltraSharp Curved Monitor (U4919DW)</a> as multiple separate displays. I like
+an option in the CLI.</p></blockquote><div id=outline-container-headline-1 class=outline-2><h2 id=headline-1>Why do I want to do this?</h2><div id=outline-text-headline-1 class=outline-text-2><p>My primary interest here is to split a super widescreen monitor like the
+<a href=https://www.dell.com/en-us/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-arnw/monitors-monitor-accessories>Dell 49” UltraSharp Curved Monitor (U4919DW)</a> as multiple separate displays. I like
 the way that dwm breaks up monitors into multiple spaces and when I have two or
 three separate monitors I normally use a center monitor for focused work with
 the side monitors containing music, calendar, and chat.</p><p>The idea here is to keep the same setup, but leverage an ultrawide monitor
 rather than multiple physical monitors that require an eGPU to drive from a
-laptop rather than plugging the laptop in directly.</p></div></div><div id=outline-container-headline-2 class=outline-3><h3 id=headline-2>How do I do this?</h3><div id=outline-text-headline-2 class=outline-text-3><p><a href=https://askubuntu.com/a/998435>This post</a> highlighted a means to do this
+laptop rather than plugging the laptop in directly.</p></div></div><div id=outline-container-headline-2 class=outline-2><h2 id=headline-2>How do I do this?</h2><div id=outline-text-headline-2 class=outline-text-2><p><a href=https://askubuntu.com/a/998435>This post</a> highlighted a means to do this
 with xrandr 1.5+ virtual monitors.</p><p>Leveraging <strong>xrandr</strong> to print out your display information, you can create new
 virtual monitors using <code class=verbatim>xrandr --setmonitor</code>.</p><p>On my laptop, the output of <code class=verbatim>xrandr</code> yielded:</p><pre class=example>
 Screen 0: minimum 320 x 200, current 1920 x 1080, maximum 8192 x 8192

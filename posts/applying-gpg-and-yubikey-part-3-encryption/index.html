@@ -13,6 +13,7 @@ neomutt.
 Refresher of current state
 
 
+
 At this point, we have our primary key for signing and certifying (SC) other
 keys. You should also notice a second key (labelled as a subkey here) that is
 purely for encryption (E). We will be using that encryption key for our
@@ -35,7 +36,7 @@ curious about why and in what ways I started using GPG and Yubikey. If you
 haven't set up your GPG keys yet, I also talk about a simple flow
 <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-2-setup>in my second post</a>.</p><p>Today, we're going specifically into using GPG for encryption and how to
 integrate GPG into <a href=https://passwordstore.org/>pass</a> and
-<a href=https://neomutt.org/>neomutt</a>.</p><div id=outline-container-headline-1 class=outline-3><h3 id=headline-1>Refresher of current state</h3><div id=outline-text-headline-1 class=outline-text-3><p>At this point, we have our primary key for signing and certifying (SC) other
+<a href=https://neomutt.org/>neomutt</a>.</p><div id=outline-container-headline-1 class=outline-2><h2 id=headline-1>Refresher of current state</h2><div id=outline-text-headline-1 class=outline-text-2><p>At this point, we have our primary key for signing and certifying (SC) other
 keys. You should also notice a second key (labelled as a subkey here) that is
 purely for encryption (E). We will be using that encryption key for our
 utilities today.</p><pre class=example>
@@ -43,50 +44,49 @@ pub   rsa4096/0x6CA6A08DBA640677 2019-03-01 [SC]
       2C8160E6AF1166154CDAED266CA6A08DBA640677
 uid                   [ultimate] Chip Senkbeil (Personal [Senkbeil]) &lt;chip@senkbeil.org&gt;
 sub   rsa4096/0x588B4B090695884C 2019-03-01 [E]
-</pre></div></div><div id=outline-container-headline-2 class=outline-3><h3 id=headline-2>Using my GPG key to encrypt and decrypt files</h3><div id=outline-text-headline-2 class=outline-text-3><p>Congratulations! Now that we have a GPG key that has encryption capabilities, w
+</pre></div></div><div id=outline-container-headline-2 class=outline-2><h2 id=headline-2>Using my GPG key to encrypt and decrypt files</h2><div id=outline-text-headline-2 class=outline-text-2><p>Congratulations! Now that we have a GPG key that has encryption capabilities, w
 e can use it to both encrypt files intended to be accessed by others as well as
-decrypt files meant for us.</p><div id=outline-container-headline-3 class=outline-4><h4 id=headline-3>Encrypting a file</h4><div id=outline-text-headline-3 class=outline-text-4><p>Suppose we have a file named <strong>myfile.txt</strong> that contains a message we want to
+decrypt files meant for us.</p><div id=outline-container-headline-3 class=outline-3><h3 id=headline-3>Encrypting a file</h3><div id=outline-text-headline-3 class=outline-text-3><p>Suppose we have a file named <strong>myfile.txt</strong> that contains a message we want to
 encrypt. The idea is that we would also indicate who can decrypt the message.
 With standard GPG, we would indicate this by using <code class=verbatim>--recipient &lt;some id></code> where
 the id could be an email address like <strong>bob@example.com</strong> or a specific key's id.
-<a href=https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html>This
-GPG page</a> has a list of all possible forms of ID that can be used, although I
+<a href=https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html>This GPG page</a> has a list of all possible forms of ID that can be used, although I
 typically stick to an email address. As a note, you can provide more than one
 recipient, which can be handy in a variety of situations including when you want
 to include yourself as a recipient so you can decrypt the message to read it
 later yourself.</p><pre class=example>
 gpg --encrypt --recipient bob@example.com --output myfile.txt.gpg myfile.txt
 </pre><p>The above would encrypt the file named <strong>myfile.txt</strong> to be decrypted by
-<strong>bob@example.com</strong> and store the output as <strong>myfile.txt.gpg</strong>.</p><p>This requires us to have Bob's public key with an id of <strong>bob@example.com</strong>
-associated, otherwise when encrypting we have no idea what public key to use.</p></div></div><div id=outline-container-headline-4 class=outline-4><h4 id=headline-4>Decrypting a file</h4><div id=outline-text-headline-4 class=outline-text-4><p>Decrypting is fairly straightforward. We specify that we want to decrypt a file
+bob@example.com* and store the output as <strong>myfile.txt.gpg</strong>.</p><p>This requires us to have Bob's public key with an id of <strong>bob@example.com</strong>
+associated, otherwise when encrypting we have no idea what public key to use.</p></div></div><div id=outline-container-headline-4 class=outline-3><h3 id=headline-4>Decrypting a file</h3><div id=outline-text-headline-4 class=outline-text-3><p>Decrypting is fairly straightforward. We specify that we want to decrypt a file
 and optionally the output file we want to store the results. GPG is fairly smart
 and will find the appropriate private key to use when decrypting based on the
 recipients.</p><pre class=example>
 gpg --decrypt --output myfile.txt myfile.txt.gpg
 </pre><p>The above example would look for a private key with an associated user id of
-<strong>bob@example.com</strong> to use when decrypting. If GPG cannot find a private key that
+bob@example.com* to use when decrypting. If GPG cannot find a private key that
 fits one of the recipients, it'll indicate a failure. Otherwise, you'll see a
 result like below:</p><pre class=example>
 $ gpg --decrypt --output hello.txt hello.txt.gpg
 gpg: encrypted with 4096-bit RSA key, ID 0x588B4B090695884C, created 2019-03-01
       &#34;Chip Senkbeil (Personal [Senkbeil]) &lt;chip@senkbeil.org&gt;&#34;
-</pre></div></div></div></div><div id=outline-container-headline-5 class=outline-3><h3 id=headline-5>Using my GPG key for encrypting passwords</h3><div id=outline-text-headline-5 class=outline-text-3><p>Great, so we can encrypt and decrypt files using GPG! Now it's time to install
+</pre></div></div></div></div><div id=outline-container-headline-5 class=outline-2><h2 id=headline-5>Using my GPG key for encrypting passwords</h2><div id=outline-text-headline-5 class=outline-text-2><p>Great, so we can encrypt and decrypt files using GPG! Now it's time to install
 <a href=https://passwordstore.org/>pass</a> so we can manage our passwords and keep
 them secure using GPG. The <strong>pass</strong> utility is often available as a package on
-platforms like Fedora, ArchLinux, and even Mac OS X:</p><ul><li>Fedora: <code class=verbatim>dnf install pass</code></li><li>ArchLinux: <code class=verbatim>pacman -S pass</code></li><li>Mac OS X: <code class=verbatim>brew install pass</code></li></ul><p><strong>Pass</strong> itself is a fairly straightforward bash script that manages passwords by
+platforms like Fedora, ArchLinux, and even Mac OS X:</p><ul><li>Fedora: <code class=verbatim>dnf install pass</code></li><li>ArchLinux: <code class=verbatim>pacman -S pass</code></li><li>Mac OS X: <code class=verbatim>brew install pass</code></li></ul><p>Pass* itself is a fairly straightforward bash script that manages passwords by
 storing each password in an individual files and encrypting them using GPG. The
 idea is that <strong>pass</strong> encrypts files specifying ourselves as recipient so we can
-decrypt and access passwords later.</p><div id=outline-container-headline-6 class=outline-4><h4 id=headline-6>Initializing the password store</h4><div id=outline-text-headline-6 class=outline-text-4><p>With <strong>pass</strong> installed, we need to initialize it by indicating what key (or
+decrypt and access passwords later.</p><div id=outline-container-headline-6 class=outline-3><h3 id=headline-6>Initializing the password store</h3><div id=outline-text-headline-6 class=outline-text-3><p>With <strong>pass</strong> installed, we need to initialize it by indicating what key (or
 multiple keys) we want to use when decrypting password files. To do this, we run
 <code class=verbatim>pass init &lt;some id></code>, where the ID could be a specific encryption key like my
 subkey of <strong>0x588B4B090695884C</strong>, an email address like my user id of
-<strong>chip@senkbeil.org</strong>, or some other form of key identification. For me, I just
+chip@senkbeil.org*, or some other form of key identification. For me, I just
 used <code class=verbatim>pass init chip@senkbeil.org</code>.</p><p>This should create a new directory at <strong>\(HOME/.password-store__ and store the
 id of the key used in __\)HOME/.password-store/.gpg-id</strong>.</p><p>Finally, <strong>pass</strong> provides a method to historically save changes to passwords
 using git. To begin using that functionality, we also need to initialize our git
 repository via <code class=verbatim>pass git init</code>. All future git operations such as pushing
 updates to a remote backup are done via <code class=verbatim>pass git push</code> and other interactions
-on top of <code class=verbatim>pass git</code>.</p></div></div><div id=outline-container-headline-7 class=outline-4><h4 id=headline-7>[Optional] Importing passwords from lastpass</h4><div id=outline-text-headline-7 class=outline-text-4><blockquote><p>If you don't use <strong>LastPass</strong> to manage your passwords, you can skip this step;
+on top of <code class=verbatim>pass git</code>.</p></div></div><div id=outline-container-headline-7 class=outline-3><h3 id=headline-7>[Optional] Importing passwords from lastpass</h3><div id=outline-text-headline-7 class=outline-text-3><blockquote><p>If you don't use <strong>LastPass</strong> to manage your passwords, you can skip this step;
 however, if you use some other form of password management, chances are that you
 want to migrate your existing passwords over to <strong>pass</strong> rather than starting from
 scratch. I'd recommend checking out the multi-platform
@@ -105,15 +105,15 @@ made the switch. Regardless, the result was that I now had all of my passwords
 and other associated information (like usernames) imported with each file having
 a name like <strong>example.com</strong> to represent a website whose credentials I had stored.
 This made it easier to integrate with 3rd-party utilities like
-<a href=https://github.com/browserpass/browserpass-extension>browserpass</a>.</p></div></div><div id=outline-container-headline-8 class=outline-4><h4 id=headline-8>Using password store</h4><div id=outline-text-headline-8 class=outline-text-4><p>With <strong>Pass</strong> initialized and (optionally) existing passwords imported, we're good
-to go to begin using it.</p><blockquote><p><strong>Pass</strong> has an excellent manual page via <code class=verbatim>man pass</code> as well as a handy help
+<a href=https://github.com/browserpass/browserpass-extension>browserpass</a>.</p></div></div><div id=outline-container-headline-8 class=outline-3><h3 id=headline-8>Using password store</h3><div id=outline-text-headline-8 class=outline-text-3><p>With <strong>Pass</strong> initialized and (optionally) existing passwords imported, we're good
+to go to begin using it.</p><blockquote><p>Pass* has an excellent manual page via <code class=verbatim>man pass</code> as well as a handy help
 section via <code class=verbatim>pass --help</code> to get an indepth understanding of the tool's
 functionality.</p></blockquote><p>By default, executing <code class=verbatim>pass</code> will provide a list of passwords based on a
 directory structure. In the example below, we have two folders - Personal and
 Work - that have some passwords stored for different websites (although we
 aren't limited purely to websites here). If you looked within the password store
 directory, you'd find files like
-<strong>$HOME/.password-store/Personal/example.com.gpg</strong>.</p><pre class=example>
+$HOME/.password-store/Personal/example.com.gpg*.</p><pre class=example>
 Password Store
 ├── Personal
 │   ├── example.com
@@ -124,10 +124,10 @@ Password Store
 <code class=verbatim>pass show -c Personal/example.com</code>, which adds the password to your
 clipboard for 45 seconds</li><li>Generate new passwords via <code class=verbatim>pass generate Personal/some-new-name 32</code>,
 where I specify a request for a 32-character long password</li><li>Edit existing passwords via <code class=verbatim>pass edit Personal/example.com</code>, which opens my
-default editor of vim set via <strong>$EDITOR</strong></li></ol><p><strong>Pass</strong> has a variety of other functions and extensions you can add, but my main
+default editor of vim set via <strong>$EDITOR</strong></li></ol><p>Pass* has a variety of other functions and extensions you can add, but my main
 three are part of the CRUD-style operations of creating, editing, and reading
 passwords. Changes to passwords will also be reflected in our git repository
-that we initialized earlier.</p></div></div></div></div><div id=outline-container-headline-9 class=outline-3><h3 id=headline-9>Using my GPG key for email encryption</h3><div id=outline-text-headline-9 class=outline-text-3><blockquote><p>This is a more personal section about how I use GPG in combination with my
+that we initialized earlier.</p></div></div></div></div><div id=outline-container-headline-9 class=outline-2><h2 id=headline-9>Using my GPG key for email encryption</h2><div id=outline-text-headline-9 class=outline-text-2><blockquote><p>This is a more personal section about how I use GPG in combination with my
 offline mail managed by <a href=https://neomutt.org/>neomutt</a> and indexed with
 <a href=https://notmuchmail.org/>notmuch</a>. Your setup may be entirely different, so
 you should definitely do your own research here!</p></blockquote><p>Encrypting mail using GPG has never been an incredibly popular option. It's
@@ -135,7 +135,7 @@ difficult to get right and the vast majority of people you email on a regular
 basis do not even have GPG keys let alone encrypt their mail with them.</p><p>I still wanted to give encrypting (and signing discussed later) a try, so here's
 the setup I currently have with <strong>neomutt</strong> that automatically encrypts mail where
 possible and still enables <strong>notmuch</strong> to index encrypted mail so we can easily
-search through it.</p><div id=outline-container-headline-10 class=outline-4><h4 id=headline-10>Neomutt configuration</h4><div id=outline-text-headline-10 class=outline-text-4><p>Below I have <strong>crypt.mutt</strong>, a stripped-down version of my GPG-related
+search through it.</p><div id=outline-container-headline-10 class=outline-3><h3 id=headline-10>Neomutt configuration</h3><div id=outline-text-headline-10 class=outline-text-3><p>Below I have <strong>crypt.mutt</strong>, a stripped-down version of my GPG-related
 configurations for neomutt where I only have listed ones related to encryption
 (not signing which we will discuss later):</p><div class="src src-sh"><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1># &lt;&lt; CRYPTO: GENERAL CONFIG &gt;&gt;</span>
 </span></span><span class=line><span class=cl>
@@ -172,14 +172,13 @@ configurations for neomutt where I only have listed ones related to encryption
 </span></span><span class=line><span class=cl><span class=nb>set</span> <span class=nv>pgp_self_encrypt</span> <span class=o>=</span> <span class=s2>&#34;yes&#34;</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># Set the key to use for encryption/decryption of email</span>
-</span></span><span class=line><span class=cl><span class=nb>set</span> <span class=nv>pgp_default_key</span> <span class=o>=</span> <span class=s2>&#34;0x588B4B090695884C&#34;</span></span></span></code></pre></div></div></div></div><div id=outline-container-headline-11 class=outline-4><h4 id=headline-11>Notmuch configuration</h4><div id=outline-text-headline-11 class=outline-text-4><p>When using <strong>notmuch</strong> to index mail, the tool relies on being able to access the
+</span></span><span class=line><span class=cl><span class=nb>set</span> <span class=nv>pgp_default_key</span> <span class=o>=</span> <span class=s2>&#34;0x588B4B090695884C&#34;</span></span></span></code></pre></div></div></div></div><div id=outline-container-headline-11 class=outline-3><h3 id=headline-11>Notmuch configuration</h3><div id=outline-text-headline-11 class=outline-text-3><p>When using <strong>notmuch</strong> to index mail, the tool relies on being able to access the
 contents of the mail. If mail is encrypted as we configured above, <strong>notmuch</strong> is
 not going to be able to index the mail.</p><p>Luckily, we can configure <strong>notmuch</strong> to use GPG keys to decrypt mail when
 indexing. This relies on a database-specific setting called <strong>index.decrypt</strong>. If
 set to <em>nostash</em> or <em>true</em>, <strong>notmuch</strong> will use GPG keys to decrypt mail when
 encountered. The default is <em>auto</em>, which will only use stashed session keys and
-not those available on our computer (or YubiKey).</p><p>Quoting from <a href=https://notmuchmail.org/manpages/notmuch-config-1/>notmuch
-config manpage</a>:</p><blockquote><p>When indexing an encrypted e-mail message, if this variable is set to true,
+not those available on our computer (or YubiKey).</p><p>Quoting from <a href=https://notmuchmail.org/manpages/notmuch-config-1/>notmuch config manpage</a>:</p><blockquote><p>When indexing an encrypted e-mail message, if this variable is set to true,
 notmuch will try to decrypt the message and index the cleartext, stashing a copy
 of any discovered session keys for the message. If auto, it will try to index
 the cleartext if a stashed session key is already known for the message
@@ -189,7 +188,7 @@ session keys in the database.</p></blockquote><p>For me, I set to <em>nostash</e
 protection:</p><pre class=example>
 notmuch config index.decrypt set nostash
 </pre><p>Now, when <strong>notmuch</strong> is indexing mail, it can take advantage of my GPG key(s) to
-handle any encrypted mail it encounters.</p></div></div></div></div><div id=outline-container-headline-12 class=outline-3><h3 id=headline-12>What's next?</h3><div id=outline-text-headline-12 class=outline-text-3><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing>the next post</a>, I'll be
+handle any encrypted mail it encounters.</p></div></div></div></div><div id=outline-container-headline-12 class=outline-2><h2 id=headline-12>What's next?</h2><div id=outline-text-headline-12 class=outline-text-2><p>In <a href=https://chipsenkbeil.com/posts/applying-gpg-and-yubikey-part-4-signing>the next post</a>, I'll be
 explaining how to configure git to sign commits and update neomutt to use a
 signing key for our email that can work independently or in combination with
 encryption.</p></div></div></div><footer></footer></article></section></div><footer class=footer><div class=container><p>©
