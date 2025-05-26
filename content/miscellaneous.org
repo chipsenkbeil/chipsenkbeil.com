@@ -1,0 +1,11 @@
+#+TITLE: Miscellaneous
+#+SLUG: miscellaneous
+#+DESCRIPTION: Other tidbits for myself and others
+
+** Current Books
+- /Managing Humans: Biting and Humorous Tales of a Software Engineering Manager/ by Michael Lopp (3rd edition)
+- /The 7 Habits of Highly Effective People: Powerful Lessons in Personal Change/ by Stephen R. Covey (25th Anniversary Edition)
+
+** Handy Links
+- [[http://unixetc.co.uk/2016/01/07/how-to-rename-the-default-raspberry-pi-user/][How to rename the default raspberry pi user]]
+  - Handles to Raspbian 2019 challenges and ensures all relevant groups are kept in tact as well

@@ -1,0 +1,33 @@
+#+TITLE: Search Github
+#+SLUG: search-github
+#+DATE: 2017-03-13T20:51:09-05:00
+#+CATEGORY[]: snippet
+#+TAGS[]: utility
+
+Couple of notes about searching on Github that have proven to be quite useful:
+
+1. You can include/exclude specific files using the =filename= property in a
+   search.
+
+   The following searches for content /"some content"/ only in =.config= files.
+
+   #+begin_example
+   some content filename:.config
+   #+end_example
+
+   The following searches for content /"some content"/ in all files but
+   =.config= files.
+
+   #+begin_example
+   some content -filename:.config
+   #+end_example
+
+2. You can include/exclude specific users and organizations in a search. This is
+   handy when I'm trying to judge how much use a library of mine is getting in
+   the open source community while avoiding my own projects.
+
+   The following excludes matches in the specified users/organizations.
+
+   #+begin_example
+   scala-debugger -user:ensime -user:chipsenkbeil
+   #+end_example

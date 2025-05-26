@@ -1,23 +1,24 @@
-+++
-title = "Fix for XMonad with XMobar"
-slug = "fix-for-xmonad-with-xmobar"
-date = "2016-02-17T07:49:30-06:00"
-categories = [ "snippet" ]
-tags = [ "bug fix" ]
-+++
+#+TITLE: Fix for XMonad with XMobar
+#+SLUG: fix-for-xmonad-with-xmobar
+#+DATE: 2016-02-17T07:49:30-06:00
+#+CATEGORIES[]: snippet
+#+TAGS[]: bug fix
 
 When I updated XMonad late last year (2015), I noticed a bug where any
 application that I opened on my first workspace would cover XMobar.
 
-    E.g. Opening a terminal or Vivaldi took up the entire screen.
+#+begin_example
+E.g. Opening a terminal or Vivaldi took up the entire screen.
+#+end_example
 
-The solution I found was, conveniently, located in a [post on the ArchLinux
-forum](https://bbs.archlinux.org/viewtopic.php?id=206890).
+The solution I found was, conveniently, located in a
+[[https://bbs.archlinux.org/viewtopic.php?id=206890][post on the ArchLinux
+forum]].
 
-Essentially, you just need to add a `handleEventHook` with `docksEventHook`
-and `handleEventHook defaultConfig`.
+Essentially, you just need to add a =handleEventHook= with =docksEventHook= and
+=handleEventHook defaultConfig=.
 
-```haskell
+#+begin_src haskell
 -- My overall config that is used elsewhere
 myConfig = defaultConfig
     { manageHook = manageDocks <+> manageHook defaultConfig
@@ -31,5 +32,4 @@ myConfig = defaultConfig
     , borderWidth = 1
     , focusedBorderColor = "blue"
     }
-```
-
+#+end_src

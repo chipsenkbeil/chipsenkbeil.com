@@ -1,0 +1,16 @@
+#+TITLE: Configuring autorandr
+#+SLUG: configuring-autorandr
+#+DESCRIPTION: Using autorandr to manage monitor configurations
+#+DATE: 2019-12-15
+#+CATEGORIES[]: config
+#+TAGS[]: xrandr
+
+I have successfully moved over to using super ultrawide monitors both at work
+([[https://www.dell.com/en-us/work/shop/accessories/apd/210-arnw][Dell
+U4919DW]]) and at home
+([[https://www.samsung.com/us/computing/monitors/gaming/49-crg9-dual-qhd-curved-qled-gaming-monitor-lc49rg90ssnxza/][Samsung
+CRG90]] + [[https://www.caldigit.com/ts3-plus/][CalDigit TS3 Plus]]). I've set
+these up as one-cable solutions over USB-C via Alternate Mode (Dell) and/or
+Thunderbolt 3 (Samsung + CalDigit), which makes my life much easier.
+
+*** Combining with virtual monitors

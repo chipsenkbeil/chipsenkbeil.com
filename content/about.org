@@ -1,0 +1,29 @@
+#+TITLE: About
+#+SLUG: about
+#+DESCRIPTION: About the engineer Chip Senkbeil
+
+Presently employed as a /Solutions Engineer/ at Facebook.
+
+** Employment History
+- Solutions Engineer; Facebook; 2017 - present
+- Software Engineer; IBM; 2014 - 2017
+
+** Public Projects
+- remote.nvim; Remote File Editor; vimscript/python [[https://github.com/chipsenkbeil/remote.nvim][LINK]]
+- Grus; Static Site Generator; Scala [[https://github.com/chipsenkbeil/grus][LINK]]
+- Scala Debugger; Scala Tooling; Scala [[https://scala-debugger.org/][LINK]]
+- Grid Side; Hugo Theme; JavaScript/CSS/HTML [[https://github.com/chipsenkbeil/grid-side][LINK]]
+- Apache Toree; Scala/R/Python Spark Kernel; Scala [[https://toree.incubator.apache.org][LINK]]
+
+** Public Talks
+- Debugging in Scala; ScalaSphere, 2017; Krakow, Poland [[https://www.youtube.com/watch?v=LgMvaHEWeu8][LINK]]
+- Spark Kernel; Spark Meetup Bay Area, 2015; San Francisco, California [[https://www.youtube.com/watch?v=2AX6g0tK-us][LINK]]
+
+** Public Papers
+- UAV Collision Avoidance Using Artificial Potential Fields (2014) [[http://arc.aiaa.org/doi/abs/10.2514/1.I010022][LINK]]
+- Running students' software tests against each others' code: new life for an old "gimmick" (2012) [[http://dl.acm.org/citation.cfm?id=2157202][LINK]]
+
+** Education
+- M.S. in Computer Science from Georgia Tech; 2016 - 2019
+- B.S. in Computer Engineering from Virginia Tech; 2009 - 2013
+- B.S. in Computer Science from Virginia Tech; 2009 - 2013

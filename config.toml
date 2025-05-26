@@ -8,6 +8,7 @@ theme = "hugo-coder"
 languageCode = "en-us"
 defaultContentLanguage = "en"
 enableEmoji = true
+timeZone = "America/Chicago"
 
 # TODO: This is a legacy option that will be removed, so need
 #       to look into how to replcae this in the future!
