@@ -1,33 +1,77 @@
-baseurl = "https://chipsenkbeil.com/"
+#
+# Theme and general site configuration
+#
+
+baseURL = "https://chipsenkbeil.com/"
 title = "Chip Senkbeil"
-
-theme = "coder"
+theme = "hugo-coder"
 languageCode = "en-us"
+defaultContentLanguage = "en"
+enableEmoji = true
 
-paginate = 12
+# TODO: This is a legacy option that will be removed, so need
+#       to look into how to replcae this in the future!
 canonifyurls = true
 
-# pygmentsstyle = "b2"
-pygmentscodefences = true
-pygmentscodefencesguesssyntax = true
-pygmentsUseClasses=true
+#
+# PAGINATION (MAX ARTICLES PER PAGE)
+#
 
-googleAnalytics = "UA-71733200-2"
+[pagination]
+    pagerSize = 12
 
-# Disable disqus as I'll take comments via Twitter or other mediums
-# disqusShortname = "chipsenkbeil"
+#
+# SYNTAX HIGHLIGHTING
+#
+
+[markup]
+    [markup.highlight]
+        codeFences = true
+        guessSyntax = true
+        noClasses = false
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+            unsafe = true
+
+#
+# TAXONOMIES
+#
+
+[taxonomies]
+    category = "categories"
+    series = "series"
+    tag = "tags"
+    author = "authors"
+
+#
+# THEME CONFIGURATION
+#
 
 [params]
     author = "Chip Senkbeil"
-    info = "Business Engineer @ Facebook"
+    info = "Staff Business Engineer @ Meta"
     description = "Chip Senkbeil's Personal Website"
     keywords = "blog,developer,personal"
-    hideCredits = true
-    footercontent = "Views are my own<br /><a href=\"/keys/chipsenkbeil.pub.gpg\">Public Keys</a>"
+
     avatarurl = "/img/profile.jpg"
-    custom_css = ["/styles/gruvbox.css"]
+
     favicon_32 = "/img/favicon-32x32.png"
     favicon_16 = "/img/favicon-16x16.png"
+
+    since = 2012
+
+    # Configure color scheme to be automatic to match system setting
+    # of light vs dark. We also disable JavaScript (including coder.js)
+    # as we want a pure static site without JavaScript; this means that
+    # we also need to set hiding the color scheme toggle to true as that
+    # is only available when JavaScript is included, which we don't want!
+    colorScheme = "auto"
+    hideColorSchemeToggle = true
+    disableDefaultJsScripts = true
+
+#
+# THEME SOCIAL CONFIGURATION FOR MAIN PAGE
+#
 
 [[params.social]]
     name = "email"
@@ -49,6 +93,10 @@ googleAnalytics = "UA-71733200-2"
     name = "keybase"
     weight = 5
     url = "https://keybase.io/senkwich"
+
+#
+# THEME MENU STRUCTURE ACROSS WEBSITE
+#
 
 [[menu.main]]
     name = "blog"

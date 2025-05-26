@@ -2,7 +2,7 @@
 
 # Hugo-related fields
 HUGO=$(shell which hugo)
-THEME="coder"
+THEME="hugo-coder"
 OUTPUT_DIR:=public
 
 # Push-related fields

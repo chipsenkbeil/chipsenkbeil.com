@@ -1,0 +1,19 @@
+<footer class="footer">
+  <div class="container">
+    <p>
+        ©
+        {{ if (and .Site.Params.since (lt .Site.Params.since now.Year)) }}
+            {{ .Site.Params.since }} -
+        {{ end }}
+        {{ now.Year }}
+        {{ with .Site.Params.author }} {{ . }} {{ end }}
+        {{ if (and .Site.Params.license) }}
+            ·
+            {{ i18n "licensed_under" }} {{ .Site.Params.license | safeHTML }}
+        {{ end }}
+
+      <br />
+      Views are my own (<a href="/keys/chipsenkbeil.pub.gpg">Public Keys</a>)
+    </p>
+  </div>
+</footer>
