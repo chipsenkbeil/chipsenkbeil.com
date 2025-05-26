@@ -14,7 +14,8 @@ Today, we're going specifically into using GPG for encryption and how to
 integrate GPG into [[https://passwordstore.org/][pass]] and
 [[https://neomutt.org/][neomutt]].
 
-** Refresher of current state
+* Refresher of current state
+
 At this point, we have our primary key for signing and certifying (SC) other
 keys. You should also notice a second key (labelled as a subkey here) that is
 purely for encryption (E). We will be using that encryption key for our
@@ -27,18 +28,19 @@ uid                   [ultimate] Chip Senkbeil (Personal [Senkbeil]) <chip@senkb
 sub   rsa4096/0x588B4B090695884C 2019-03-01 [E]
 #+end_example
 
-** Using my GPG key to encrypt and decrypt files
+* Using my GPG key to encrypt and decrypt files
+
 Congratulations! Now that we have a GPG key that has encryption capabilities, w
 e can use it to both encrypt files intended to be accessed by others as well as
 decrypt files meant for us.
 
-*** Encrypting a file
+** Encrypting a file
+
 Suppose we have a file named *myfile.txt* that contains a message we want to
 encrypt. The idea is that we would also indicate who can decrypt the message.
 With standard GPG, we would indicate this by using =--recipient <some id>= where
 the id could be an email address like *bob@example.com* or a specific key's id.
-[[https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html][This
-GPG page]] has a list of all possible forms of ID that can be used, although I
+[[https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html][This GPG page]] has a list of all possible forms of ID that can be used, although I
 typically stick to an email address. As a note, you can provide more than one
 recipient, which can be handy in a variety of situations including when you want
 to include yourself as a recipient so you can decrypt the message to read it
@@ -49,12 +51,13 @@ gpg --encrypt --recipient bob@example.com --output myfile.txt.gpg myfile.txt
 #+end_example
 
 The above would encrypt the file named *myfile.txt* to be decrypted by
-*bob@example.com* and store the output as *myfile.txt.gpg*.
+bob@example.com* and store the output as *myfile.txt.gpg*.
 
 This requires us to have Bob's public key with an id of *bob@example.com*
 associated, otherwise when encrypting we have no idea what public key to use.
 
-*** Decrypting a file
+** Decrypting a file
+
 Decrypting is fairly straightforward. We specify that we want to decrypt a file
 and optionally the output file we want to store the results. GPG is fairly smart
 and will find the appropriate private key to use when decrypting based on the
@@ -65,7 +68,7 @@ gpg --decrypt --output myfile.txt myfile.txt.gpg
 #+end_example
 
 The above example would look for a private key with an associated user id of
-*bob@example.com* to use when decrypting. If GPG cannot find a private key that
+bob@example.com* to use when decrypting. If GPG cannot find a private key that
 fits one of the recipients, it'll indicate a failure. Otherwise, you'll see a
 result like below:
 
@@ -75,7 +78,8 @@ gpg: encrypted with 4096-bit RSA key, ID 0x588B4B090695884C, created 2019-03-01
       "Chip Senkbeil (Personal [Senkbeil]) <chip@senkbeil.org>"
 #+end_example
 
-** Using my GPG key for encrypting passwords
+* Using my GPG key for encrypting passwords
+
 Great, so we can encrypt and decrypt files using GPG! Now it's time to install
 [[https://passwordstore.org/][pass]] so we can manage our passwords and keep
 them secure using GPG. The *pass* utility is often available as a package on
@@ -85,17 +89,18 @@ platforms like Fedora, ArchLinux, and even Mac OS X:
 - ArchLinux: =pacman -S pass=
 - Mac OS X: =brew install pass=
 
-*Pass* itself is a fairly straightforward bash script that manages passwords by
+Pass* itself is a fairly straightforward bash script that manages passwords by
 storing each password in an individual files and encrypting them using GPG. The
 idea is that *pass* encrypts files specifying ourselves as recipient so we can
 decrypt and access passwords later.
 
-*** Initializing the password store
+** Initializing the password store
+
 With *pass* installed, we need to initialize it by indicating what key (or
 multiple keys) we want to use when decrypting password files. To do this, we run
 =pass init <some id>=, where the ID could be a specific encryption key like my
 subkey of *0x588B4B090695884C*, an email address like my user id of
-*chip@senkbeil.org*, or some other form of key identification. For me, I just
+chip@senkbeil.org*, or some other form of key identification. For me, I just
 used =pass init chip@senkbeil.org=.
 
 This should create a new directory at *\(HOME/.password-store__ and store the
@@ -107,7 +112,7 @@ repository via =pass git init=. All future git operations such as pushing
 updates to a remote backup are done via =pass git push= and other interactions
 on top of =pass git=.
 
-*** [Optional] Importing passwords from lastpass
+** [Optional] Importing passwords from lastpass
 
 #+begin_quote
 If you don't use *LastPass* to manage your passwords, you can skip this step;
@@ -138,12 +143,13 @@ a name like *example.com* to represent a website whose credentials I had stored.
 This made it easier to integrate with 3rd-party utilities like
 [[https://github.com/browserpass/browserpass-extension][browserpass]].
 
-*** Using password store
+** Using password store
+
 With *Pass* initialized and (optionally) existing passwords imported, we're good
 to go to begin using it.
 
 #+begin_quote
-*Pass* has an excellent manual page via =man pass= as well as a handy help
+Pass* has an excellent manual page via =man pass= as well as a handy help
 section via =pass --help= to get an indepth understanding of the tool's
 functionality.
 #+end_quote
@@ -153,7 +159,7 @@ directory structure. In the example below, we have two folders - Personal and
 Work - that have some passwords stored for different websites (although we
 aren't limited purely to websites here). If you looked within the password store
 directory, you'd find files like
-*$HOME/.password-store/Personal/example.com.gpg*.
+$HOME/.password-store/Personal/example.com.gpg*.
 
 #+begin_example
 Password Store
@@ -167,19 +173,19 @@ Password Store
 My main uses of *pass* are the following:
 
 1. Get the contents of passwords from the first lines of GPG files via
-   =pass    show -c Personal/example.com=, which adds the password to your
+   =pass show -c Personal/example.com=, which adds the password to your
    clipboard for 45 seconds
 2. Generate new passwords via =pass generate Personal/some-new-name    32=,
    where I specify a request for a 32-character long password
 3. Edit existing passwords via =pass edit Personal/example.com=, which opens my
    default editor of vim set via *$EDITOR*
 
-*Pass* has a variety of other functions and extensions you can add, but my main
+Pass* has a variety of other functions and extensions you can add, but my main
 three are part of the CRUD-style operations of creating, editing, and reading
 passwords. Changes to passwords will also be reflected in our git repository
 that we initialized earlier.
 
-** Using my GPG key for email encryption
+* Using my GPG key for email encryption
 
 #+begin_quote
 This is a more personal section about how I use GPG in combination with my
@@ -197,7 +203,8 @@ the setup I currently have with *neomutt* that automatically encrypts mail where
 possible and still enables *notmuch* to index encrypted mail so we can easily
 search through it.
 
-*** Neomutt configuration
+** Neomutt configuration
+
 Below I have *crypt.mutt*, a stripped-down version of my GPG-related
 configurations for neomutt where I only have listed ones related to encryption
 (not signing which we will discuss later):
@@ -241,7 +248,8 @@ set pgp_self_encrypt = "yes"
 set pgp_default_key = "0x588B4B090695884C"
 #+end_src
 
-*** Notmuch configuration
+** Notmuch configuration
+
 When using *notmuch* to index mail, the tool relies on being able to access the
 contents of the mail. If mail is encrypted as we configured above, *notmuch* is
 not going to be able to index the mail.
@@ -252,8 +260,7 @@ set to /nostash/ or /true/, *notmuch* will use GPG keys to decrypt mail when
 encountered. The default is /auto/, which will only use stashed session keys and
 not those available on our computer (or YubiKey).
 
-Quoting from [[https://notmuchmail.org/manpages/notmuch-config-1/][notmuch
-config manpage]]:
+Quoting from [[https://notmuchmail.org/manpages/notmuch-config-1/][notmuch config manpage]]:
 
 #+begin_quote
 When indexing an encrypted e-mail message, if this variable is set to true,
@@ -279,7 +286,8 @@ notmuch config index.decrypt set nostash
 Now, when *notmuch* is indexing mail, it can take advantage of my GPG key(s) to
 handle any encrypted mail it encounters.
 
-** What's next?
+* What's next?
+
 In [[/posts/applying-gpg-and-yubikey-part-4-signing][the next post]], I'll be
 explaining how to configure git to sign commits and update neomutt to use a
 signing key for our email that can work independently or in combination with

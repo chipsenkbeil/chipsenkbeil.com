@@ -5,15 +5,18 @@
 #+CATEGORIES[]: config
 #+TAGS[]: proxmox
 
-*** Removing subscription notice
+* Removing subscription notice
+
 #+begin_src sh
 sed -i.bak 's/NotFound/Active/g' /usr/share/perl5/PVE/API2/Subscription.pm && systemctl restart pveproxy.service
 #+end_src
 
-*** Generating Let's Encrypt certs
+* Generating Let's Encrypt certs
+
 https://pve.proxmox.com/wiki/HTTPS_Certificate_Configuration_(Version_4.x_and_newer)#Let.27s_Encrypt_using_acme.sh
 
-*** Supporting port 80 & 443
+* Supporting port 80 & 443
+
 By default, proxmox looks for traffic only on port 8006. Based on my readings
 online, forcefully changing the port - which is now hardcoded - can cause a lot
 of problems. Instead, the most recent and successful recommendation has been to
@@ -25,12 +28,12 @@ files =/etc/nginx/conf.d/default= and =/etc/nginx/site-enabled/default=.
 upstream proxmox {
     server "senkbeil.org";
 }
- 
+
 server {
     listen 80 default_server;
     rewrite ^(.*) https://$host$1 permanent;
 }
- 
+
 server {
     listen 443;
     server_name _;
@@ -43,7 +46,7 @@ server {
     location / {
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade"; 
+        proxy_set_header Connection "upgrade";
         proxy_pass https://localhost:8006;
         proxy_buffering off;
         client_max_body_size 0;
@@ -55,7 +58,8 @@ server {
 }
 #+end_src
 
-*** Set local root to full SSD and lvm-thin to extra HDD
+* Set local root to full SSD and lvm-thin to extra HDD
+
 My situation was that I had my SSD split into a root and data partition and had
 nothing on my HDD. To remedy this, I began by removing the unused data partition
 via:

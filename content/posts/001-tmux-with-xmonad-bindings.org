@@ -5,7 +5,8 @@
 #+CATEGORIES[]: tool
 #+TAGS[]: tmux  xmonad
 
-*** The Reason
+* The Reason
+
 I've been playing around with =tmux= a lot lately and have come to like it quite
 a lot for the panes and windows - something I used quite a lot with my XMonad
 setup on my old Fujitsu laptop. The panes act as my individual terminals with
@@ -26,7 +27,8 @@ involved a single =Mod-Shift-Enter= and navigating between tiles was a simple
 =Mod-Tab=. Because of this, I began to look into ways to rebind tmux keys to be
 more like XMonad.
 
-*** The Process
+* The Process
+
 tmux provides multiple ways to rebind keys and perform startup actions. The
 first is to execute the actions from the terminal:
 
@@ -66,7 +68,8 @@ bind-key -n C-Space next-layout
 The above indicates that the series of keystrokes =Ctrl-Space= should change the
 layout used in tmux, no prefix needed.
 
-*** The Issue
+* The Issue
+
 The issue I discovered was that modifier keys - Control, Shift, Function, Alt -
 were not fully supported in tmux. In fact, modifier keys are not fully supported
 in a lot of applications. Instead, you see certain keycodes appear when a
@@ -83,7 +86,8 @@ are checked for modifiers before passing the keystroke to the application
 running within tmux. Because of this, I cannot use a setup like
 =Ctrl-Shift-Return= for creating a new terminal tile using standard tmux.
 
-*** The Potential Solution
+* The Potential Solution
+
 At least, I did not believe that I could. I discovered that tmux provided even
 more functionality through the ability to not only launch shell programs but
 also check the return status of said programs!
@@ -107,7 +111,8 @@ In fact, my hope was that this could be run very easily without an X11 system.
 Furthermore, as a new owner of a Macbook Air - Linux will be put on it soon
 enough - I wanted this to be able to work on OS X as well.
 
-*** The Mac OS X Solution
+* The Mac OS X Solution
+
 Cocoa provides the functionality to directly check if modifier keys are pressed,
 which is incredibly useful. So, I simply wrote a small Cocoa application that
 returns success based on the state of modifier keys. The documentation indicates
@@ -117,7 +122,8 @@ solution will only work for Snow Leopard or higher (sorry Leopard and Tiger).
 You can find the small program bundled with the main project
 [[/software/tmux-xmonad-bindings/][here]].
 
-*** The Linux Solution
+* The Linux Solution
+
 This took a little digging before I realized that I needed to access the
 keyboard interface directly, rather than accessing information from a program.
 This meant accessing =/dev/my_keyboard_interface=, which would vary from
@@ -129,7 +135,8 @@ I wrote a small C program to demonstrate this functionality
 Unfortunately, after joining IBM in January of 2014, I was not able to continue
 pursuing this project.
 
-*** The Final Result
+* The Final Result
+
 Overall, the configuration combined with the modifier keys captured by an
 external program successfully produced a working replica of XMonad's key
 bindings using tmux, giving me a more comfortable layout for moving panes and

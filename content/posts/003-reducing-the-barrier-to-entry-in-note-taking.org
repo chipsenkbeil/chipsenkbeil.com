@@ -4,6 +4,8 @@
 #+CATEGORIES[]: tool
 #+TAGS[]: zsh
 
+* The Challenge
+
 One of my biggest challenges to accomplishing something is the barrier to entry.
 Starting a project, exercising, and even writing this blog post take genuine
 effort for me to do. After realizing this as one of my biggest obstacles to
@@ -23,7 +25,8 @@ text editor. This meant that a command like =notes blogpost= should open vim to
 allow me to create/edit a file and exit in the same manner as I would any vim
 file.
 
-** The Solution
+* The Solution
+
 Enter the zsh function: notes. I use zsh as my shell purely out of a desire for
 some more robust completion, file renaming, and prompt tweaking. Rather than
 creating a separate program that would need to be installed and added to my path
@@ -58,7 +61,8 @@ From here, I could quickly jump into vim without the need to navigate to a
 note-taking directory or specify the entire file including the extension. If I
 wanted to work on /post-1/, I could type =notes post-1= to open the file.
 
-** The Aftermath
+* The Aftermath
+
 Since creating that tiny function, I began tweaking and expanding what it can
 do. This ranged from filling in a new file with a default header to being able
 to list existing notes. Given its complexity, I've decided to extract the

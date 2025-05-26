@@ -8,7 +8,8 @@ I spent two days investigating this and could not find a solution that worked.
 Eventually, I gave up and added the Masonry Javascript library. My two attempts
 were as follows:
 
-*** Using CSS Columns
+* Using CSS Columns
+
 CSS Columns enabled an easy, powerful way to spread page summaries across
 multiple columns. Furthermore, you can prevent page summaries from being broken
 up in the middle by using =column-break-inside: avoid;=. However, I had no way
@@ -40,7 +41,8 @@ summaries going down the first column and into the second, etc.
 }
 #+end_src
 
-*** Using Flexbox
+* Using Flexbox
+
 This involved using flexbox to simulate a Masonry layout by using
 =flex-flow: column wrap= to have items flow from top to bottom with no extra
 spacing (similar to Masonry). There were two issues with this approach: page

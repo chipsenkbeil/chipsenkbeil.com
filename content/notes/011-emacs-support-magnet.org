@@ -17,11 +17,9 @@ application not being able to snap Emacs to any of its grids. If you look at the
 Magnet dropdown with Emacs focused, all of the options will be greyed out.
 
 As described in
-[[https://www.reddit.com/r/emacs/comments/8ez3a9/macos_window_snapping_with_magnetdoesnt_work_on/][this
-reddit post]], there is an Emacs distribution designed specifically for Mac OS X
+[[https://www.reddit.com/r/emacs/comments/8ez3a9/macos_window_snapping_with_magnetdoesnt_work_on/][this reddit post]], there is an Emacs distribution designed specifically for Mac OS X
 that adds
-[[https://bitbucket.org/mituharu/emacs-mac/src/f3402395995bf70e50d6e65f841e44d5f9b4603c/README-mac?at=master&fileviewer=file-view-default][additional
-features]] through a Carbon port (over Cocoa from default homebrew).
+[[https://bitbucket.org/mituharu/emacs-mac/src/f3402395995bf70e50d6e65f841e44d5f9b4603c/README-mac?at=master&fileviewer=file-view-default][additional features]] through a Carbon port (over Cocoa from default homebrew).
 
 Installing this version can be done via
 

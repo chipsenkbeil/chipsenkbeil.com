@@ -7,7 +7,8 @@
 
 Watching
 
-** Installing on a FreeBSD Jail
+* Installing on a FreeBSD Jail
+
 Very easy to do on FreeBSD 11.3 via the FreeNAS GUI.
 
 1. Create a new jail and set a specific IPv4 address to host. For me, this was
@@ -18,7 +19,8 @@ FreeBSD will ask if we want to download and set up the package manager, which we
 do. After that, it'll install a lot of packages (Python 3.7, some Perl, etc.)
 and then all CLI commands should be available.
 
-** Create your library
+* Create your library
+
 I already had a directory full of books comprised of epub, pdf, html, and txt
 files on my FreeNAS box. The first step was to import those books into a calibre
 library.
@@ -37,7 +39,8 @@ terminal.
 calibredb add --with-library /var/lib/calibre/library -r /mnt/books
 #+end_example
 
-** Build a user database
+* Build a user database
+
 Running the server internally on my network is fairly easy, but I wanted to also
 expose it externally and needed to create a user with authentication.
 
@@ -50,7 +53,8 @@ password. The database location will then be created.
 calibre-server --userdb /var/lib/calibre/users.sqlite --manage-users
 #+end_example
 
-** Test running the server on port 8080
+* Test running the server on port 8080
+
 #+begin_example
 calibre-server --userdb /var/lib/calibre/users.sqlite --enable-auth
 /var/lib/calibre/library
@@ -63,8 +67,10 @@ Should be greeted with a login prompt.
 #+caption: Login Prompt
 [[/img/post/calibre/calibre-auth.png]]
 
-** Configuring jail to auto-start calibre-server
-*** Write /etc/rc.d/calibre_server
+* Configuring jail to auto-start calibre-server
+
+** Write /etc/rc.d/calibre_server
+
 #+begin_src sh
 #!/bin/sh
 
@@ -90,7 +96,8 @@ run_rc_command "$1"
 Verify by running =/etc/rc.d/calibre_server onestart= to see that it launches.
 Should still be able to access the website.
 
-*** Enable the server in /etc/rc.conf
+** Enable the server in /etc/rc.conf
+
 #+begin_src conf
 # ...
 
@@ -105,7 +112,8 @@ http://192.168.5.33:8080
 
 Now, when the jail is restarted, the calibre server should start automatically.
 
-** Configuring for external access via nginx & letsencrypt
+* Configuring for external access via nginx & letsencrypt
+
 I already have a raspberry pi with nginx and letsencrypt setup. Traffic for port
 80 and 443 go to the pi, which then routes to the appropriate device on my
 internal network.

@@ -10,8 +10,7 @@ The main changes need to occur in =/etc/dhcpcd.conf=.
 *** Find Interface Name
 Before editing that file, we need to look up our ethernet interface name. This
 used to be something easy like *eth0*, but Debian appears to have
-[[https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names][changed
-interface names]]. Run =ifconfig= to see Debian's current interfaces. With the
+[[https://wiki.debian.org/NetworkConfiguration#Predictable_Network_Interface_Names][changed interface names]]. Run =ifconfig= to see Debian's current interfaces. With the
 Raspberry Pi 3 B+, there will also be a wifi interface shown as below:
 
 #+begin_example
@@ -43,7 +42,8 @@ wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
 Notice *enxb827ebb61344*, the ridiculously ugly interface name that we'll need
 when setting our static IP.
 
-*** Updating /etc/dhcpcd.conf
+* Updating /etc/dhcpcd.conf
+
 With the interface name for ethernet written down, we can open up
 =/etc/dhcpcd.conf=. There may already be a section for configuring a static IP
 address. Either way, we'll want something like the following:

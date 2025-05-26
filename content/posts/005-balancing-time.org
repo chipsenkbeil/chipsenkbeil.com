@@ -12,8 +12,9 @@ Interestingly enough, the challenges posed by those questions share similarities
 with those that I've faced as a Solutions Engineer, and it's these challenges
 and how I've approached tackling them that I want to discuss now.
 
-** New Role, New Responsibilities
-*** I previously did a lot of technical stuff
+* New Role, New Responsibilities
+** I previously did a lot of technical stuff
+
 When I first became a Solutions Engineer back in July of 2017, I wasn't sure
 what I would actually be doing. At IBM, my work revolved around code 100% of the
 time. I'd written Ruby on Rails applications to provide cloud cluster management
@@ -22,10 +23,10 @@ and remote desktop integration, contributed
 [[https://github.com/apache/spark/commit/d05c9ee6e8441e54732e40de45d1d2311307908f][times]]
 to Apache Spark, architected and implemented an
 [[https://toree.incubator.apache.org/][IPython (now Jupyter) kernel]]), and
-worked on a [[https://www.youtube.com/watch?v=-fo_bvxxXww][conversational
-computing platform]] leveraging Watson technologies.
+worked on a [[https://www.youtube.com/watch?v=-fo_bvxxXww][conversational computing platform]] leveraging Watson technologies.
 
-*** The new role said 50/50 technical & non-technical
+** The new role said 50/50 technical & non-technical
+
 The job description painted the role as 50% coding and 50% non-technical work,
 but who can really say what that means until you try out the job for yourself. I
 landed in a team with a focus on both scalability and client engagement, which
@@ -42,7 +43,8 @@ to function at a minimum across entire industries like ecommerce or retail with
 the preferred approach being to create solutions that can span across multiple
 industries.
 
-*** Is that breakdown honest?
+** Is that breakdown honest?
+
 Switching back to the technical/non-technical breakdown, the 50% split is
 somewhat accurate, but not from the scope of week-to-week. Rather, I have
 certain days at a time where 80-100% of my time is spent in meetings, supporting
@@ -57,7 +59,8 @@ Each team under Solutions Engineering is a little different with some teams
 having minimal client interaction while others like mine deal with a large
 volume of different clients on a weekly basis.
 
-*** What technologies have I leveraged?
+** What technologies have I leveraged?
+
 Focusing on the technical, I've spent my time building frontends leveraging
 [[https://flow.org/][Flow]], [[https://reactjs.org/][React]], and variations of
 [[https://facebook.github.io/flux/docs/overview.html][Flux]] (although I've also
@@ -73,7 +76,8 @@ involved with gaming, your focus could be more centered around mobile
 application development and enhancements to our SDKs, while an ecommerce-centric
 approach would require a lot more web-based development.
 
-** Challenges & Solutions
+* Challenges & Solutions
+
 I've discussed some of the new responsibilities and differences from a pure
 technical role, but what I haven't yet done is talk about the new challenges
 I've faced. In a nutshell, there are five key challenges that I want to explore:
@@ -104,9 +108,7 @@ engagement.
 I've spent a couple of years rooting methods of organization ranging from
 physical organizers like [[https://bulletjournal.com/][Bullet Journal]] and
 [[https://pandaplanner.com/][Panda Planner]] to instructional videos on
-methodology like [[https://www.youtube.com/watch?v=KNxLNY6yxRI][planning your
-week]] and [[https://www.youtube.com/watch?v=UdvwVYAaWEc][tutorials on Kanban
-Flow]]. What I've learned from all of these is that *making a list* is one of
+methodology like [[https://www.youtube.com/watch?v=KNxLNY6yxRI][planning your week]] and [[https://www.youtube.com/watch?v=UdvwVYAaWEc][tutorials on Kanban Flow]]. What I've learned from all of these is that *making a list* is one of
 the most important things you can do to help declutter your brain.
 
 Rather than keeping track of the work you need to do this month. Or this week.
@@ -255,7 +257,8 @@ only convince myself that I've "done enough" but also that I'm doing a great job
 and making great progress. No longer do I feel the pressure to always continue
 working to "catch up" on what I need to get done.
 
-** Retrospective
+* Retrospective
+
 With all of this said, where do I stand now?
 
 Overall, work is going really well! Any stress I may have had with regard to
@@ -266,13 +269,11 @@ role has to offer.
 These days, I use a combination of a physical organizer
 ([[https://pandaplanner.com/][Panda Planner]]) and a digital TODO list and timer
 ([[https://kanbanflow.com/][Kanban Flow]]) to plan out the activities of my day
-and week. The [[https://francescocirillo.com/pages/pomodoro-technique][Pomodoro
-Technique]] has been my preferred way to buckle down and knock out a bit of
+and week. The [[https://francescocirillo.com/pages/pomodoro-technique][Pomodoro Technique]] has been my preferred way to buckle down and knock out a bit of
 programming or writing when I'm short on time or have a lot to get done in a
 day.
 
-I've also been pursuing [[https://www.youtube.com/watch?v=z9UjeTMb3Yk][Inbox
-Zero]] as a means to keep my email as organized as my schedule, but that'll be a
+I've also been pursuing [[https://www.youtube.com/watch?v=z9UjeTMb3Yk][Inbox Zero]] as a means to keep my email as organized as my schedule, but that'll be a
 talk for another time.
 
 I'm very grateful for being given the chance to pursue such a unique blend of

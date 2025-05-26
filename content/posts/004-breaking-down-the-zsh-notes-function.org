@@ -13,10 +13,10 @@ functionality - I decided to explore writing a zsh function to be exposed in my
 shell. This function's goal was to manage my notes, providing functionality to
 list existing notes, create new notes, and delete old notes. At the end of the
 day, I arrived at a 122 line zsh function as seen
-[[/posts/breaking-down-the-zsh-notes-function/#source-code][at the bottom of
-this post]].
+[[/posts/breaking-down-the-zsh-notes-function/#source-code][at the bottom of this post]].
 
-** Design
+* Design
+
 Before we break apart the function, let me delve into the design at a high
 level. When building the functionality to manage notes, I wanted it to do a
 couple of things:
@@ -33,9 +33,10 @@ first argument and the name of the note (or other arguments) is provided as the
 second argument. In other CLI programs, I believe this is called a subcommand.
 If I wanted to create a new note, my initial thought was to type
 =notes create my-new-note= where *create* served as the mode, or subcommand, and
-*my-new-note* represented the name of the note.
+my-new-note* represented the name of the note.
 
-** Changes to Design
+* Changes to Design
+
 If you look closely at the notes function as we progress through it, you'll
 notice that there isn't any mention of *create*. At the end of the day, I found
 supporting two different names for the same action not useful. I set up my
@@ -43,8 +44,10 @@ defaults such that =notes edit my-new-note= creates a new note and opens it for
 editing. This becomes even smoother with the default mode being file editing
 such that =notes my-new-note= creates and opens the file for editing as well.
 
-** Implementation
-*** Defining Modes of Operation
+* Implementation
+
+** Defining Modes of Operation
+
 #+begin_src zsh
 local MODE_EDIT="edit"
 local MODE_REMOVE="remove"
@@ -61,7 +64,8 @@ or something similar. I wanted a way to mark the type of operation that was
 going to be performed. This would be contained in the =mode= variable and would
 be set using one of the constants above it.
 
-*** Specifying Aliases for Modes
+** Specifying Aliases for Modes
+
 #+begin_src zsh
 local -a COMMAND_REMOVE
 COMMAND_REMOVE=(delete remove del rm d r)
@@ -80,7 +84,8 @@ in my conditionals, I decided to create arrays of words that I could use to
 represent a mode of operation. This makes it easier for me to add or remove
 aliases for each mode and centralizes them at the top of the function.
 
-*** Acquiring Date Information
+** Acquiring Date Information
+
 #+begin_src zsh
 local date="$(date +'%Y-%m-%d')"
 local human_date="$(date +'%A, %B %d, %Y (%Y-%m-%d)')"
@@ -95,7 +100,8 @@ for use as a file name and a second date string to be more human-readable.
 - The *human_date* variable is filled with a readable string like "Sunday, July
   08, 2018 (2018-07-08)"
 
-*** Creating the Base Path
+** Creating the Base Path
+
 #+begin_src zsh
 local base_path="$HOME/.notes"
 mkdir -p "$base_path"
@@ -112,7 +118,8 @@ ensuring that any directory along the path is created. In this case, that's
 making sure that the *.notes* directory is created within my home directory, but
 it also means it supports a deeper base path.
 
-*** Setting Up State
+** Setting Up State
+
 #+begin_src zsh
 local DEFAULT_NOTE_FILE="default"
 local DEFAULT_NOTE_NAME="default"
@@ -134,7 +141,8 @@ This also includes grabbing the first argument of the function and storing it as
 the *cmd* variable for use in determining the mode of operation. E.g.
 =notes edit my-new-note= would set *cmd* to /edit/.
 
-*** Determine Mode of Operation
+** Determine Mode of Operation
+
 #+begin_src zsh
 # Process specific modes if provided
 if [[ ${COMMAND_REMOVE[(ie)$cmd]} -le ${#COMMAND_REMOVE} ]]; then
@@ -197,7 +205,8 @@ I don't have to type =notes edit my-new-note= or any variant. Instead, I can
 just type the function and the name of the note to create or resume and edit a
 note.
 
-*** Setting the Note State
+** Setting the Note State
+
 #+begin_src zsh
 # If date provided, will open notes for current date
 if [ "$cmd" = "date" ]; then
@@ -229,7 +238,8 @@ the file will be the compact *date* variable (e.g. 2018-06-30). This can be
 injected through commands like =notes date=, =notes edit date=, and even
 =notes remove date=.
 
-*** Creating the Note File if Missing
+** Creating the Note File if Missing
+
 #+begin_src zsh
 # Update full path
 note_path="$base_path/$note_file"
@@ -257,7 +267,8 @@ would create a new file named 2018-06-30.md and contents like below:
 # Notes for Sunday, June 30, 2018 (2018-06-30)
 #+end_src
 
-*** Performing the Mode Operation
+** Performing the Mode Operation
+
 The finally section of code is a series of conditionals to determine which mode
 the function is in (create/edit, remove, list, or help) and then perform the
 associated operation.
@@ -323,7 +334,8 @@ Given that the function is already aware of the aliases via variables like
 *COMMAND_EDIT*, we leverage those variables in a string that is printed out to
 represent the help text.
 
-*** Concluding Thoughts
+** Concluding Thoughts
+
 I've used this function a fair amount since writing it, especially to create and
 edit notes, ranging from writing drafts of new blog posts to taking notes from
 meetings at work. Being a native function in zsh, it's been incredibly portable,
@@ -344,7 +356,8 @@ helped me stay more organized both personally - this blog - and at work.
 Regardless of what you choose, lowering the barrier to note taking is a huge win
 for productivity and I encourage everyone to find their way.
 
-** Source Code
+* Source Code
+
 There is no license on this code. Consider it public domain to do with as you
 please.
 

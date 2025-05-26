@@ -12,7 +12,8 @@ Yubikey devices to enhance my computer experience.
 In this post, I'm going to dive into GPG and YubiKey at a high level and explain
 what they are to my understanding and how I am using them.
 
-** What is GPG?
+* What is GPG?
+
 To quote [[https://gnupg.org/][GnuPG's website]]:
 
 #+begin_quote
@@ -23,8 +24,8 @@ access modules for all kinds of public key directories.
 #+end_quote
 
 To my understanding, GPG uses a method of encryption known as
-[[https://en.wikipedia.org/wiki/Public-key_cryptography][public key asymmetric
-cryptography]], using key pairs to encrypt and decrypt information. GPG has a
+[[https://en.wikipedia.org/wiki/Public-key_cryptography][public key asymmetric cryptography]],
+using key pairs to encrypt and decrypt information. GPG has a
 bunch of other algorithms related to ciphers, hashing, and compression, but my
 main use case is with public key cryptography typically revolving around
 [[https://en.wikipedia.org/wiki/RSA_(cryptosystem)][RSA]] usage. Additionally,
@@ -51,16 +52,15 @@ decrypted) any email myself. I do have neomutt configured to encrypt email /if/
 I have all of the recipients' public keys, but I don't know anyone using
 encrypted mail aside from [[https://lukesmith.xyz/][Luke Smith]].
 
-** What is YubiKey?
+* What is YubiKey?
+
 #+caption: Picture of YubiKeys
 [[/img/post/my-yubikeys.png]]
 
 To my knowledge, a [[https://en.wikipedia.org/wiki/YubiKey][YubiKey]] is a
 hardware device built for authentication. Made by
 [[http://yubico.com/][Yubico]], these keys provide a variety of features ranging
-from [[https://en.wikipedia.org/wiki/One-time_password][one-time password
-(OTP)]] generation to [[https://en.wikipedia.org/wiki/Universal_2nd_Factor][U2F
-(universal two-factor)]] authentication.
+from [[https://en.wikipedia.org/wiki/One-time_password][one-time password (OTP)]] generation to [[https://en.wikipedia.org/wiki/Universal_2nd_Factor][U2F (universal two-factor)]] authentication.
 
 I use a YubiKey in two ways:
 
@@ -90,16 +90,15 @@ password has expired.
 Another bonus is that I don't need to worry about copying my keys across
 different computers. Instead, I can transfer the YubiKey between devices.
 
-** What did I do?
+* What did I do?
+
 There was a lot of learning on my part to figure out how to set up GPG keys, how
 to move said keys to YubiKeys, and what configuration changes and tools were
 needed to get the environment I wanted/needed.
 
 This wasn't my first time creating a GPG key. When
-[[https://checker.apache.org/keys/4282790f8e3b4bba.html][publishing releases for
-Apache Toree]] and
-[[https://search.maven.org/search?q=g:org.scala-debugger][publishing releases
-for Ensime's Scala Debugger]] as early as June of 2015, I created a new key to
+[[https://checker.apache.org/keys/4282790f8e3b4bba.html][publishing releases for Apache Toree]] and
+[[https://search.maven.org/search?q=g:org.scala-debugger][publishing releases for Ensime's Scala Debugger]] as early as June of 2015, I created a new key to
 do the signing, not really understanding what the key was but knowing that I
 needed one to upload jars.
 
@@ -111,6 +110,6 @@ into my various configuration scripts, but I often had issues where the cache
 was invalidated or some reason prevented me from accessing my passwords when I
 needed them. Additionally, I wanted more direct control over my password data.
 
-** What's next?
-In [[/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key][the next
-post]], I'll be explaining how I set up my primary GPG key.
+* What's next?
+
+In [[/posts/applying-gpg-and-yubikey-part-2-setup-primary-gpg-key][the next post]], I'll be explaining how I set up my primary GPG key.
