@@ -47,11 +47,11 @@ update-theme: ## Updates theme from upstream, rather than origin
 	@git commit -m "Updated themes/$(THEME)"
 	@git push origin master
 
-build: ## Builds website
+build: ## Builds website (production)
 	@$(HUGO) --theme="$(THEME)"
 
-serve: ## Runs server to test out website
-	@$(HUGO) serve --theme="$(THEME)"
+serve: ## Runs server to test out website (including drafts)
+	@$(HUGO) serve --theme="$(THEME)" --buildDrafts
 
 new-%: ## Creates new post/note/{item}
 ifeq ($(strip $(TITLE)),)
