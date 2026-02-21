@@ -43,5 +43,5 @@ into the root partition. In my case, 75.79g of space.</p><div class="src src-sh"
 <em>8e</em>, mine ended up being <em>31</em>. I finalized the change via <code class=verbatim>w</code>.</p><p>After that, I created a physical volume via:</p><div class="src src-sh"><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>pvcreate /dev/sda1</span></span></code></pre></div></div><p>And then proceeded to extend my extending volume group of pve via:</p><div class="src src-sh"><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>vgextend <span class=s2>&#34;pve&#34;</span> /dev/sda1</span></span></code></pre></div></div><p>Once I had added the new drive to my pve volume group, I could allocate the rest
 of the available space to a thin LVM partition called data:</p><div class="src src-sh"><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>lvcreate -l 100%FREE -T -n data pve</span></span></code></pre></div></div></div></div></article></section></div><footer class=footer><div class=container><p>©
 2012 -
-2025
+2026
 Chip Senkbeil<br>Views are my own (<a href=https://chipsenkbeil.com/keys/chipsenkbeil.pub.gpg>Public Keys</a>)</p></div></footer></main></body></html>
