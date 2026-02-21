@@ -1,0 +1,117 @@
+#+TITLE: Implementing Graphics in Neovim
+#+SLUG: implementing-graphics-in-neovim
+#+DESCRIPTION: How curiosity about terminal graphics led to building vim.ui.img for Neovim
+#+DATE: 2025-06-01
+#+CATEGORIES[]: neovim
+#+TAGS[]: neovim lua graphics terminal
+#+DRAFT: true
+
+/Note: This feature is under active development and not yet merged into Neovim. The API described here may change./
+
+* It started with a presentation
+
+In late 2024, I was preparing a talk for [[https://neovimconf.live/][NeovimConf]]. I had this stubborn idea that I wanted to run the entire presentation from inside the terminal — slides, demos, live coding, everything. No PowerPoint, no Google Slides, no switching between windows. Just Neovim.
+
+The slides themselves weren't the hard part. You can render markdown or org-mode content in a buffer and it looks fine. The problem was images. I had diagrams, architecture screenshots, the kinds of visuals you actually need when you're trying to explain something on stage. A terminal doesn't render images. Or at least, I thought it didn't.
+
+I found [[https://github.com/3rd/image.nvim][image.nvim]], a plugin that renders images directly in your terminal by talking to the underlying graphics protocols. It worked. Mostly. It didn't support org-mode files (which I use for everything via [[https://github.com/chipsenkbeil/org-roam.nvim][org-roam.nvim]]), setup was finicky, and it depended on ImageMagick for image conversion. I got it working well enough for the talk, but the experience left a residue of curiosity.
+
+After the conference, with the presentation behind me, the question just sat there: /what would it actually take to build this into Neovim itself?/
+
+I couldn't leave it alone. So I started reading.
+
+* The protocols nobody talks about
+
+Here's what I didn't know before this project: modern terminal emulators can render full images. Not ASCII art, not block characters — actual pixel-level images. They've been able to do this for years, through a handful of protocols that most developers have never heard of.
+
+** Kitty Graphics Protocol
+
+The most capable of the bunch is the [[https://sw.kovidgoyal.net/kitty/graphics-protocol/][Kitty Graphics Protocol]], designed by Kovid Goyal for the [[https://sw.kovidgoyal.net/kitty/][Kitty]] terminal. The idea is elegant: you send image data as base64-encoded payloads inside escape sequences, and the terminal renders them at specific cell positions.
+
+A simplified transmission looks something like this:
+
+#+begin_src text
+ESC_Gf=32,s=100,v=100,a=T;base64encodedRGBAdatahere ESC\
+#+end_src
+
+That tells the terminal: "here's a 100x100 RGBA image, display it now." The =f=32= says the pixel format is RGBA, =s= and =v= give the width and height, and =a=T= means "transmit and display." In practice you'd break larger images into chunks, assign them IDs for later manipulation, and specify placement coordinates.
+
+What makes kitty's protocol stand out is its sophistication beyond basic display. It supports clipping regions so you can show a portion of a larger image, z-ordering so images can appear above or below text, and — the part that really impressed me — Unicode placeholder characters for "virtual placements." With virtual placements, the terminal inserts special Unicode characters into the text grid, and wherever those characters appear, the corresponding image region renders. This means images can reflow with text, scroll naturally, and survive terminal redraws. It's the kind of design that makes you think the author has been iterating on the problem for years. Which, of course, he has.
+
+Kovid himself actually showed up in the PR comments on my Neovim pull request, which was one of those moments where open source feels genuinely small and collaborative.
+
+** iTerm2 protocol
+
+The [[https://iterm2.com/documentation-images.html][iTerm2 inline images protocol]] takes a simpler approach. You encode the entire image as base64, wrap it in a single escape sequence with some metadata (width, height, whether to preserve aspect ratio), and the terminal displays it. That's essentially it.
+
+The simplicity is both its strength and its limitation. There's no concept of image IDs, no clipping, no z-ordering. Images scroll with the text content, which makes them behave more like inline elements in a document than positioned overlays. You can't reposition an image after displaying it — you'd need to clear it and send a new one. For many use cases that's perfectly fine, but for something like Neovim where you want precise control over image lifecycle and positioning, it creates friction.
+
+Fewer terminals support it than you might expect given the name — it's not just an iTerm2 thing (WezTerm and some others speak it too), but adoption is still narrower than kitty's protocol.
+
+** Sixel
+
+And then there's [[https://www.arewesixelyet.com/][Sixel]], the oldest of the three, dating back to DEC terminals in the 1980s. It's a text-based bitmap format — you literally describe pixel colors in a stream of printable characters. The name comes from the fact that each character encodes a column of six pixels.
+
+The protocol's age shows in some ways. Library support is sparse, and the format itself is inefficient compared to sending raw pixel data — you're encoding bitmaps in printable ASCII, which balloons the data size. This is part of why Ghostty chose not to support it.
+
+But sixel is having something of a revival, and I think that's genuinely interesting. [[https://codeberg.org/janantos/brow6el][Brow6el]], a full graphical web browser, runs entirely on sixel output in a terminal. Windows Terminal added sixel support. libsixel gives you a reasonable C library to work with. There's a quiet resurgence driven by people who think terminals should be able to do more than they currently do. I find myself sympathetic to that camp — there's something appealing about a protocol that's older than most of us and still finding new life.
+
+What struck me most about learning these protocols wasn't any one of them individually — it was the realization that terminal emulators are doing far more sophisticated rendering than most developers give them credit for. We interact with these programs for hours every day and barely scratch the surface of what they can do.
+
+* The first attempt
+
+Armed with protocol knowledge and the kind of enthusiasm that comes from learning something genuinely new, I jumped in. In late 2024 I opened [[https://github.com/neovim/neovim/pull/31399][PR #31399]] on the Neovim repository.
+
+I'll admit — I built a lot before checking in with anyone. That's how I tend to work. I dive deep, build out a full picture of what I think the solution should look like, and then surface with something substantial. The PR had a complete API: async operations backed by promises, an object-oriented design with image and placement objects, backends for all three protocols (kitty, iTerm2, and sixel). It was, by any reasonable measure, a lot.
+
+The community feedback was direct and useful:
+
+- "Focus on kitty first" — from gpanders and rockorager, two core contributors. The kitty protocol is the most capable and best-supported. Trying to ship all three at once meant none of them would get the review attention they needed.
+- "Separate image data from placements" — from fredizzimo, who correctly pointed out that the API conflated loading an image with displaying it. You should be able to load once and place many times.
+- The implicit feedback was in the PR's size itself. It was too much to review in one pass. People were interested in the feature, but the surface area made it hard to engage with meaningfully.
+
+I took none of this personally. The feedback wasn't "we don't want this" — it was "we want this done right." There's a difference.
+
+Then life happened. Work at Meta picked up, travel piled on, and the PR sat for months. Not abandoned, just waiting. I kept thinking about it, kept revisiting the protocol specs in spare moments, kept refining my mental model of what the API should actually be. Sometimes the most productive thing you can do with a problem is let it sit.
+
+* Starting over, simpler
+
+In early 2025, I came back to it. I opened [[https://github.com/neovim/neovim/pull/37914][PR #37914]] — a ground-up rewrite that took every piece of community feedback and distilled the API down to its core.
+
+Here's what the new ~vim.ui.img~ API looks like:
+
+#+begin_src lua
+-- Load an image
+local id = vim.ui.img.load("/path/to/image.png")
+
+-- Display it at a specific position
+local placement = vim.ui.img.place(id, {
+  pos = { row = 8, col = 8 },
+})
+
+-- Hide it when you're done
+vim.ui.img.hide(placement)
+#+end_src
+
+That's it. Seven functions total: ~load~, ~place~, ~hide~, ~show~, ~move~, ~close~, and ~delete~. Load an image, get an ID. Place it, get a placement handle. Hide it, show it again, move it, close the placement, delete the image data entirely. The entire API fits on a single screen, and any Neovim plugin author can read it and understand what's going on without diving into protocol documentation.
+
+What changed from the first attempt:
+
+- *Synchronous instead of async.* No promises, no callbacks. The operations are fast enough that async added complexity without meaningful benefit for the initial implementation.
+- *Functional instead of object-oriented.* No image objects with methods. Just IDs and functions. It's more idiomatic to how Neovim's Lua API works everywhere else.
+- *Kitty-only.* No three-protocol sprawl. Ship one protocol well, prove the API design works, then extend. iTerm2 and sixel support exists on a separate feature branch, ready to go when the foundation is solid.
+- *Explicit state management.* You hold an ID. You pass it to functions. There's no hidden global state, no magic cleanup. If you want an image gone, you say so. This makes the mental model dead simple — plugin authors don't need to worry about when images get garbage collected or what happens if they lose a reference.
+
+The contrast between the two PRs is something I keep coming back to. The first attempt wasn't wrong — it was comprehensive, it worked, and I learned an enormous amount building it. But the second attempt is /cleaner/, and it's cleaner precisely because the first one existed. I'd already fought through all the unknowns: the protocol edge cases, the terminal compatibility issues, the question of how placement coordinates should work with Neovim's grid. The second time around, I could focus entirely on API shape because the implementation knowledge was already in my head.
+
+There's probably a lesson there about how the first version of anything is really a draft, no matter how complete it feels at the time. But I think the more honest framing is just: the community told me what they needed, and the months in between gave me space to actually hear it.
+
+* What I learned
+
+The protocols themselves are fascinating. I went into this project wanting to put images in Neovim and came out with genuine appreciation for how much sophistication lives inside terminal emulators. Kitty's virtual placements, sixel's improbable revival four decades after its creation, the quiet community of people pushing terminals to do things they were never designed for — there's a whole world here that most of us walk right past.
+
+Contributing a feature like this to a project like Neovim means working with the community's grain, not against it. The feedback on that first PR — "too much," "focus on kitty," "separate concerns" — felt at the time like being asked to cut my work down. In hindsight, it was the community saying: /let's build the right foundation so this can actually land./ That's a gift, even when it doesn't feel like one in the moment.
+
+The work continues. Sixel and iTerm2 support sit on a feature branch, ready to bring in once the core kitty implementation is merged and stable. Buffer-attached images — where an image is tied to a specific buffer position and scrolls with the text — are a natural next step. Video support is theoretically possible (the kitty protocol supports animation frames). There's a long road ahead.
+
+But this feels like a good place to pause the story. The API is clean, the community is engaged, and the feature is closer to landing than it's ever been. If you want to follow along, the [[https://github.com/neovim/neovim/pull/37914][active PR]] is the place to watch. And if you're the kind of person who reads a post like this and thinks "I should try that" — I'd encourage it. Terminal graphics are genuinely fun to work with, and there's room for more people in this space.
